@@ -3,6 +3,9 @@
 #include "Cliente.h"
 #include "ClienteArchivo.h"
 #include "ClienteManager.h"
+#include "Producto.h"
+#include "ProductoArchivo.h"
+#include "ProductoManager.h"
 
 using namespace std;
 void menuClientes(){
@@ -35,7 +38,8 @@ void menuClientes(){
 }
 
 void menuProductos(){
-bool flag=true;
+    ProductoManager _pManager;
+    bool flag=true;
     int opc;
 
     while(flag==true){
@@ -52,7 +56,7 @@ bool flag=true;
         cin>>opc;
 
         switch(opc){
-            //case 1: agregarProducto(); break;
+            case 1: _pManager.cargarProducto(); break;
             // case 2: borrarProducto(); break;
             // case 3: modificarProducto(); break;
             // case 4: listarProductos(); break;

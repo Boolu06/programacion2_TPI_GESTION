@@ -1,38 +1,63 @@
 # depslib dependency file v1.0
-1747789343 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\main.cpp
+1747793059 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\main.cpp
 	<iostream>
 	"Funciones.h"
 
-1747790225 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\funciones.h
+1747799915 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\funciones.h
 	<iostream>
 	"Cliente.h"
 	"ClienteArchivo.h"
 	"ClienteManager.h"
+	"Producto.h"
+	"ProductoArchivo.h"
+	"ProductoManager.h"
 
-1747790105 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\cliente.h
+1747793059 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\cliente.h
 	<cstring>
 
-1747790302 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\clientearchivo.h
+1747793059 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\clientearchivo.h
 	<cstring>
 	"Cliente.h"
 
-1747789983 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\clientemanager.h
+1747793059 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\clientemanager.h
 	"ClienteArchivo.h"
 
-1747790174 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\cliente.cpp
+1747793059 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\cliente.cpp
 	<iostream>
 	<cstring>
 	"Cliente.h"
 
-1747790291 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\clientearchivo.cpp
+1747793059 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\clientearchivo.cpp
 	<iostream>
 	<cstring>
 	"Cliente.h"
 	"ClienteArchivo.h"
 
-1747789892 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\clientemanager.cpp
+1747793059 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\clientemanager.cpp
 	<iostream>
 	<cstring>
 	"Cliente.h"
 	"ClienteManager.h"
+
+1747800018 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\producto.h
+	<cstring>
+
+1747798598 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\productoarchivo.h
+	<cstring>
+	"Producto.h"
+
+1747799923 c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\include\productomanager.h
+	<cstring>
+	"ProductoArchivo.h"
+
+1747799923 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\producto.cpp
+	<iostream>
+	<cstring>
+	"Producto.h"
+
+1747800527 source:c:\users\usuario\onedrive\desktop\proyecto para programacion 2\git\proyectoversion4\programacion2_tpi_gestion\src\productoarchivo.cpp
+	<iostream>
+	<cstring>
+	"Producto.h"
+	"ProductoArchivo.h"
 

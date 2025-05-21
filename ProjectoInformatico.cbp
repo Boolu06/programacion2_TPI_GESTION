@@ -40,10 +40,22 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/Funciones.h" />
+		<Unit filename="include/Producto.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/ProductoArchivo.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/ProductoManager.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Cliente.cpp" />
 		<Unit filename="src/ClienteArchivo.cpp" />
 		<Unit filename="src/ClienteManager.cpp" />
+		<Unit filename="src/Producto.cpp" />
+		<Unit filename="src/ProductoArchivo.cpp" />
+		<Unit filename="src/ProductoManager.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
