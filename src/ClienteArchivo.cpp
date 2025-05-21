@@ -27,6 +27,26 @@ bool ClienteArchivo::guardar(Cliente reg){
     return resultado;
 }
 
+bool ClienteArchivo::modificar(Cliente &registro, int index){
+    bool resultado;
+    int indexEnBytes = index * sizeof(Cliente);
+    FILE *pCliente;
+    pCliente = fopen(_nombreArchivo.c_str(), "rb+");
+
+    if(pCliente == NULL){
+        return false;
+    }
+    fseek(pCliente,indexEnBytes, SEEK_SET);
+
+    resultado = fwrite(&registro, sizeof(Cliente), 1, pCliente);
+
+    fclose(pCliente);
+}
+
+bool ClienteArchivo::borrar(Cliente &registro, int index){
+
+}
+
 int ClienteArchivo::getCantidadRegistros(){
     FILE *pCliente;
     pCliente= fopen(_nombreArchivo.c_str(), "rb");
@@ -61,8 +81,16 @@ bool ClienteArchivo::leerVector(Cliente vectorRegistros[], int cantidad){
     return true;
 }
 
-std::string ClienteArchivo::getNombreArchivo(){ return _nombreArchivo;}
+int ClienteArchivo::buscarIndex(Cliente vectorRegistros[], int cantidad, int idCliente) {
+    for (int i = 0; i < cantidad; i++) {
+        if (vectorRegistros[i].getId() == idCliente) {
+            return i; // Retorna el índice si encuentra el ID
+        }
+    }
+    return -1; // Retorna -1 si no lo encuentra
+}
 
+std::string ClienteArchivo::getNombreArchivo(){ return _nombreArchivo;}
 
 int ClienteArchivo::getNuevoId(){
     int id = getCantidadRegistros() + 1 ;

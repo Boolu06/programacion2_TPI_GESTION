@@ -13,9 +13,10 @@ Cliente::Cliente(){
     _email[0] = '\0';
     _direccion[0] = '\0';
     _tipoCliente = 0;
+    _oculto = false;
 }
 
-Cliente::Cliente(int id, std::string cuit,std::string nombre, std::string apellido, std::string telefono, std::string email, std::string direccion, int tipoCliente){
+Cliente::Cliente(int id, std::string cuit,std::string nombre, std::string apellido, std::string telefono, std::string email, std::string direccion, int tipoCliente, bool oculto){
     setId(id);
     setCuit(cuit);
     setNombre(nombre);
@@ -24,6 +25,7 @@ Cliente::Cliente(int id, std::string cuit,std::string nombre, std::string apelli
     setEmail(email);
     setDireccion(direccion);
     setTipoCliente(tipoCliente);
+    setOculto(oculto);
 }
 
 //Getters
@@ -50,6 +52,9 @@ std::string Cliente::getDireccion(){
 }
 int Cliente::getTipoCliente(){
     return _tipoCliente;
+}
+bool Cliente::getOculto(){
+    return _oculto;
 }
 
 
@@ -151,7 +156,9 @@ bool Cliente::setTipoCliente(int tipoCliente){
         return false;
     }
 }
-
+bool Cliente::setOculto(bool oculto){
+    _oculto = oculto;
+}
 
 
 
