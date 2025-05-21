@@ -36,9 +36,14 @@
 		</Compiler>
 		<Unit filename="include/Cliente.h" />
 		<Unit filename="include/ClienteArchivo.h" />
+		<Unit filename="include/ClienteManager.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/Funciones.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Cliente.cpp" />
 		<Unit filename="src/ClienteArchivo.cpp" />
+		<Unit filename="src/ClienteManager.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

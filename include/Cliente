@@ -1,0 +1,16 @@
+#ifndef CLIENTE_
+#define CLIENTE_
+
+
+class Cliente
+{
+    public:
+        Cliente();
+        virtual ~Cliente();
+
+    protected:
+
+    private:
+};
+
+#endif // CLIENTE_

@@ -1,0 +1,16 @@
+#include "ClienteManager.ClienteManager"
+
+ClienteManager::ClienteManager()
+{
+    //ctor
+}
+
+ClienteManager::~ClienteManager()
+{
+    //dtor
+}
+
+ClienteManager::ClienteManager(const ClienteManager& other)
+{
+    //copy ctor
+}

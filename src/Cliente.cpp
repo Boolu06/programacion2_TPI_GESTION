@@ -1,0 +1,161 @@
+#include<iostream>
+#include <cstring>
+#include "Cliente.h"
+
+using namespace std;
+
+Cliente::Cliente(){
+    _id = 0;
+    _cuit[0] = '\0';
+    _nombre[0] = '\0';
+    _apellido[0] = '\0';
+    _telefono[0] = '\0';
+    _email[0] = '\0';
+    _direccion[0] = '\0';
+    _tipoCliente = 0;
+}
+
+Cliente::Cliente(int id, std::string cuit,std::string nombre, std::string apellido, std::string telefono, std::string email, std::string direccion, int tipoCliente){
+    setId(id);
+    setCuit(cuit);
+    setNombre(nombre);
+    setApellido(apellido);
+    setTelefono(telefono);
+    setEmail(email);
+    setDireccion(direccion);
+    setTipoCliente(tipoCliente);
+}
+
+//Getters
+int Cliente::getId(){
+    return _id;
+}
+std::string Cliente::getCuit(){
+    return _cuit;
+}
+std::string Cliente::getNombre(){
+    return _nombre;
+}
+std::string Cliente::getApellido(){
+    return _apellido;
+}
+std::string Cliente::getTelefono(){
+    return _telefono;
+}
+std::string Cliente::getEmail(){
+    return _email;
+}
+std::string Cliente::getDireccion(){
+    return _direccion;
+}
+int Cliente::getTipoCliente(){
+    return _tipoCliente;
+}
+
+
+//Setters
+int Cliente::setId(const int id){
+    _id = id;
+}
+
+bool Cliente::setCuit(const std::string &cuit){
+    if(cuit.size() == 11){
+        strcpy(_cuit, cuit.c_str()); // Conversion de string a char
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " -------------------------------- " << endl;
+        cout << "|El cuit debe tener 11 caracteres|" << endl;
+        cout << " -------------------------------- " << endl << endl;
+        return false;
+    }
+}
+bool Cliente::setNombre(const std::string &nombre){
+    if(nombre.size() < 30 && nombre.size() > 0){
+        strcpy(_nombre, nombre.c_str());
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " ------------------------------------------------------ " << endl;
+        cout << "|El nombre debe tener al menos 1 caracter y menos de 30|" << endl;
+        cout << " ------------------------------------------------------ "  << endl << endl;
+        return false;
+    }
+
+}
+bool Cliente::setApellido(const std::string &apellido){
+    if(apellido.size() < 30 && apellido.size() > 0){
+        strcpy(_apellido, apellido.c_str());
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " -------------------------------------------------------- " << endl;
+        cout << "|El apellido debe tener al menos 1 caracter y menos de 30|" << endl;
+        cout << " -------------------------------------------------------- " << endl<< endl;
+        return false;
+    }
+}
+bool Cliente::setTelefono(const std::string &telefono){
+    if(telefono.size() == 11){
+        strcpy(_telefono, telefono.c_str());
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " ------------------------------------ " << endl;
+        cout << "|El telefono debe tener 11 caracteres|" << endl;
+        cout << " ------------------------------------ " << endl << endl;
+        return false;
+    }
+
+}
+bool Cliente::setEmail(const std::string &email){
+    if(email.size() < 50 && email.size() > 0){
+        strcpy(_email, email.c_str());
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " ------------------------------------ " << endl;
+        cout << "| El email no es valido              |" << endl;
+        cout << " ------------------------------------ " << endl << endl;
+        return false;
+    }
+}
+bool Cliente::setDireccion(const std::string &direccion){
+    if(direccion.size() < 50 && direccion.size() > 0 ){
+        strcpy(_direccion, direccion.c_str());
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " --------------------------------------------- " << endl;
+        cout << "| Direccion no puede ser mas de 50 caracteres |" << endl;
+        cout << " --------------------------------------------- " << endl << endl;
+        return false;
+    }
+}
+bool Cliente::setTipoCliente(int tipoCliente){
+    if( tipoCliente > 0 && tipoCliente< 3){
+       _tipoCliente=tipoCliente;
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " ------------------------------ " << endl;
+        cout << "| Selecciona una opcion valida |" << endl;
+        cout << " ------------------------------ " << endl << endl;
+        return false;
+    }
+}
+
+
+
+
+
+
+
+
