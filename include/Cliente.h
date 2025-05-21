@@ -5,7 +5,7 @@ class Cliente{
 public:
     //Constructores
     Cliente();
-    Cliente(int id, std::string cuit,std::string nombre, std::string apellido, std::string telefono, std::string email, std::string direccion, int tipoCliente);
+    Cliente(int id, std::string cuit,std::string nombre, std::string apellido, std::string telefono, std::string email, std::string direccion, int tipoCliente, bool oculto);
 
     //Getters
     int getId();
@@ -16,6 +16,7 @@ public:
     std::string getEmail();
     std::string getDireccion();
     int getTipoCliente();
+    bool getOculto();
 
     //Setters
     int setId(int nuevoId);
@@ -26,6 +27,7 @@ public:
     bool setEmail(const std::string &email);
     bool setDireccion(const std::string &direccion);
     bool setTipoCliente(int tipoCliente);
+    bool setOculto(bool oculto);
 
 private:
     int _id;
@@ -36,4 +38,5 @@ private:
     char _email[50];
     char _direccion[50];
     int _tipoCliente;
+    bool _oculto;
 };

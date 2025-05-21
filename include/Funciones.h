@@ -25,9 +25,9 @@ void menuClientes(){
 
         switch(opc){
             case 1: _clManager.cargarCliente(); break;
-            // case 2: borrarCliente(); break;
-            // case 3: modificarCliente(); break;
-            case 4: _clManager.mostrarCliente(); break;
+            case 2: _clManager.borrarCliente(); break;
+            case 3: _clManager.modificarCliente(); break;
+            case 4: _clManager.listarClientes(); break;
             case 0: flag=false; system("cls"); break;
             default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
