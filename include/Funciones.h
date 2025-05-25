@@ -57,9 +57,9 @@ void menuProductos(){
 
         switch(opc){
             case 1: _pManager.cargarProducto(); break;
-            // case 2: borrarProducto(); break;
-            // case 3: modificarProducto(); break;
-            // case 4: listarProductos(); break;
+            case 2: _pManager.borrarProducto(); break;
+            case 3: _pManager.modificarProducto(); break;
+            case 4: _pManager.listarProductos(); break;
             case 0: flag=false; system("cls"); break;
             default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
