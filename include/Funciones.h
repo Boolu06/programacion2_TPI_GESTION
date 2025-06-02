@@ -6,6 +6,9 @@
 #include "Producto.h"
 #include "ProductoArchivo.h"
 #include "ProductoManager.h"
+#include "Venta.h"
+#include "VentaArchivo.h"
+#include "VentaManager.h"
 
 using namespace std;
 void menuClientes(){
@@ -67,6 +70,7 @@ void menuProductos(){
 }
 
 void menuVentas(){
+    VentaManager _vManager;
 bool flag=true;
     int opc;
 
@@ -84,7 +88,7 @@ bool flag=true;
         cin>>opc;
 
         switch(opc){
-            //case 1: agregarVenta(); break;
+            case 1: _vManager.cargarVenta(); break;
             // case 2: borrarVenta(); break;
             // case 3: modificarVenta(); break;
             // case 4: listarVentas(); break;

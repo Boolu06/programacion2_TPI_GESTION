@@ -7,64 +7,22 @@ using namespace std;
 
 void DetalleManager::cargarDetalle(){
     Detalle nuevoDetalle;
-    int idDetalle;
-    string tipo;
-    string descripcion;
-    string marca;
-    int stock;
+    int idFactura;
+    int idProducto;
+    int cantidad;
+    float precioUnitario;
     bool oculto;
     bool datoCorrecto = false;
     bool frenarCarga = false;
     cin.ignore();
 
-    idDetalle= _archivo.getNuevoId();
+    idFactura= _archivo.getNuevoId();
 
-    nuevoDetalle.setIdDetalle(idDetalle);
+    nuevoDetalle.setIdFactura(idFactura);
     nuevoDetalle.setOculto(false);
-
-    cout<< "Detalle ID asignado: " <<  idDetalle << endl;
-
-    while(!datoCorrecto){
-        cout<<"Ingrese el tipo de detalle: "<<endl;
-        getline(cin, tipo);
-        datoCorrecto = nuevoDetalle.setTipo(tipo);
-    }
-
-    datoCorrecto = false;
-
-    while(!datoCorrecto){
-        cout<<"Ingrese la descripcion: "<<endl;
-        getline(cin, descripcion);
-        datoCorrecto = nuevoDetalle.setDescripcion(descripcion);
-    }
-
-    datoCorrecto = false;
-
-    while(!datoCorrecto){
-        cout<<"Ingrese la marca: "<<endl;
-        getline(cin, marca);
-        datoCorrecto = nuevoDetalle.setMarca(marca);
-    }
-
-    datoCorrecto = false;
-
-    while(!datoCorrecto){
-        cout<<"Ingrese el stock o disponibilidad (numero): "<<endl;
-        cin>> stock;
-        datoCorrecto = nuevoDetalle.setStock(stock);
-    }
-
-    if(datoCorrecto){
-        if(_archivo.guardar(nuevoDetalle)){
-            cout<<"Se ha registrado un nuevo detalle."<<endl;
-        }
-        else{
-            cout<<"No se pudo registrar el detalle, intentelo de nuevo."<<endl;
-        }
-        system("pause");
-    }
 }
 
+/*
 void DetalleManager::listarDetalles(){
     int cantidad = _archivo.getCantidadRegistros();
     Detalle *vectorDetalles;
@@ -183,16 +141,17 @@ void DetalleManager::modificarDetalle(){
 
     delete []vectorDetalles;
 }
+*/
 
-void DetalleManager::mostrarUnDetalle(int idDetalle, std::string descripcion,std::string marca, std::string tipo, int stock){
-    cout << "----------ID Detalle: "<<idDetalle<<" ------------" << endl;
-    cout << "Descripcion: " << descripcion << endl;
-    cout<< "Marca: "<< marca <<endl;
-    cout << "Tipo: " << tipo << endl;
-    cout<< "Stock: "<< stock <<endl;
+void DetalleManager::mostrarUnDetalle(int idFactura, int idProducto, int cantidad, float precioUnitario){
+    cout << "----------ID Factura: "<<idFactura<<" ------------" << endl;
+    cout << "ID Producto: " << idProducto << endl;
+    cout<< "Cantidad: "<< cantidad <<endl;
+    cout << "Precio Unitario: " << precioUnitario << endl;
     cout << "-----------------------------" << endl;
 }
 
+/*
 void DetalleManager::borrarDetalle(){
     int cantidadRegistros = _archivo.getCantidadRegistros();
     Detalle *vectorDetalles;
@@ -246,3 +205,4 @@ void DetalleManager::borrarDetalle(){
 
     delete []vectorDetalles;
 }
+*/

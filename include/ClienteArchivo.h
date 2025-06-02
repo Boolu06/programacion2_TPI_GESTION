@@ -12,6 +12,7 @@ public:
     int getCantidadRegistros();
     bool leerVector(Cliente vectorRegistros[], int cantidad);
     int buscarIndex(Cliente vectorRegistros[],int cantidad,int idCliente);
+    int buscarIndexCuit(Cliente vectorRegistros[], int cantidad, std::string cuit);
     std::string getNombreArchivo();
     int getNuevoId();
 private:

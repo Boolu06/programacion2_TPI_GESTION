@@ -80,9 +80,9 @@ bool DetalleArchivo::leerVector(Detalle vectorRegistros[], int cantidad){
     return true;
 }
 
-int DetalleArchivo::buscarIndex(Detalle vectorRegistros[], int cantidad, int idDetalle) {
+int DetalleArchivo::buscarIndex(Detalle vectorRegistros[], int cantidad, int idFactura) {
     for (int i = 0; i < cantidad; i++) {
-        if (vectorRegistros[i].getIdDetalle() == idDetalle) {
+        if (vectorRegistros[i].getIdFactura() == idFactura) {
             return i;
         }
     }

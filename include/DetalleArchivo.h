@@ -1,3 +1,7 @@
+#pragma once
+#include <cstring>
+#include "Detalle.h"
+
 class DetalleArchivo{ ///Clase que crea el archivo de Detalle de venta
 
 public:

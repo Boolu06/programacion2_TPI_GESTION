@@ -1,5 +1,6 @@
 #pragma once
 #include <cstring>
+#include "DetalleArchivo.h"
 
 
 class DetalleManager{ ///Clase que maneja la carga el archivo y muestra

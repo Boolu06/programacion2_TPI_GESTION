@@ -12,11 +12,11 @@ public:
     void setOculto(bool oculto);
 
     // Getters
-    int getIdFactura() const;
-    int getIdCliente() const;
-    Fecha getFechaVenta() const;
-    float getImporteTotal() const;
-    bool getOculto() const;
+    int getIdFactura();
+    int getIdCliente();
+    Fecha getFechaVenta();
+    float getImporteTotal();
+    bool getOculto();
 
 private:
     int _idFactura;

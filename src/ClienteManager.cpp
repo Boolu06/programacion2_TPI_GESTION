@@ -120,6 +120,26 @@ void ClienteManager::listarClientes(){
     delete[]vectorClientes;
 }
 
+void ClienteManager::buscarCuit(std::string cuit){
+    int cantidadRegistros = _archivo.getCantidadRegistros();
+    Cliente *vectorClientes;
+    vectorClientes = new Cliente[cantidadRegistros];
+    _archivo.leerVector(vectorClientes, cantidadRegistros);
+
+    int index = _archivo.buscarIndexCuit(vectorClientes,cantidadRegistros,cuit);
+
+    mostrarUnCliente(vectorClientes[index].getId(),
+                         vectorClientes[index].getCuit(),
+                         vectorClientes[index].getNombre(),
+                         vectorClientes[index].getApellido(),
+                         vectorClientes[index].getTelefono(),
+                         vectorClientes[index].getEmail(),
+                         vectorClientes[index].getDireccion(),
+                         vectorClientes[index].getTipoCliente()
+                         );
+    system("pause");
+}
+
 void ClienteManager::modificarCliente(){
     int cantidadRegistros = _archivo.getCantidadRegistros();
     Cliente *vectorClientes;

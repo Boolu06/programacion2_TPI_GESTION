@@ -2,6 +2,7 @@
 #include <cstring>
 
 class Detalle {
+public:
     Detalle();
     // Setters
     void setIdFactura(int idFactura);
@@ -11,11 +12,11 @@ class Detalle {
     void setOculto(bool oculto);
 
     // Getters
-    int getIdFactura() const;
-    int getIdProducto() const;
-    int getCantidad() const;
-    float getPrecioUnitario() const;
-    bool getOculto() const;
+    int getIdFactura();
+    int getIdProducto();
+    int getCantidad();
+    float getPrecioUnitario();
+    bool getOculto();
 
 private:
     int _idFactura;

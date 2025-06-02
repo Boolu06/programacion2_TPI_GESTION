@@ -90,6 +90,15 @@ int ClienteArchivo::buscarIndex(Cliente vectorRegistros[], int cantidad, int idC
     return -1; // Retorna -1 si no lo encuentra
 }
 
+int ClienteArchivo::buscarIndexCuit(Cliente vectorRegistros[], int cantidad, std::string cuit) {
+    for (int i = 0; i < cantidad; i++) {
+        if (vectorRegistros[i].getCuit() == cuit) {
+            return i; // Retorna el índice si encuentra el cuit
+        }
+    }
+    return -1; // Retorna -1 si no lo encuentra
+}
+
 std::string ClienteArchivo::getNombreArchivo(){ return _nombreArchivo;}
 
 int ClienteArchivo::getNuevoId(){

@@ -2,7 +2,7 @@
 #include <cstring>
 
 class Fecha {
-
+public:
     Fecha();
     Fecha(int dia, int mes, int anio);
 
@@ -10,7 +10,7 @@ class Fecha {
     int getMes();
     int getAnio();
 
-    void SetFecha(int dia, int mes,int anio);
+    bool SetFecha(int dia, int mes,int anio);
 
 
 private:
