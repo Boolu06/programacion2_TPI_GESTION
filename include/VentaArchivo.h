@@ -1,6 +1,23 @@
-#ifndef VENTAARCHIVO_H_INCLUDED
-#define VENTAARCHIVO_H_INCLUDED
+#pragma once
+#include <cstring>
+#include "Venta.h"
+#include "VentaArchivo.h"
+#include "ClienteArchivo.h"
+#include "ProductoArchivo.h"
 
+class VentaArchivo{
 
+public:
+    VentaArchivo(std::string nombrearchivo="ventas.dat");
+    bool guardar(Venta reg);
+    bool modificar(Venta &registro, int index);
+    bool borrar(Venta &registro, int index);
+    int getCantidadRegistros();
+    bool leerVector(Venta vectorRegistros[], int cantidad);
+    int buscarIndex(Venta vectorRegistros[],int cantidad,int idFactura);
+    std::string getNombreArchivo();
+    int getNuevoId();
+private:
+    std::string _nombreArchivo;
+};
 
-#endif // VENTAARCHIVO_H_INCLUDED

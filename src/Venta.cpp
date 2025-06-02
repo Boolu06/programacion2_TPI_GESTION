@@ -23,9 +23,17 @@ void Venta::setImporteTotal (float importeTotal){
 void Venta::setOculto( bool oculto){
     _oculto = oculto;
 };
-int Venta::getIdFactura(){return _idFactura};
-int Venta::getIdCliente(){return _idCliente};
-float Venta::getImporteTotal(){return _importeTotal};
-bool Venta::getOculto(){return _oculto};
+int Venta::getIdFactura(){
+    return _idFactura
+};
+int Venta::getIdCliente(){
+    return _idCliente
+};
+float Venta::getImporteTotal(){
+    return _importeTotal
+};
+bool Venta::getOculto(){
+    return _oculto
+};
 
 

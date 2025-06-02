@@ -2,7 +2,7 @@
 #include <cstring>
 #include "Fecha.h"
 class Venta {
-
+public:
     Venta();
     // Setters
     void setIdFactura(int idFactura);

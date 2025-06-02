@@ -1,5 +1,4 @@
-#ifndef CLIENTEMANAGER_H_INCLUDED
-#define CLIENTEMANAGER_H_INCLUDED
+#pragma once
 #include "ClienteArchivo.h"
 
 class ClienteManager{ ///Clase que maneja la carga el archivo y muestra
@@ -13,6 +12,3 @@ public:
 private:
     ClienteArchivo _archivo;
 };
-
-
-#endif // CLIENTEMANAGER_H_INCLUDED

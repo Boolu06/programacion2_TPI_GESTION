@@ -65,6 +65,8 @@
 		<Unit filename="src/ProductoArchivo.cpp" />
 		<Unit filename="src/ProductoManager.cpp" />
 		<Unit filename="src/Venta.cpp" />
+		<Unit filename="src/VentaArchivo.cpp" />
+		<Unit filename="src/VentaManager.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
