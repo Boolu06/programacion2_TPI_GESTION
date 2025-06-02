@@ -1,6 +1,17 @@
-#ifndef DETALLEMANAGER_H_INCLUDED
-#define DETALLEMANAGER_H_INCLUDED
+#pragma once
+#include <cstring>
 
 
+class DetalleManager{ ///Clase que maneja la carga el archivo y muestra
+public:
+    void cargarDetalle();
+    void listarDetalles();
+    void mostrarUnDetalle(int idFactura, int idProducto,int cantidad, float precioUnitario);
+    void modificarDetalle();
+    void borrarDetalle();
 
-#endif // DETALLEMANAGER_H_INCLUDED
+private:
+    DetalleArchivo _archivo;
+};
+
+

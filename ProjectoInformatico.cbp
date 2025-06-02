@@ -60,6 +60,9 @@
 		<Unit filename="src/Cliente.cpp" />
 		<Unit filename="src/ClienteArchivo.cpp" />
 		<Unit filename="src/ClienteManager.cpp" />
+		<Unit filename="src/Detalle.cpp" />
+		<Unit filename="src/DetalleArchivo.cpp" />
+		<Unit filename="src/DetalleManager.cpp" />
 		<Unit filename="src/Fecha.cpp" />
 		<Unit filename="src/Producto.cpp" />
 		<Unit filename="src/ProductoArchivo.cpp" />
