@@ -128,6 +128,7 @@ void ClienteManager::buscarCuit(std::string cuit){
 
     int index = _archivo.buscarIndexCuit(vectorClientes,cantidadRegistros,cuit);
 
+
     mostrarUnCliente(vectorClientes[index].getId(),
                          vectorClientes[index].getCuit(),
                          vectorClientes[index].getNombre(),

@@ -7,16 +7,18 @@ using namespace std;
 
 void VentaManager::cargarVenta(){
     Venta Factura;
-    ClienteManager ClienteX;
-    ProductoManager ProductoX;
-    DetalleManager DetalleX;
+    ClienteManager Cliente_M;
+    ProductoManager Producto_M;
+    DetalleManager Detalle_M;
 
     string cuitCliente;
 
     cout<<"Por favor ingrese el numero de CUIT del cliente";
+    cin.ignore();
+
     getline(cin,cuitCliente);
 
-    ClienteX.buscarCuit(cuitCliente);
+    Cliente_M.buscarCuit(cuitCliente);
 
     //Venta.setIdFactura(idFactura); ///setea el idFactura autoincremental al momento de concretar la venta en detalleventa
     //Venta.setIdCliente(idCliente); ///asignar el idCliente encontrado con el CUIT

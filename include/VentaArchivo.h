@@ -1,9 +1,7 @@
 #pragma once
 #include <cstring>
 #include "Venta.h"
-#include "VentaArchivo.h"
-#include "ClienteArchivo.h"
-#include "ProductoArchivo.h"
+
 
 class VentaArchivo{
 
