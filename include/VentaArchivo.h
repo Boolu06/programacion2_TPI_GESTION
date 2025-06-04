@@ -8,8 +8,6 @@ class VentaArchivo{
 public:
     VentaArchivo(std::string nombrearchivo="ventas.dat");
     bool guardar(Venta reg);
-    bool modificar(Venta &registro, int index);
-    bool borrar(Venta &registro, int index);
     int getCantidadRegistros();
     bool leerVector(Venta vectorRegistros[], int cantidad);
     int buscarIndex(Venta vectorRegistros[],int cantidad,int idFactura);

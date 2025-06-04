@@ -92,6 +92,36 @@ void ProductoManager::listarProductos(){
     delete[]vectorProductos;
 }
 
+Producto ProductoManager::buscarId(int idProducto){
+    int cantidadRegistros = _archivo.getCantidadRegistros();
+    Producto *vectorProductos;
+    vectorProductos = new Producto[cantidadRegistros];
+    _archivo.leerVector(vectorProductos, cantidadRegistros);
+
+    int index = _archivo.buscarIndex(vectorProductos,cantidadRegistros,idProducto);
+
+    /*
+    mostrarUnCliente(vectorClientes[index].getId(),
+                         vectorClientes[index].getCuit(),
+                         vectorClientes[index].getNombre(),
+                         vectorClientes[index].getApellido(),
+                         vectorClientes[index].getTelefono(),
+                         vectorClientes[index].getEmail(),
+                         vectorClientes[index].getDireccion(),
+                         vectorClientes[index].getTipoCliente()
+                         );
+    system("pause");
+    */
+
+    if(index>-1){
+        return(vectorProductos[index]);
+    }
+    else{
+        Producto ProductoVacio;
+        return ProductoVacio;
+    }
+}
+
 void ProductoManager::modificarProducto(){
     int cantidadRegistros = _archivo.getCantidadRegistros();
     Producto *vectorProductos;

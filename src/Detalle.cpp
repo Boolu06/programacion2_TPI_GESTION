@@ -10,7 +10,6 @@ Detalle::Detalle(){
     bool _oculto;
 }
 
-
 void Detalle::setIdFactura(int idFactura){
     _idFactura = idFactura;
 }

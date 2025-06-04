@@ -90,7 +90,9 @@ int ProductoArchivo::buscarIndex(Producto vectorRegistros[], int cantidad, int i
     return -1; // Retorna -1 si no lo encuentra
 }
 
-std::string ProductoArchivo::getNombreArchivo(){ return _nombreArchivo;}
+std::string ProductoArchivo::getNombreArchivo(){
+    return _nombreArchivo;
+}
 
 int ProductoArchivo::getNuevoId(){
     int id = getCantidadRegistros() + 1 ;

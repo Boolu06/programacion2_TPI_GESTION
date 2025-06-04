@@ -120,7 +120,7 @@ void ClienteManager::listarClientes(){
     delete[]vectorClientes;
 }
 
-void ClienteManager::buscarCuit(std::string cuit){
+Cliente ClienteManager::buscarCuit(std::string cuit){
     int cantidadRegistros = _archivo.getCantidadRegistros();
     Cliente *vectorClientes;
     vectorClientes = new Cliente[cantidadRegistros];
@@ -129,6 +129,7 @@ void ClienteManager::buscarCuit(std::string cuit){
     int index = _archivo.buscarIndexCuit(vectorClientes,cantidadRegistros,cuit);
 
 
+    /*
     mostrarUnCliente(vectorClientes[index].getId(),
                          vectorClientes[index].getCuit(),
                          vectorClientes[index].getNombre(),
@@ -139,6 +140,14 @@ void ClienteManager::buscarCuit(std::string cuit){
                          vectorClientes[index].getTipoCliente()
                          );
     system("pause");
+    */
+    if(index>-1){
+        return(vectorClientes[index]);
+    }
+    else{
+        Cliente ClienteVacio;
+        return ClienteVacio;
+    }
 }
 
 void ClienteManager::modificarCliente(){

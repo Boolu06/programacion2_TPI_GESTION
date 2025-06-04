@@ -5,7 +5,7 @@
 using namespace std;
 
 VentaArchivo::VentaArchivo(std::string nombreArchivo){
-    _nombreArchivo=nombreArchivo;
+    _nombreArchivo = nombreArchivo;
 }
 
 bool VentaArchivo::guardar(Venta reg){
@@ -63,15 +63,57 @@ bool VentaArchivo::leerVector(Venta vectorRegistros[], int cantidad){
 int VentaArchivo::buscarIndex(Venta vectorRegistros[], int cantidad, int idFactura) {
     for (int i = 0; i < cantidad; i++) {
         if (vectorRegistros[i].getIdFactura() == idFactura) {
-            return i; // Retorna el índice si encuentra el ID
+            return i; // Retorna el ï¿½ndice si encuentra el ID
         }
     }
     return -1; // Retorna -1 si no lo encuentra
 }
 
-std::string VentaArchivo::getNombreArchivo(){ return _nombreArchivo;}
+std::string VentaArchivo::getNombreArchivo(){
+    return _nombreArchivo;
+}
 
 int VentaArchivo::getNuevoId(){
     int id = getCantidadRegistros() + 1 ;
     return id;
 }
+
+/*
+
+#include<iostream>
+#include <cstring>
+#include "VentaManager.h"
+#include "Venta.h"
+
+using namespace std;
+
+void VentaManager::cargarVenta(){
+    Venta Factura;
+    ClienteManager ClienteX;
+    ProductoManager ProductoX;
+    DetalleManager DetalleX;
+
+    string cuitCliente;
+
+    cout<<"Por favor ingrese el numero de CUIT del cliente";
+    getline(cin,cuitCliente);
+    ClienteX.buscarCuit(cuitCliente); // Si no existe el CUIT en la tabla de Clientes, informarle al usuario y crear un nuevo cliente.
+    // Llamar a _clManager.cargarCliente() ??
+
+
+
+
+
+    //Venta.setIdFactura(idFactura); ///setea el idFactura autoincremental al momento de concretar la venta en detalleventa
+    //Venta.setIdCliente(idCliente); ///asignar el idCliente encontrado con el CUIT
+    ///Funcion que me traiga la fecha actual y asignarlo a fechaVenta
+   // Venta.setFechaVenta(fechaVenta);
+   // Venta.setImporteTotal(importeTotal) ///Importe total traido de detalleVenta
+}
+
+/*
+void VentaManager::listarVentas();
+void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);
+void VentaManager::modificarVenta();
+void VentaManager::borrarVenta();
+*/
