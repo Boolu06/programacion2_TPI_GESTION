@@ -10,6 +10,14 @@ Detalle::Detalle(){
     bool _oculto;
 }
 
+Detalle::Detalle(int idFactura, int idProducto, int cantidad, float precioUnitario, bool oculto){
+    setIdFactura(idFactura);
+    setIdProducto(idProducto);
+    setCantidad(cantidad);
+    setPrecioUnitario(precioUnitario);
+    setOculto(oculto);
+}
+
 void Detalle::setIdFactura(int idFactura){
     _idFactura = idFactura;
 }

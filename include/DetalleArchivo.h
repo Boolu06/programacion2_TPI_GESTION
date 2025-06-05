@@ -9,7 +9,6 @@ public:
     DetalleArchivo(std::string nombrearchivo="detalleDeVenta.dat");
     bool guardar(Detalle reg);
     bool modificar(Detalle &registro, int index);
-    bool borrar(Detalle &registro, int index);
     int getCantidadRegistros();
     bool leerVector(Detalle vectorRegistros[], int cantidad);
     int buscarIndex(Detalle vectorRegistros[],int cantidad,int idFactura);

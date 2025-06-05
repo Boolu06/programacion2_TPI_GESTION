@@ -6,6 +6,7 @@ using namespace std;
 
 Producto::Producto() {
     _idProducto = 0;
+    _precioUnitario = 0;
     _descripcion[0] = '\0';
     _marca[0] = '\0';
     _tipo[0] = '\0';
@@ -13,8 +14,9 @@ Producto::Producto() {
     _oculto = false;
 }
 
-Producto::Producto(int id, std::string descripcion, std::string marca, std::string tipo, int stock, bool oculto) {
+Producto::Producto(int id, float precioUnitario, std::string descripcion, std::string marca, std::string tipo, int stock, bool oculto) {
     setIdProducto(id);
+    setPrecioUnitario(precioUnitario);
     setDescripcion(descripcion);
     setMarca(marca);
     setTipo(tipo);
@@ -25,6 +27,7 @@ Producto::Producto(int id, std::string descripcion, std::string marca, std::stri
 
 // Getters
 int Producto::getIdProducto() { return _idProducto; }
+float Producto::getPrecioUnitario() { return _precioUnitario;}
 std::string Producto::getDescripcion() { return std::string(_descripcion); }
 std::string Producto::getMarca() { return std::string(_marca); }
 std::string Producto::getTipo() { return std::string(_tipo); }
@@ -40,6 +43,20 @@ bool Producto::setIdProducto(int idProducto) {
         system("cls");
         cout << " ------------------------------- " << endl;
         cout << "| El ID debe ser un número mayor que 0 |" << endl;
+        cout << " ------------------------------- " << endl << endl;
+        return false;
+    }
+}
+
+bool Producto::setPrecioUnitario(float precioUnitario) {
+    if(precioUnitario > 0){
+        _precioUnitario = precioUnitario;
+        return true;
+    }
+    else{
+        system("cls");
+        cout << " ------------------------------- " << endl;
+        cout << "| El precio unitario debe ser un número mayor que 0 |" << endl;
         cout << " ------------------------------- " << endl << endl;
         return false;
     }

@@ -43,10 +43,6 @@ bool ClienteArchivo::modificar(Cliente &registro, int index){
     fclose(pCliente);
 }
 
-bool ClienteArchivo::borrar(Cliente &registro, int index){
-
-}
-
 int ClienteArchivo::getCantidadRegistros(){
     FILE *pCliente;
     pCliente= fopen(_nombreArchivo.c_str(), "rb");

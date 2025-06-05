@@ -5,21 +5,10 @@
 
 using namespace std;
 
-void DetalleManager::cargarDetalle(){
-    Detalle nuevoDetalle;
-    int idFactura;
-    int idProducto;
-    int cantidad;
-    float precioUnitario;
-    bool oculto;
-    bool datoCorrecto = false;
-    bool frenarCarga = false;
-    cin.ignore();
+void DetalleManager::cargarDetalle(int idFactura, int idProducto, int cantidad, float precioUnitario){
+    Detalle nuevoDetalle(idFactura,idProducto, cantidad, precioUnitario, false);
 
-    idFactura= _archivo.getNuevoId();
-
-    nuevoDetalle.setIdFactura(idFactura);
-    nuevoDetalle.setOculto(false);
+    _archivo.guardar(nuevoDetalle);
 }
 
 /*

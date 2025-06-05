@@ -1,12 +1,19 @@
 #include <iostream>
+#include <ctime>
 #include "Fecha.h"
 using namespace std;
 
 
 Fecha::Fecha(){
-    _dia = 1;
-    _mes = 1;
-    _anio = 2000;
+    // Obtener la hora actual del sistema
+    time_t ahora = time(nullptr);
+
+    // Convertir a estructura tm (tiempo local)
+    tm* fecha_local = localtime(&ahora);
+
+    _dia = fecha_local->tm_mday;
+    _mes = fecha_local->tm_mon + 1;
+    _anio = fecha_local->tm_year + 1900;
 }
 
 Fecha::Fecha(int dia, int mes, int anio){

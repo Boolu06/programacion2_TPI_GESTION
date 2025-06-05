@@ -4,6 +4,7 @@
 class Detalle {
 public:
     Detalle();
+    Detalle(int idFactura, int idProducto, int cantidad, float precioUnitario, bool oculto);
     // Setters
     void setIdFactura(int idFactura);
     void setIdProducto(int idProducto);

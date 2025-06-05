@@ -44,11 +44,6 @@ bool DetalleArchivo::modificar(Detalle &registro, int index){
     return resultado;
 }
 
-bool DetalleArchivo::borrar(Detalle &registro, int index){
-    // No implementation provided
-    return false;
-}
-
 int DetalleArchivo::getCantidadRegistros(){
     FILE *pDetalle;
     pDetalle = fopen(_nombreArchivo.c_str(), "rb");

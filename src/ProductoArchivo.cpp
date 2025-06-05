@@ -43,10 +43,6 @@ bool ProductoArchivo::modificar(Producto &registro, int index){
     fclose(pProducto);
 }
 
-bool ProductoArchivo::borrar(Producto &registro, int index){
-
-}
-
 int ProductoArchivo::getCantidadRegistros(){
     FILE *pProducto;
     pProducto= fopen(_nombreArchivo.c_str(), "rb");

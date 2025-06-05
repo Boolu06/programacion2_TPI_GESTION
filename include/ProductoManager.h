@@ -8,7 +8,7 @@ public:
     void cargarProducto();
     void listarProductos();
     Producto buscarId(int idProducto);
-    void mostrarUnProducto(int idProducto, std::string descripcion,std::string marca, std::string tipo, int stock);
+    void mostrarUnProducto(int idProducto,float precioUnitario, std::string descripcion,std::string marca, std::string tipo, int stock);
     void modificarProducto();
     void borrarProducto();
 private:
