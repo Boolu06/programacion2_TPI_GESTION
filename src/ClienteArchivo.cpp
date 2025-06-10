@@ -43,10 +43,6 @@ bool ClienteArchivo::modificar(Cliente &registro, int index){
     fclose(pCliente);
 }
 
-bool ClienteArchivo::borrar(Cliente &registro, int index){
-
-}
-
 int ClienteArchivo::getCantidadRegistros(){
     FILE *pCliente;
     pCliente= fopen(_nombreArchivo.c_str(), "rb");
@@ -85,6 +81,15 @@ int ClienteArchivo::buscarIndex(Cliente vectorRegistros[], int cantidad, int idC
     for (int i = 0; i < cantidad; i++) {
         if (vectorRegistros[i].getId() == idCliente) {
             return i; // Retorna el índice si encuentra el ID
+        }
+    }
+    return -1; // Retorna -1 si no lo encuentra
+}
+
+int ClienteArchivo::buscarIndexCuit(Cliente vectorRegistros[], int cantidad, std::string cuit) {
+    for (int i = 0; i < cantidad; i++) {
+        if (vectorRegistros[i].getCuit() == cuit) {
+            return i; // Retorna el índice si encuentra el cuit
         }
     }
     return -1; // Retorna -1 si no lo encuentra

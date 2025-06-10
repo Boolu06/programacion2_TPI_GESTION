@@ -6,6 +6,9 @@
 #include "Producto.h"
 #include "ProductoArchivo.h"
 #include "ProductoManager.h"
+#include "Venta.h"
+#include "VentaArchivo.h"
+#include "VentaManager.h"
 
 using namespace std;
 void menuClientes(){
@@ -67,6 +70,9 @@ void menuProductos(){
 }
 
 void menuVentas(){
+    VentaManager _vManager;
+    DetalleManager _dManager;
+
 bool flag=true;
     int opc;
 
@@ -78,16 +84,18 @@ bool flag=true;
         cout<<" 2. BORRAR VENTA"<<endl;
         cout<<" 3. MODIFICAR VENTA"<<endl;
         cout<<" 4. LISTAR VENTAS"<<endl;
+        cout<<" 5. DETALLE DE VENTA"<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
 
         cin>>opc;
 
         switch(opc){
-            //case 1: agregarVenta(); break;
+            case 1: _vManager.cargarVenta(); break;
             // case 2: borrarVenta(); break;
             // case 3: modificarVenta(); break;
-            // case 4: listarVentas(); break;
+            case 4: _vManager.listarVentas(); break;
+            case 5: _dManager.listarDetalles(); break;
             case 0: flag=false; system("cls"); break;
             default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }

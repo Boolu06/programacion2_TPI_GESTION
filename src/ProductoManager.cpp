@@ -8,6 +8,7 @@ using namespace std;
 void ProductoManager::cargarProducto(){
     Producto nuevoProducto;
     int idProducto;
+    float precioUnitario;
     string tipo;
     string descripcion;
     string marca;
@@ -28,14 +29,42 @@ void ProductoManager::cargarProducto(){
         cout<<"Ingrese el tipo de producto: "<<endl;
         getline(cin, tipo);
         datoCorrecto = nuevoProducto.setTipo(tipo);
+
+        if(!datoCorrecto){
+            cout << " ----------------------------------------------- " << endl;
+            cout << "| El tipo debe tener entre 1 y 14 caracteres     |" << endl;
+            cout << " ----------------------------------------------- " << endl << endl;
+        }
     }
 
     datoCorrecto = false; // resetar el booleando para ingresar al proximo bucle
 
     while(!datoCorrecto){
+        cout<<"Ingrese el precio: "<<endl;
+        cin>>precioUnitario;
+        datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
+
+        if(!datoCorrecto){
+            cout << " ------------------------------- " << endl;
+            cout << "| El precio unitario debe ser un número mayor que 0 |" << endl;
+            cout << " ------------------------------- " << endl << endl;
+        }
+    }
+
+    datoCorrecto = false; // resetar el booleando para ingresar al proximo bucle
+
+
+    while(!datoCorrecto){
         cout<<"Ingrese la descripcion: "<<endl;
+        cin.ignore();
         getline(cin, descripcion);
         datoCorrecto = nuevoProducto.setDescripcion(descripcion);
+
+        if(!datoCorrecto){
+            cout << " -------------------------------------------------- " << endl;
+            cout << "| La descripción debe tener entre 1 y 49 caracteres |" << endl;
+            cout << " -------------------------------------------------- " << endl << endl;
+        }
     }
 
     datoCorrecto = false;
@@ -44,6 +73,12 @@ void ProductoManager::cargarProducto(){
         cout<<"Ingrese la marca: "<<endl;
         getline(cin, marca);
         datoCorrecto = nuevoProducto.setMarca(marca);
+
+        if(!datoCorrecto){
+            cout << " ----------------------------------------------- " << endl;
+            cout << "| La marca debe tener entre 1 y 14 caracteres    |" << endl;
+            cout << " ----------------------------------------------- " << endl << endl;
+        }
     }
 
     datoCorrecto = false;
@@ -52,6 +87,12 @@ void ProductoManager::cargarProducto(){
         cout<<"Ingrese el stock o disponibilidad (numero): "<<endl;
         cin>> stock;
         datoCorrecto = nuevoProducto.setStock(stock);
+
+        if(!datoCorrecto){
+            cout << " -------------------------------- " << endl;
+            cout << "| El stock no puede ser negativo |" << endl;
+            cout << " -------------------------------- " << endl << endl;
+        }
     }
 
     //dato correcto se deja en true para entrar al if:
@@ -80,6 +121,7 @@ void ProductoManager::listarProductos(){
     for (int i=0; i < cantidad; i++ ){
         if(vectorProductos[i].getOculto()== false){
         mostrarUnProducto(vectorProductos[i].getIdProducto(),
+                         vectorProductos[i].getPrecioUnitario(),
                          vectorProductos[i].getDescripcion(),
                          vectorProductos[i].getMarca(),
                          vectorProductos[i].getTipo(),
@@ -90,6 +132,36 @@ void ProductoManager::listarProductos(){
     system("pause");
 
     delete[]vectorProductos;
+}
+
+Producto ProductoManager::buscarId(int idProducto){
+    int cantidadRegistros = _archivo.getCantidadRegistros();
+    Producto *vectorProductos;
+    vectorProductos = new Producto[cantidadRegistros];
+    _archivo.leerVector(vectorProductos, cantidadRegistros);
+
+    int index = _archivo.buscarIndex(vectorProductos,cantidadRegistros,idProducto);
+
+    /*
+    mostrarUnCliente(vectorClientes[index].getId(),
+                         vectorClientes[index].getCuit(),
+                         vectorClientes[index].getNombre(),
+                         vectorClientes[index].getApellido(),
+                         vectorClientes[index].getTelefono(),
+                         vectorClientes[index].getEmail(),
+                         vectorClientes[index].getDireccion(),
+                         vectorClientes[index].getTipoCliente()
+                         );
+    system("pause");
+    */
+
+    if(index>-1){
+        return(vectorProductos[index]);
+    }
+    else{
+        Producto ProductoVacio;
+        return ProductoVacio;
+    }
 }
 
 void ProductoManager::modificarProducto(){
@@ -108,6 +180,7 @@ void ProductoManager::modificarProducto(){
         system("cls");
         cout<< "Id de producto encontrado! "<< endl;
         mostrarUnProducto(vectorProductos[index].getIdProducto(),
+                         vectorProductos[index].getPrecioUnitario(),
                          vectorProductos[index].getDescripcion(),
                          vectorProductos[index].getMarca(),
                          vectorProductos[index].getTipo(),
@@ -120,16 +193,28 @@ void ProductoManager::modificarProducto(){
         int opcion;
         while (flag == true){
             cout<< "Que dato deseas modificar ? " <<endl<<endl;
-            cout<< "1. Descripcion del producto" <<endl;
-            cout<< "2. Marca " <<endl;
-            cout<< "3. Tipo " <<endl;
-            cout<< "4. Stock " <<endl;
+            cout<< "1. Precio" <<endl;
+            cout<< "2. Descripcion del producto" <<endl;
+            cout<< "3. Marca " <<endl;
+            cout<< "4. Tipo " <<endl;
+            cout<< "5. Stock " <<endl;
             cout<< "0. Terminar modificaciones"<<endl<<endl;
             cout<< "Opcion: ";
             cin >> opcion;
             cin.ignore();
             switch (opcion){
                 case 1:{
+                    float precioUnitario;
+                    while(!datoCorrecto){
+                        cout<<"Ingrese el precio unitario del producto"<<endl;
+                        cin>>precioUnitario;
+                        datoCorrecto = vectorProductos[index].setPrecioUnitario(precioUnitario);
+                    }
+                    datoCorrecto = false;
+                    huboModificaciones= true;
+                    break;
+                }
+                case 2:{
                     string descripcion;
                     while(!datoCorrecto){
                         cout<<"Ingrese la descripcion"<<endl;
@@ -140,7 +225,7 @@ void ProductoManager::modificarProducto(){
                     huboModificaciones= true;
                     break;
                 }
-                case 2:{
+                case 3:{
                     string marca;
                     while(!datoCorrecto){
                         cout<<"Ingrese la marca"<<endl;
@@ -151,7 +236,7 @@ void ProductoManager::modificarProducto(){
                     huboModificaciones= true;
                     break;
                 }
-                case 3:{
+                case 4:{
                     string tipo;
                     while(!datoCorrecto){
                         cout<<"Ingrese el tipo"<<endl; //TODO: Se podrian ingresar validaciones o hacer un mini-menu para elegir el tipo (si es PC, notebook, impresora, periferico, etc)
@@ -162,7 +247,7 @@ void ProductoManager::modificarProducto(){
                     huboModificaciones= true;
                     break;
                 }
-                case 4:{
+                case 5:{
                     int stock;
                     while(!datoCorrecto){
                         cout<<"Ingrese el stock"<<endl;
@@ -192,12 +277,46 @@ void ProductoManager::modificarProducto(){
     delete []vectorProductos;
 }
 
-void ProductoManager::mostrarUnProducto(int idProducto, std::string descripcion,std::string marca, std::string tipo, int stock){
+bool ProductoManager::descontarStock(int idProductoModificar, int cantidadStockVendido){
+    int cantidadRegistros = _archivo.getCantidadRegistros();
+    Producto *vectorProductos;
+    vectorProductos = new Producto[cantidadRegistros];
+    _archivo.leerVector(vectorProductos, cantidadRegistros);
+
+    int index = _archivo.buscarIndex(vectorProductos,cantidadRegistros,idProductoModificar);
+
+    bool datoCorrecto  = false;
+
+    if(index >= 0){
+        int stockFinal  = (vectorProductos[index].getStock()) - cantidadStockVendido;
+        datoCorrecto = (vectorProductos[index].setStock(stockFinal));
+
+    }
+    else{
+
+    }
+
+    if(datoCorrecto){
+        _archivo.modificar(vectorProductos[index], index);
+    }
+    else{
+        return datoCorrecto;
+    }
+
+    delete []vectorProductos;
+}
+
+
+
+
+
+void ProductoManager::mostrarUnProducto(int idProducto, float precioUnitario, std::string descripcion,std::string marca, std::string tipo, int stock){
     cout << "----------ID Producto: "<<idProducto<<" ------------" << endl;
+        cout << "Precio Unitario: " << precioUnitario << endl;
         cout << "Descripcion: " << descripcion << endl;
-        cout<< "Marca: "<< marca <<endl;
+        cout << "Marca: "<< marca <<endl;
         cout << "Tipo: " << tipo << endl;
-        cout<< "Stock: "<< stock <<endl;
+        cout << "Stock: "<< stock <<endl;
         cout << "-----------------------------" << endl;
 }
 
@@ -216,6 +335,7 @@ void ProductoManager::borrarProducto(){
         system("cls");
         cout<< "Este es el cliente que vas a borrar: "<< endl;
         mostrarUnProducto(vectorProductos[index].getIdProducto(),
+                         vectorProductos[index].getPrecioUnitario(),
                          vectorProductos[index].getDescripcion(),
                          vectorProductos[index].getMarca(),
                          vectorProductos[index].getTipo(),

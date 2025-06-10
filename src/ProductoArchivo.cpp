@@ -43,10 +43,6 @@ bool ProductoArchivo::modificar(Producto &registro, int index){
     fclose(pProducto);
 }
 
-bool ProductoArchivo::borrar(Producto &registro, int index){
-
-}
-
 int ProductoArchivo::getCantidadRegistros(){
     FILE *pProducto;
     pProducto= fopen(_nombreArchivo.c_str(), "rb");
@@ -90,7 +86,9 @@ int ProductoArchivo::buscarIndex(Producto vectorRegistros[], int cantidad, int i
     return -1; // Retorna -1 si no lo encuentra
 }
 
-std::string ProductoArchivo::getNombreArchivo(){ return _nombreArchivo;}
+std::string ProductoArchivo::getNombreArchivo(){
+    return _nombreArchivo;
+}
 
 int ProductoArchivo::getNuevoId(){
     int id = getCantidadRegistros() + 1 ;
