@@ -39,11 +39,8 @@ bool Producto::setIdProducto(int idProducto) {
     if (idProducto > 0) {
         _idProducto = idProducto;
         return true;
-    } else {
-        system("cls");
-        cout << " ------------------------------- " << endl;
-        cout << "| El ID debe ser un número mayor que 0 |" << endl;
-        cout << " ------------------------------- " << endl << endl;
+    }
+    else{
         return false;
     }
 }
@@ -54,10 +51,6 @@ bool Producto::setPrecioUnitario(float precioUnitario) {
         return true;
     }
     else{
-        system("cls");
-        cout << " ------------------------------- " << endl;
-        cout << "| El precio unitario debe ser un número mayor que 0 |" << endl;
-        cout << " ------------------------------- " << endl << endl;
         return false;
     }
 }
@@ -67,11 +60,8 @@ bool Producto::setDescripcion(const std::string& descripcion) {
         strncpy(_descripcion, descripcion.c_str(), 49);
         _descripcion[49] = '\0';
         return true;
-    } else {
-        system("cls");
-        cout << " -------------------------------------------------- " << endl;
-        cout << "| La descripción debe tener entre 1 y 49 caracteres |" << endl;
-        cout << " -------------------------------------------------- " << endl << endl;
+    }
+    else{
         return false;
     }
 }
@@ -81,11 +71,8 @@ bool Producto::setMarca(const std::string& marca) {
         strncpy(_marca, marca.c_str(), 14);
         _marca[14] = '\0';
         return true;
-    } else {
-        system("cls");
-        cout << " ----------------------------------------------- " << endl;
-        cout << "| La marca debe tener entre 1 y 14 caracteres    |" << endl;
-        cout << " ----------------------------------------------- " << endl << endl;
+    }
+    else{
         return false;
     }
 }
@@ -95,11 +82,8 @@ bool Producto::setTipo(const std::string& tipo) {
         strncpy(_tipo, tipo.c_str(), 14);
         _tipo[14] = '\0';
         return true;
-    } else {
-        system("cls");
-        cout << " ----------------------------------------------- " << endl;
-        cout << "| El tipo debe tener entre 1 y 14 caracteres     |" << endl;
-        cout << " ----------------------------------------------- " << endl << endl;
+    }
+    else{
         return false;
     }
 }
@@ -108,11 +92,8 @@ bool Producto::setStock(int stock) {
     if (stock >= 0) {
         _stock = stock;
         return true;
-    } else {
-        system("cls");
-        cout << " -------------------------------- " << endl;
-        cout << "| El stock no puede ser negativo |" << endl;
-        cout << " -------------------------------- " << endl << endl;
+    }
+    else{
         return false;
     }
 }

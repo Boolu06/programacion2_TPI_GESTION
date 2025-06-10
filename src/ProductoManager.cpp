@@ -29,6 +29,12 @@ void ProductoManager::cargarProducto(){
         cout<<"Ingrese el tipo de producto: "<<endl;
         getline(cin, tipo);
         datoCorrecto = nuevoProducto.setTipo(tipo);
+
+        if(!datoCorrecto){
+            cout << " ----------------------------------------------- " << endl;
+            cout << "| El tipo debe tener entre 1 y 14 caracteres     |" << endl;
+            cout << " ----------------------------------------------- " << endl << endl;
+        }
     }
 
     datoCorrecto = false; // resetar el booleando para ingresar al proximo bucle
@@ -37,6 +43,12 @@ void ProductoManager::cargarProducto(){
         cout<<"Ingrese el precio: "<<endl;
         cin>>precioUnitario;
         datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
+
+        if(!datoCorrecto){
+            cout << " ------------------------------- " << endl;
+            cout << "| El precio unitario debe ser un número mayor que 0 |" << endl;
+            cout << " ------------------------------- " << endl << endl;
+        }
     }
 
     datoCorrecto = false; // resetar el booleando para ingresar al proximo bucle
@@ -47,6 +59,12 @@ void ProductoManager::cargarProducto(){
         cin.ignore();
         getline(cin, descripcion);
         datoCorrecto = nuevoProducto.setDescripcion(descripcion);
+
+        if(!datoCorrecto){
+            cout << " -------------------------------------------------- " << endl;
+            cout << "| La descripción debe tener entre 1 y 49 caracteres |" << endl;
+            cout << " -------------------------------------------------- " << endl << endl;
+        }
     }
 
     datoCorrecto = false;
@@ -55,6 +73,12 @@ void ProductoManager::cargarProducto(){
         cout<<"Ingrese la marca: "<<endl;
         getline(cin, marca);
         datoCorrecto = nuevoProducto.setMarca(marca);
+
+        if(!datoCorrecto){
+            cout << " ----------------------------------------------- " << endl;
+            cout << "| La marca debe tener entre 1 y 14 caracteres    |" << endl;
+            cout << " ----------------------------------------------- " << endl << endl;
+        }
     }
 
     datoCorrecto = false;
@@ -63,6 +87,12 @@ void ProductoManager::cargarProducto(){
         cout<<"Ingrese el stock o disponibilidad (numero): "<<endl;
         cin>> stock;
         datoCorrecto = nuevoProducto.setStock(stock);
+
+        if(!datoCorrecto){
+            cout << " -------------------------------- " << endl;
+            cout << "| El stock no puede ser negativo |" << endl;
+            cout << " -------------------------------- " << endl << endl;
+        }
     }
 
     //dato correcto se deja en true para entrar al if:
@@ -246,6 +276,39 @@ void ProductoManager::modificarProducto(){
 
     delete []vectorProductos;
 }
+
+bool ProductoManager::descontarStock(int idProductoModificar, int cantidadStockVendido){
+    int cantidadRegistros = _archivo.getCantidadRegistros();
+    Producto *vectorProductos;
+    vectorProductos = new Producto[cantidadRegistros];
+    _archivo.leerVector(vectorProductos, cantidadRegistros);
+
+    int index = _archivo.buscarIndex(vectorProductos,cantidadRegistros,idProductoModificar);
+
+    bool datoCorrecto  = false;
+
+    if(index >= 0){
+        int stockFinal  = (vectorProductos[index].getStock()) - cantidadStockVendido;
+        datoCorrecto = (vectorProductos[index].setStock(stockFinal));
+
+    }
+    else{
+
+    }
+
+    if(datoCorrecto){
+        _archivo.modificar(vectorProductos[index], index);
+    }
+    else{
+        return datoCorrecto;
+    }
+
+    delete []vectorProductos;
+}
+
+
+
+
 
 void ProductoManager::mostrarUnProducto(int idProducto, float precioUnitario, std::string descripcion,std::string marca, std::string tipo, int stock){
     cout << "----------ID Producto: "<<idProducto<<" ------------" << endl;

@@ -69,10 +69,6 @@ bool Cliente::setCuit(const std::string &cuit){
         return true;
     }
     else{
-        system("cls");
-        cout << " -------------------------------- " << endl;
-        cout << "|El cuit debe tener 11 caracteres|" << endl;
-        cout << " -------------------------------- " << endl << endl;
         return false;
     }
 }
@@ -82,10 +78,6 @@ bool Cliente::setNombre(const std::string &nombre){
         return true;
     }
     else{
-        system("cls");
-        cout << " ------------------------------------------------------ " << endl;
-        cout << "|El nombre debe tener al menos 1 caracter y menos de 30|" << endl;
-        cout << " ------------------------------------------------------ "  << endl << endl;
         return false;
     }
 
@@ -96,10 +88,6 @@ bool Cliente::setApellido(const std::string &apellido){
         return true;
     }
     else{
-        system("cls");
-        cout << " -------------------------------------------------------- " << endl;
-        cout << "|El apellido debe tener al menos 1 caracter y menos de 30|" << endl;
-        cout << " -------------------------------------------------------- " << endl<< endl;
         return false;
     }
 }
@@ -109,10 +97,6 @@ bool Cliente::setTelefono(const std::string &telefono){
         return true;
     }
     else{
-        system("cls");
-        cout << " ------------------------------------ " << endl;
-        cout << "|El telefono debe tener 11 caracteres|" << endl;
-        cout << " ------------------------------------ " << endl << endl;
         return false;
     }
 
@@ -123,10 +107,6 @@ bool Cliente::setEmail(const std::string &email){
         return true;
     }
     else{
-        system("cls");
-        cout << " ------------------------------------ " << endl;
-        cout << "| El email no es valido              |" << endl;
-        cout << " ------------------------------------ " << endl << endl;
         return false;
     }
 }
@@ -136,10 +116,6 @@ bool Cliente::setDireccion(const std::string &direccion){
         return true;
     }
     else{
-        system("cls");
-        cout << " --------------------------------------------- " << endl;
-        cout << "| Direccion no puede ser mas de 50 caracteres |" << endl;
-        cout << " --------------------------------------------- " << endl << endl;
         return false;
     }
 }
@@ -149,15 +125,14 @@ bool Cliente::setTipoCliente(int tipoCliente){
         return true;
     }
     else{
-        system("cls");
-        cout << " ------------------------------ " << endl;
-        cout << "| Selecciona una opcion valida |" << endl;
-        cout << " ------------------------------ " << endl << endl;
         return false;
     }
 }
 bool Cliente::setOculto(bool oculto){
+
     _oculto = oculto;
+
+    return true;
 }
 
 

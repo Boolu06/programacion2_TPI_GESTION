@@ -7,7 +7,8 @@
 class VentaManager{
 public:
     void cargarVenta();
-    //void listarVentas();
+    void listarVentas();
+    void mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);
    // void mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);
    // void modificarVenta();
    // void borrarVenta();

@@ -11,7 +11,7 @@ void DetalleManager::cargarDetalle(int idFactura, int idProducto, int cantidad, 
     _archivo.guardar(nuevoDetalle);
 }
 
-/*
+
 void DetalleManager::listarDetalles(){
     int cantidad = _archivo.getCantidadRegistros();
     Detalle *vectorDetalles;
@@ -21,11 +21,10 @@ void DetalleManager::listarDetalles(){
 
     for (int i=0; i < cantidad; i++ ){
         if(vectorDetalles[i].getOculto()== false){
-            mostrarUnDetalle(vectorDetalles[i].getIdDetalle(),
-                             vectorDetalles[i].getDescripcion(),
-                             vectorDetalles[i].getMarca(),
-                             vectorDetalles[i].getTipo(),
-                             vectorDetalles[i].getStock()
+            mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
+                             vectorDetalles[i].getIdProducto(),
+                             vectorDetalles[i].getCantidad(),
+                             vectorDetalles[i].getPrecioUnitario()
                              );
         }
     }
@@ -33,6 +32,9 @@ void DetalleManager::listarDetalles(){
     delete[]vectorDetalles;
 }
 
+
+
+/*
 void DetalleManager::modificarDetalle(){
     int cantidadRegistros = _archivo.getCantidadRegistros();
     Detalle *vectorDetalles;
