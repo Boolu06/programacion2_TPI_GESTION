@@ -124,6 +124,7 @@ void ProductoManager::listarProductos(){
     string marca;
     string tipo;
 
+    bool productoEncontrado=false;
     while(flag==true){
         system("cls");
         cout<<"===== MENU PRODUCTOS ====="<<endl;
@@ -152,9 +153,16 @@ void ProductoManager::listarProductos(){
                                          vectorProductos[i].getTipo(),
                                          vectorProductos[i].getStock()
                                          );
+                        productoEncontrado=true;
                     }
                 }
-                system("pause");
+                if(!productoEncontrado){
+                    cout<<"Marca no encontrada"<<endl;
+                    system("pause");
+                }
+                else{
+                    system("pause");
+                }
             break;
             case 2:
                 system("cls");
