@@ -73,7 +73,7 @@ void menuVentas(){
     VentaManager _vManager;
     DetalleManager _dManager;
 
-bool flag=true;
+    bool flag=true;
     int opc;
 
     while(flag==true){
