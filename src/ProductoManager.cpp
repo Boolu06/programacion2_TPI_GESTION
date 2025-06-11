@@ -2,6 +2,7 @@
 #include <cstring>
 #include "Producto.h"
 #include "ProductoManager.h"
+#include "Funciones.h"
 
 using namespace std;
 
@@ -118,18 +119,80 @@ void ProductoManager::listarProductos(){
 
     _archivo.leerVector(vectorProductos, cantidad); // esta funcion mete en el vectorProductos los productos que consiga en el archivo.dat.
 
-    for (int i=0; i < cantidad; i++ ){
-        if(vectorProductos[i].getOculto()== false){
-        mostrarUnProducto(vectorProductos[i].getIdProducto(),
-                         vectorProductos[i].getPrecioUnitario(),
-                         vectorProductos[i].getDescripcion(),
-                         vectorProductos[i].getMarca(),
-                         vectorProductos[i].getTipo(),
-                         vectorProductos[i].getStock()
-                         );
+    bool flag=true;
+    int opc;
+    string marca;
+    string tipo;
+
+    while(flag==true){
+        system("cls");
+        cout<<"===== MENU PRODUCTOS ====="<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 1. Filtrar por marca"<<endl;
+        cout<<" 2. Filtrar por tipo de producto"<<endl;
+        cout<<" 3. Listar todos los productos"<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
+
+        cin>>opc;
+
+        switch(opc){
+            case 1:
+                system("cls");
+                cout<<"Ingrese la marca"<<endl;
+                cin.ignore();
+                getline(cin,marca);
+
+                for(int i=0; i<cantidad; i++){
+                    if(aMinusculas(vectorProductos[i].getMarca()) == aMinusculas(marca) && vectorProductos[i].getOculto() == false){
+                        mostrarUnProducto(vectorProductos[i].getIdProducto(),
+                                         vectorProductos[i].getPrecioUnitario(),
+                                         vectorProductos[i].getDescripcion(),
+                                         vectorProductos[i].getMarca(),
+                                         vectorProductos[i].getTipo(),
+                                         vectorProductos[i].getStock()
+                                         );
+                    }
+                }
+                system("pause");
+            break;
+            case 2:
+                system("cls");
+                cout<<"Ingrese el tipo de producto"<<endl;
+                cin>>tipo;
+
+                for(int i=0; i<cantidad; i++){
+                    if(vectorProductos[i].getTipo() == tipo && vectorProductos[i].getOculto() == false){
+                        mostrarUnProducto(vectorProductos[i].getIdProducto(),
+                                         vectorProductos[i].getPrecioUnitario(),
+                                         vectorProductos[i].getDescripcion(),
+                                         vectorProductos[i].getMarca(),
+                                         vectorProductos[i].getTipo(),
+                                         vectorProductos[i].getStock()
+                                         );
+                    }
+                }
+                system("pause");
+            break;
+            case 3:
+                system("cls");
+                for (int i=0; i<cantidad; i++ ){
+                    if(vectorProductos[i].getOculto()== false){
+                        mostrarUnProducto(vectorProductos[i].getIdProducto(),
+                                         vectorProductos[i].getPrecioUnitario(),
+                                         vectorProductos[i].getDescripcion(),
+                                         vectorProductos[i].getMarca(),
+                                         vectorProductos[i].getTipo(),
+                                         vectorProductos[i].getStock()
+                                         );
+                    }
+                }
+                system("pause");
+            break;
+            case 0: flag=false; system("cls"); break;
+            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
     }
-    system("pause");
 
     delete[]vectorProductos;
 }

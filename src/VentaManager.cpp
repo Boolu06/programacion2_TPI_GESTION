@@ -187,6 +187,7 @@ void VentaManager::cargarVenta(){
 }
 
 void VentaManager::listarVentas(){
+
     int cantidad = _archivo.getCantidadRegistros();
     Venta *vectorVentas;
     vectorVentas = new Venta [cantidad];
