@@ -144,22 +144,111 @@ void ClienteManager::listarClientes(){
 
     _archivo.leerVector(vectorClientes, cantidad); // esta funcion mete en el vectorClientes los clientes que consiga en el archivo.dat.
 
-    for (int i=0; i < cantidad; i++ ){
-        if(vectorClientes[i].getOculto()== false){
-        mostrarUnCliente(vectorClientes[i].getId(),
-                         vectorClientes[i].getCuit(),
-                         vectorClientes[i].getNombre(),
-                         vectorClientes[i].getApellido(),
-                         vectorClientes[i].getTelefono(),
-                         vectorClientes[i].getEmail(),
-                         vectorClientes[i].getDireccion(),
-                         vectorClientes[i].getTipoCliente()
-                         );
+    int opc;
+    bool flag = true;
+    while(flag==true){
+        cout<<"---------------------------"<<endl;
+        cout<<" 1. Filtrar por ID de cliente"<<endl;
+        cout<<" 2. Filtrar por CUIT"<<endl;
+        cout<<" 3. Filtrar por nombre"<<endl;
+        cout<<" 4. Filtrar por Apellido"<<endl;
+        cout<<" 5. Filtrar por tipo de cliente"<<endl;
+        cout<<" 6. Listar todos los clientes"<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 0. Volver al menu principal"<<endl<<endl;
+        cout<<"Ingrese una opcion: ";
+        cin>>opc;
+        system("cls");
+        switch(opc){
+            case 1: filtrarPorId(vectorClientes,cantidad); break;
+            case 2: filtrarPorCuit(vectorClientes,cantidad); break;
+            //case 3: modificarVenta(); break;
+            //case 4: _vManager.listarVentas(); break;
+            //case 5: _dManager.listarDetalles(); break;
+
+            case 6:{
+                    for (int i=0; i < cantidad; i++ ){
+                        if(vectorClientes[i].getOculto()== false){
+                        mostrarUnCliente(vectorClientes[i].getId(),
+                                         vectorClientes[i].getCuit(),
+                                         vectorClientes[i].getNombre(),
+                                         vectorClientes[i].getApellido(),
+                                         vectorClientes[i].getTelefono(),
+                                         vectorClientes[i].getEmail(),
+                                         vectorClientes[i].getDireccion(),
+                                         vectorClientes[i].getTipoCliente()
+                                         );
+                        }
+                    }
+                    system("pause");
+                }
+
+            case 0: flag=false; system("cls"); break;
+
+            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
     }
+
     system("pause");
 
+
+
+
     delete[]vectorClientes;
+}
+
+void ClienteManager::filtrarPorId(Cliente vectorClientes[], int cantidadRegistros){
+    int idCliente=0;
+    cout<<"Ingrese el ID del cliente que desea buscar: "<<endl;
+    cin >> idCliente;
+    if(idCliente>0){
+        for(int i=0; i < cantidadRegistros; i++ ){
+            if(vectorClientes[i].getId()==idCliente && vectorClientes[i].getOculto()== false){
+                mostrarUnCliente(vectorClientes[i].getId(),
+                                 vectorClientes[i].getCuit(),
+                                 vectorClientes[i].getNombre(),
+                                 vectorClientes[i].getApellido(),
+                                 vectorClientes[i].getTelefono(),
+                                 vectorClientes[i].getEmail(),
+                                 vectorClientes[i].getDireccion(),
+                                 vectorClientes[i].getTipoCliente()
+                                 );
+            }
+        }
+    }
+    else{
+        cout<<"ID invalido"<<endl;
+        system("pause");
+    }
+
+}
+
+void ClienteManager::filtrarPorCuit(Cliente vectorClientes[], int cantidadRegistros){
+    string cuitCliente;
+    cout<<"Ingrese el CUIT del cliente que desea buscar: "<<endl;
+    cin.ignore();
+    getline(cin,cuitCliente);
+
+    if(!cuitCliente.empty()){
+        for (int i=0; i < cantidadRegistros; i++ ){
+            if(vectorClientes[i].getCuit()==cuitCliente && vectorClientes[i].getOculto()== false){
+                mostrarUnCliente(vectorClientes[i].getId(),
+                                 vectorClientes[i].getCuit(),
+                                 vectorClientes[i].getNombre(),
+                                 vectorClientes[i].getApellido(),
+                                 vectorClientes[i].getTelefono(),
+                                 vectorClientes[i].getEmail(),
+                                 vectorClientes[i].getDireccion(),
+                                 vectorClientes[i].getTipoCliente()
+                                 );
+            }
+        }
+
+    }
+    else{
+        cout<<"ID invalido"<<endl;
+        system("pause");
+    }
 }
 
 Cliente ClienteManager::buscarCuit(std::string cuit){
@@ -171,18 +260,6 @@ Cliente ClienteManager::buscarCuit(std::string cuit){
     int index = _archivo.buscarIndexCuit(vectorClientes,cantidadRegistros,cuit);
 
 
-    /*
-    mostrarUnCliente(vectorClientes[index].getId(),
-                         vectorClientes[index].getCuit(),
-                         vectorClientes[index].getNombre(),
-                         vectorClientes[index].getApellido(),
-                         vectorClientes[index].getTelefono(),
-                         vectorClientes[index].getEmail(),
-                         vectorClientes[index].getDireccion(),
-                         vectorClientes[index].getTipoCliente()
-                         );
-    system("pause");
-    */
     if(index>-1){
         return(vectorClientes[index]);
     }
@@ -191,6 +268,8 @@ Cliente ClienteManager::buscarCuit(std::string cuit){
         return ClienteVacio;
     }
 }
+
+
 
 void ClienteManager::modificarCliente(){
     int cantidadRegistros = _archivo.getCantidadRegistros();

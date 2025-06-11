@@ -205,18 +205,6 @@ Producto ProductoManager::buscarId(int idProducto){
 
     int index = _archivo.buscarIndex(vectorProductos,cantidadRegistros,idProducto);
 
-    /*
-    mostrarUnCliente(vectorClientes[index].getId(),
-                         vectorClientes[index].getCuit(),
-                         vectorClientes[index].getNombre(),
-                         vectorClientes[index].getApellido(),
-                         vectorClientes[index].getTelefono(),
-                         vectorClientes[index].getEmail(),
-                         vectorClientes[index].getDireccion(),
-                         vectorClientes[index].getTipoCliente()
-                         );
-    system("pause");
-    */
 
     if(index>-1){
         return(vectorProductos[index]);
