@@ -197,24 +197,50 @@ void VentaManager::cargarVenta(){
 }
 
 void VentaManager::listarVentas(){
-
     int cantidad = _archivo.getCantidadRegistros();
     Venta *vectorVentas;
     vectorVentas = new Venta [cantidad];
 
     _archivo.leerVector(vectorVentas, cantidad); // esta funcion mete en el vectorProductos los productos que consiga en el archivo.dat.
 
-    for (int i=0; i < cantidad; i++ ){
-        if(vectorVentas[i].getOculto()== false){
-            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
-                             vectorVentas[i].getIdCliente(),
-                             vectorVentas[i].getFechaVenta(),
-                             vectorVentas[i].getImporteTotal()
-                             );
+    bool flag=true;
+    int opc;
+
+    while(flag==true){
+        system("cls");
+        cout<<"===== MENU VENTAS ====="<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 1. Filtrar por ID de factura"<<endl;
+        cout<<" 2. Filtrar por ID de cliente"<<endl;
+        cout<<" 3. Filtrar por CUIT de cliente"<<endl;
+        cout<<" 4. Filtrar por fecha de venta"<<endl;
+        cout<<" 5. Filtrar por importe"<<endl;
+        cout<<" 6. Listar todas las ventas"<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
+
+        cin>>opc;
+
+        switch(opc){
+            case 1: filtrarPorIDFactura(vectorVentas, cantidad); break;
+            //case 2: filtrarPorIDCliente(vectorVentas, cantidad); break;
+            case 6:
+                system("cls");
+                for (int i=0; i < cantidad; i++ ){
+                    if(vectorVentas[i].getOculto()== false){
+                        mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                         vectorVentas[i].getIdCliente(),
+                                         vectorVentas[i].getFechaVenta(),
+                                         vectorVentas[i].getImporteTotal()
+                                         );
+                    }
+                }
+                system("pause");
+            break;
+            case 0: flag=false; system("cls"); break;
+            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
     }
-    system("pause");
-
     delete[]vectorVentas;
 }
 
@@ -225,6 +251,37 @@ void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVent
         cout << "Importe Total: "<< to_string(importeTotal)<< "$" <<endl;
         cout << "-----------------------------" << endl;
 }
+
+void VentaManager::filtrarPorIDFactura(Venta vectorVentas[], int cantidadRegistros){
+    int id;
+    bool ventaEncontrada=false;
+
+    system("cls");
+    cout<<"Ingrese el ID de factura"<<endl;
+    cin>>id;
+
+    for(int i=0; i<cantidadRegistros; i++){
+        if(vectorVentas[i].getIdFactura() == id && id>0){
+            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                             vectorVentas[i].getIdCliente(),
+                             vectorVentas[i].getFechaVenta(),
+                             vectorVentas[i].getImporteTotal()
+                            );
+            ventaEncontrada=true;
+        }
+    }
+    if(!ventaEncontrada){
+        cout<<"Venta no encontrada"<<endl;
+        system("pause");
+    }
+    else{
+        system("pause");
+    }
+}
+//Metodo para filtrar por idCliente
+//Metodo para filtrar por cuit de cliente
+//Metodo para filtrar por fecha
+//Metodo para filtrar por importe <- a revisar
 
 /*
 void VentaManager::listarVentas();
