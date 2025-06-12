@@ -8,6 +8,7 @@ class VentaManager{
 public:
     void cargarVenta();
     void listarVentas();
+    void filtrarPorCuit(Venta vectorVentas[], int cantidadRegistros);
     void filtrarPorIDFactura(Venta vectorVentas[], int cantidadRegistros);
     void mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);
    // void mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);

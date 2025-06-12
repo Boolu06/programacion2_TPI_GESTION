@@ -33,7 +33,7 @@ void VentaManager::cargarVenta(){
 
     Cliente ClienteEncontrado;
 
-    ClienteEncontrado = Cliente_M.buscarCuit(cuitCliente); //Cliente_M.buscarCuit(cuitCliente) <- retorna un cliente, si fue encontrado su ID siempre será mayor a 0
+    ClienteEncontrado = Cliente_M.buscarCuit(cuitCliente); //Cliente_M.buscarCuit(cuitCliente) <- retorna un cliente, si fue encontrado su ID siempre serï¿½ mayor a 0
     // Si no existe el CUIT en la tabla de Clientes, informarle al usuario y crear un nuevo cliente.
 
     bool corteGeneral = false;
@@ -79,7 +79,7 @@ void VentaManager::cargarVenta(){
     }
 
 
-    //Al usuario le voy a pedir que seleccione un producto a comprar. Esto va a ser un menú en el cual esta constantemente mostrandome los productos disponibles con
+    //Al usuario le voy a pedir que seleccione un producto a comprar. Esto va a ser un menï¿½ en el cual esta constantemente mostrandome los productos disponibles con
     //su precio unitario. Por ahora en el codigo en su estado basico solo se le pide el ingreso del ID del producto.
     int idProducto;
     int eleccion;
@@ -203,6 +203,7 @@ void VentaManager::listarVentas(){
 
     _archivo.leerVector(vectorVentas, cantidad); // esta funcion mete en el vectorProductos los productos que consiga en el archivo.dat.
 
+            case 1: filtrarPorIDFactura(vectorVentas, cantidad); break;
     bool flag=true;
     int opc;
 
@@ -220,10 +221,10 @@ void VentaManager::listarVentas(){
         cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
 
         cin>>opc;
-
+        system("cls");
         switch(opc){
-            case 1: filtrarPorIDFactura(vectorVentas, cantidad); break;
             //case 2: filtrarPorIDCliente(vectorVentas, cantidad); break;
+            case 3: filtrarPorCuit(vectorVentas,cantidad) ; break;
             case 6:
                 system("cls");
                 for (int i=0; i < cantidad; i++ ){
@@ -242,6 +243,40 @@ void VentaManager::listarVentas(){
         }
     }
     delete[]vectorVentas;
+}
+
+
+void VentaManager::filtrarPorCuit(Venta vectorVentas[], int cantidadRegistros){
+    ClienteManager Cliente_M;
+    Cliente clienteEncontrado;
+    string cuitCliente;
+    cout<<"Ingrese el CUIT del cliente que desea buscar: "<<endl;
+    cin.ignore();
+    getline(cin,cuitCliente);
+
+    if(!cuitCliente.empty()){
+        clienteEncontrado = Cliente_M.buscarCuit(cuitCliente);
+        if(clienteEncontrado.getId()==0){
+            cout<<"No hay clientes registrados con el CUIT "<< cuitCliente << endl;
+        }
+        else{
+            for (int i=0; i < cantidadRegistros; i++ ){
+                if(vectorVentas[i].getIdCliente()==clienteEncontrado.getId() && vectorVentas[i].getOculto()== false){
+                    mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                     vectorVentas[i].getIdCliente(),
+                                     vectorVentas[i].getFechaVenta(),
+                                     vectorVentas[i].getImporteTotal()
+                                     );
+                }
+            }
+        }
+        system("pause");
+    }
+    else{
+        cout<<"CUIT Invalido"<<endl;
+        system("pause");
+    }
+
 }
 
 void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal){
