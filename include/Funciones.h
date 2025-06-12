@@ -5,6 +5,8 @@
 void menuClientes();
 void menuProductos();
 void menuVentas();
+bool esSoloNumeros(std::string cuit);
+bool esSoloLetras();
 std::string aMinusculas(std::string palabra);
 
 

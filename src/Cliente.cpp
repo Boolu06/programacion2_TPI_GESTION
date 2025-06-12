@@ -1,5 +1,6 @@
 #include<iostream>
 #include <cstring>
+#include "Funciones.h"
 #include "Cliente.h"
 
 using namespace std;
@@ -64,7 +65,8 @@ int Cliente::setId(const int id){
 }
 
 bool Cliente::setCuit(const std::string &cuit){
-    if(cuit.size() == 11){
+
+    if(cuit.size() == 11 && esSoloNumeros(cuit) == true){
         strcpy(_cuit, cuit.c_str()); // Conversion de string a char
         return true;
     }

@@ -5,10 +5,10 @@
 
 using namespace std;
 
-void ClienteManager::cargarCliente(){
+void ClienteManager::cargarCliente(const std::string &cuit){
     Cliente nuevoCliente;
     int id;
-    string cuit;
+    string cuitFinal = cuit;
     string nombre;
     string apellido;
     string telefono;
@@ -25,16 +25,16 @@ void ClienteManager::cargarCliente(){
 
     cout<< "Cliente ID signado: " <<  id << endl;
 
-
     while(!datoCorrecto){
-        cout<<"Ingrese el CUIT"<<endl;
-        getline(cin, cuit);
-        datoCorrecto = nuevoCliente.setCuit(cuit);
-
+        if(cuit == ""){
+            cout<<"Ingrese el CUIT"<<endl;
+            getline(cin, cuitFinal);
+        }
+        datoCorrecto = nuevoCliente.setCuit(cuitFinal);
         if(!datoCorrecto){
-            cout << " -------------------------------- " << endl;
-            cout << "|El cuit debe tener 11 caracteres|" << endl;
-            cout << " -------------------------------- " << endl << endl;
+            cout << " ------------------------------------------ " << endl;
+            cout << "|El cuit debe tener 11 caracteres numericos|" << endl;
+            cout << " ------------------------------------------ " << endl << endl;
         }
     }
 

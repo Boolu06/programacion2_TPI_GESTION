@@ -4,7 +4,7 @@
 
 class ClienteManager{ ///Clase que maneja la carga el archivo y muestra
 public:
-    void cargarCliente();
+    void cargarCliente(const std::string &cuit = "");
     void listarClientes();
     void filtrarPorId(Cliente vectorClientes[], int cantidadRegistros);
     void filtrarPorCuit(Cliente vectorClientes[], int cantidadRegistros);

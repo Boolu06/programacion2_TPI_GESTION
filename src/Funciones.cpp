@@ -110,3 +110,23 @@ string aMinusculas(string palabra){
     }
     return palabra;
 }
+
+bool esSoloNumeros(std::string cuit){
+    bool flag = true;
+    int i=0;
+
+    while(flag){
+        if(cuit[i]>='0' && cuit[i]<='9'){ // Con que alguno de estos caracteres no corresponda a un numero, devuelve falso.
+            i++;
+            if(i==11){
+                return true;
+            }
+        }
+        else{
+            flag = false;
+        }
+    }
+    if(flag == false){
+        return false;
+    }
+}

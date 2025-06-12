@@ -1,5 +1,6 @@
 #include<iostream>
 #include <cstring>
+#include "Funciones.h"
 #include "VentaManager.h"
 #include "Venta.h"
 
@@ -12,17 +13,26 @@ void VentaManager::cargarVenta(){
     DetalleManager Detalle_M;
     VentaManager Venta_M;
     Fecha fechaFactura;
-    int idFactura;
 
+    int idFactura;
     string cuitCliente;
 
     idFactura = _archivo.getNuevoId();
     nuevaFactura.setIdFactura(idFactura);
-    cout<<"Por favor ingrese el numero de CUIT del cliente"<<endl;
+
     cin.ignore();
-    getline(cin,cuitCliente);
+    do{
+        cout<<"Por favor ingrese el numero de CUIT del cliente"<<endl;
+        getline(cin,cuitCliente);
+        if(!esSoloNumeros(cuitCliente)){
+            cout << " ------------------------------------------ " << endl;
+            cout << "|El cuit debe tener 11 caracteres numericos|" << endl;
+            cout << " ------------------------------------------ " << endl << endl;
+        }
+    }while(!esSoloNumeros(cuitCliente));
 
     Cliente ClienteEncontrado;
+
     ClienteEncontrado = Cliente_M.buscarCuit(cuitCliente); //Cliente_M.buscarCuit(cuitCliente) <- retorna un cliente, si fue encontrado su ID siempre será mayor a 0
     // Si no existe el CUIT en la tabla de Clientes, informarle al usuario y crear un nuevo cliente.
 
@@ -57,7 +67,7 @@ void VentaManager::cargarVenta(){
             cin>>eleccion;
 
             if(eleccion==1){
-                Cliente_M.cargarCliente(); //TODO: Que no me vuelva a pedir el CUIT
+                Cliente_M.cargarCliente(cuitCliente); //TODO: Que no me vuelva a pedir el CUIT
                 flag=true;
             }
             else{

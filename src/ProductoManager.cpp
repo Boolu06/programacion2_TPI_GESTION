@@ -121,10 +121,7 @@ void ProductoManager::listarProductos(){
 
     bool flag=true;
     int opc;
-    string marca;
-    string tipo;
 
-    bool productoEncontrado=false;
     while(flag==true){
         system("cls");
         cout<<"===== MENU PRODUCTOS ====="<<endl;
@@ -138,50 +135,8 @@ void ProductoManager::listarProductos(){
         cin>>opc;
 
         switch(opc){
-            case 1:
-                system("cls");
-                cout<<"Ingrese la marca"<<endl;
-                cin.ignore();
-                getline(cin,marca);
-
-                for(int i=0; i<cantidad; i++){
-                    if(aMinusculas(vectorProductos[i].getMarca()) == aMinusculas(marca) && vectorProductos[i].getOculto() == false){
-                        mostrarUnProducto(vectorProductos[i].getIdProducto(),
-                                         vectorProductos[i].getPrecioUnitario(),
-                                         vectorProductos[i].getDescripcion(),
-                                         vectorProductos[i].getMarca(),
-                                         vectorProductos[i].getTipo(),
-                                         vectorProductos[i].getStock()
-                                         );
-                        productoEncontrado=true;
-                    }
-                }
-                if(!productoEncontrado){
-                    cout<<"Marca no encontrada"<<endl;
-                    system("pause");
-                }
-                else{
-                    system("pause");
-                }
-            break;
-            case 2:
-                system("cls");
-                cout<<"Ingrese el tipo de producto"<<endl;
-                cin>>tipo;
-
-                for(int i=0; i<cantidad; i++){
-                    if(vectorProductos[i].getTipo() == tipo && vectorProductos[i].getOculto() == false){
-                        mostrarUnProducto(vectorProductos[i].getIdProducto(),
-                                         vectorProductos[i].getPrecioUnitario(),
-                                         vectorProductos[i].getDescripcion(),
-                                         vectorProductos[i].getMarca(),
-                                         vectorProductos[i].getTipo(),
-                                         vectorProductos[i].getStock()
-                                         );
-                    }
-                }
-                system("pause");
-            break;
+            case 1: filtrarPorMarca(vectorProductos, cantidad); break;
+            case 2: filtrarPorTipo(vectorProductos, cantidad); break;
             case 3:
                 system("cls");
                 for (int i=0; i<cantidad; i++ ){
@@ -201,8 +156,56 @@ void ProductoManager::listarProductos(){
             default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
     }
-
     delete[]vectorProductos;
+}
+
+void ProductoManager::filtrarPorMarca(Producto vectorProductos[], int cantidadRegistros){
+    string marca;
+    bool productoEncontrado=false;
+
+    system("cls");
+    cout<<"Ingrese la marca"<<endl;
+    cin.ignore();
+    getline(cin,marca);
+
+    for(int i=0; i<cantidadRegistros; i++){
+        if(aMinusculas(vectorProductos[i].getMarca()) == aMinusculas(marca) && vectorProductos[i].getOculto() == false){
+            mostrarUnProducto(vectorProductos[i].getIdProducto(),
+                             vectorProductos[i].getPrecioUnitario(),
+                             vectorProductos[i].getDescripcion(),
+                             vectorProductos[i].getMarca(),
+                             vectorProductos[i].getTipo(),
+                             vectorProductos[i].getStock()
+                             );
+            productoEncontrado=true;
+        }
+    }
+    if(!productoEncontrado){
+        cout<<"Marca no encontrada"<<endl;
+        system("pause");
+    }
+    else{
+        system("pause");
+    }
+}
+
+void ProductoManager::filtrarPorTipo(Producto vectorProductos[], int cantidadRegistros){
+    string tipo;
+    cout<<"Ingrese el tipo de producto"<<endl;
+    cin>>tipo;
+
+    for(int i=0; i<cantidadRegistros; i++){
+        if(vectorProductos[i].getTipo() == tipo && vectorProductos[i].getOculto() == false){
+            mostrarUnProducto(vectorProductos[i].getIdProducto(),
+                             vectorProductos[i].getPrecioUnitario(),
+                             vectorProductos[i].getDescripcion(),
+                             vectorProductos[i].getMarca(),
+                             vectorProductos[i].getTipo(),
+                             vectorProductos[i].getStock()
+                             );
+        }
+    }
+    system("pause");
 }
 
 Producto ProductoManager::buscarId(int idProducto){
@@ -364,10 +367,6 @@ bool ProductoManager::descontarStock(int idProductoModificar, int cantidadStockV
 
     delete []vectorProductos;
 }
-
-
-
-
 
 void ProductoManager::mostrarUnProducto(int idProducto, float precioUnitario, std::string descripcion,std::string marca, std::string tipo, int stock){
     cout << "----------ID Producto: "<<idProducto<<" ------------" << endl;
