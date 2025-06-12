@@ -130,3 +130,23 @@ bool esSoloNumeros(std::string cuit){
         return false;
     }
 }
+
+bool esSoloLetras(std::string palabra){
+    bool flag = true;
+    int i=0;
+
+    while(flag){
+        if(palabra[i]>='A' && palabra[i]<='z'){ // Con que alguno de estos caracteres no corresponda a un numero, devuelve falso.
+            i++;
+            if(i==palabra.length()){
+                return true;
+            }
+        }
+        else{
+            flag = false;
+        }
+    }
+    if(flag == false){
+        return false;
+    }
+}

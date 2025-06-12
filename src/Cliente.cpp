@@ -65,7 +65,6 @@ int Cliente::setId(const int id){
 }
 
 bool Cliente::setCuit(const std::string &cuit){
-
     if(cuit.size() == 11 && esSoloNumeros(cuit) == true){
         strcpy(_cuit, cuit.c_str()); // Conversion de string a char
         return true;
@@ -76,8 +75,10 @@ bool Cliente::setCuit(const std::string &cuit){
 }
 bool Cliente::setNombre(const std::string &nombre){
     if(nombre.size() < 30 && nombre.size() > 0){
-        strcpy(_nombre, nombre.c_str());
-        return true;
+        if(esSoloLetras(nombre) == true){
+            strcpy(_nombre, nombre.c_str());
+            return true;
+        }
     }
     else{
         return false;

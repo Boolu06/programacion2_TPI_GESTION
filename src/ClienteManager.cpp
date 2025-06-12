@@ -46,9 +46,9 @@ void ClienteManager::cargarCliente(const std::string &cuit){
         datoCorrecto = nuevoCliente.setNombre(nombre);
 
         if(!datoCorrecto){
-            cout << " ------------------------------------------------------ " << endl;
-            cout << "|El nombre debe tener al menos 1 caracter y menos de 30|" << endl;
-            cout << " ------------------------------------------------------ "  << endl << endl;
+            cout << " ----------------------------------------------------------------------------------- " << endl;
+            cout << "|El nombre debe tener al menos 1 caracter, menos de 30 y no tiene que tener espacios|" << endl;
+            cout << " ------------------------------------------------------ ---------------------------- "  << endl << endl;
         }
     }
 
