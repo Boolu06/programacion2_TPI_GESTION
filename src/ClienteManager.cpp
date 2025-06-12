@@ -2,7 +2,7 @@
 #include <cstring>
 #include "Cliente.h"
 #include "ClienteManager.h"
-
+#include "Funciones.h"
 using namespace std;
 
 void ClienteManager::cargarCliente(const std::string &cuit){
@@ -150,7 +150,7 @@ void ClienteManager::listarClientes(){
         cout<<"---------------------------"<<endl;
         cout<<" 1. Filtrar por ID de cliente"<<endl;
         cout<<" 2. Filtrar por CUIT"<<endl;
-        cout<<" 3. Filtrar por nombre"<<endl;
+        cout<<" 3. Filtrar por Nombre"<<endl;
         cout<<" 4. Filtrar por Apellido"<<endl;
         cout<<" 5. Filtrar por tipo de cliente"<<endl;
         cout<<" 6. Listar todos los clientes"<<endl;
@@ -162,9 +162,9 @@ void ClienteManager::listarClientes(){
         switch(opc){
             case 1: filtrarPorId(vectorClientes,cantidad); break;
             case 2: filtrarPorCuit(vectorClientes,cantidad); break;
-            //case 3: modificarVenta(); break;
-            //case 4: _vManager.listarVentas(); break;
-            //case 5: _dManager.listarDetalles(); break;
+            case 3: filtrarPorNombre(vectorClientes,cantidad); break;
+            case 4: filtrarPorApellido(vectorClientes,cantidad); break;
+            case 5: filtrarPorTipo(vectorClientes,cantidad); break;
 
             case 6:{
                     for (int i=0; i < cantidad; i++ ){
@@ -247,6 +247,89 @@ void ClienteManager::filtrarPorCuit(Cliente vectorClientes[], int cantidadRegist
     }
     else{
         cout<<"ID invalido"<<endl;
+        system("pause");
+    }
+}
+
+void ClienteManager::filtrarPorNombre(Cliente vectorClientes[], int cantidadRegistros){
+    string nombreCliente;
+    cout<<"Ingrese el nombre del cliente que desea buscar: "<<endl;
+    cin.ignore();
+    getline(cin,nombreCliente);
+
+    if(!nombreCliente.empty()){
+        for (int i=0; i < cantidadRegistros; i++ ){
+            if(aMinusculas(vectorClientes[i].getNombre())== aMinusculas(nombreCliente) && vectorClientes[i].getOculto()== false){
+                mostrarUnCliente(vectorClientes[i].getId(),
+                                 vectorClientes[i].getCuit(),
+                                 vectorClientes[i].getNombre(),
+                                 vectorClientes[i].getApellido(),
+                                 vectorClientes[i].getTelefono(),
+                                 vectorClientes[i].getEmail(),
+                                 vectorClientes[i].getDireccion(),
+                                 vectorClientes[i].getTipoCliente()
+                                 );
+            }
+        }
+
+    }
+    else{
+        cout<<"nombre invalido"<<endl;
+        system("pause");
+    }
+}
+
+void ClienteManager::filtrarPorApellido(Cliente vectorClientes[], int cantidadRegistros){
+    string apellidoCliente;
+    cout<<"Ingrese el apellido del cliente que desea buscar: "<<endl;
+    cin.ignore();
+    getline(cin,apellidoCliente);
+
+    if(!apellidoCliente.empty()){
+        for (int i=0; i < cantidadRegistros; i++ ){
+            if(aMinusculas(vectorClientes[i].getApellido())== aMinusculas(apellidoCliente) && vectorClientes[i].getOculto()== false){
+                mostrarUnCliente(vectorClientes[i].getId(),
+                                 vectorClientes[i].getCuit(),
+                                 vectorClientes[i].getNombre(),
+                                 vectorClientes[i].getApellido(),
+                                 vectorClientes[i].getTelefono(),
+                                 vectorClientes[i].getEmail(),
+                                 vectorClientes[i].getDireccion(),
+                                 vectorClientes[i].getTipoCliente()
+                                 );
+            }
+        }
+
+    }
+    else{
+        cout<<"apellido invalido"<<endl;
+        system("pause");
+    }
+}
+
+void ClienteManager::filtrarPorTipo(Cliente vectorClientes[], int cantidadRegistros){
+    int tipoCliente;
+    cout<<"Ingrese el tipo cliente que desea buscar: "<<endl;
+    cin>> tipoCliente;
+
+    if(tipoCliente > 0 && tipoCliente < 3){
+        for (int i=0; i < cantidadRegistros; i++ ){
+            if(vectorClientes[i].getTipoCliente()== tipoCliente && vectorClientes[i].getOculto()== false){
+                mostrarUnCliente(vectorClientes[i].getId(),
+                                 vectorClientes[i].getCuit(),
+                                 vectorClientes[i].getNombre(),
+                                 vectorClientes[i].getApellido(),
+                                 vectorClientes[i].getTelefono(),
+                                 vectorClientes[i].getEmail(),
+                                 vectorClientes[i].getDireccion(),
+                                 vectorClientes[i].getTipoCliente()
+                                 );
+            }
+        }
+
+    }
+    else{
+        cout<<"tipo invalido"<<endl;
         system("pause");
     }
 }
