@@ -203,7 +203,7 @@ void VentaManager::listarVentas(){
 
     _archivo.leerVector(vectorVentas, cantidad); // esta funcion mete en el vectorProductos los productos que consiga en el archivo.dat.
 
-            case 1: filtrarPorIDFactura(vectorVentas, cantidad); break;
+
     bool flag=true;
     int opc;
 
@@ -223,8 +223,10 @@ void VentaManager::listarVentas(){
         cin>>opc;
         system("cls");
         switch(opc){
-            //case 2: filtrarPorIDCliente(vectorVentas, cantidad); break;
+            case 1: filtrarPorIdFactura(vectorVentas, cantidad); break;
+            case 2: filtrarPorIdCliente(vectorVentas, cantidad); break;
             case 3: filtrarPorCuit(vectorVentas,cantidad) ; break;
+            case 4: filtrarPorFecha(vectorVentas,cantidad) ; break;
             case 6:
                 system("cls");
                 for (int i=0; i < cantidad; i++ ){
@@ -245,6 +247,28 @@ void VentaManager::listarVentas(){
     delete[]vectorVentas;
 }
 
+void VentaManager::filtrarPorIdCliente(Venta vectorVentas[], int cantidadRegistros){
+
+    int idCliente=0;
+    cout<<"Ingrese el ID del cliente que desea buscar: "<<endl;
+    cin >> idCliente;
+    if(idCliente>0){
+        for(int i=0; i < cantidadRegistros; i++ ){
+            if(vectorVentas[i].getIdCliente()==idCliente && vectorVentas[i].getOculto()== false){
+                mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                     vectorVentas[i].getIdCliente(),
+                                     vectorVentas[i].getFechaVenta(),
+                                     vectorVentas[i].getImporteTotal()
+                                     );
+            }
+        }
+        system("pause");
+    }
+    else{
+        cout<<"ID invalido"<<endl;
+        system("pause");
+    }
+}
 
 void VentaManager::filtrarPorCuit(Venta vectorVentas[], int cantidadRegistros){
     ClienteManager Cliente_M;
@@ -279,6 +303,74 @@ void VentaManager::filtrarPorCuit(Venta vectorVentas[], int cantidadRegistros){
 
 }
 
+void VentaManager::filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros){
+    bool datoCorrecto = false;
+    bool fechaEncontrada = false;
+    int diaIngresado, mesIngresado, anioIngresado;
+    cout<<"Ingrese la fecha que desea buscar en ventas : "<<endl;
+
+
+    while(!datoCorrecto){
+        cout<<"Dia: ";
+        cin >> diaIngresado;
+        cout<<endl;
+        if(diaIngresado > 0 && diaIngresado < 32){
+            datoCorrecto = true;
+        }
+        else{
+            cout << " --------------------- " << endl;
+            cout << "|ingrese un dia valido|" << endl;
+            cout << " --------------------- "  << endl << endl;
+        }
+    }
+    datoCorrecto=false;
+    while(!datoCorrecto){
+        cout<<"Mes: ";
+        cin >> mesIngresado;
+        cout<<endl;
+        if(mesIngresado > 0 && mesIngresado < 13){
+            datoCorrecto = true;
+        }
+        else{
+            cout << " --------------------- " << endl;
+            cout << "|ingrese un mes valido|" << endl;
+            cout << " --------------------- "  << endl << endl;
+        }
+    }
+    datoCorrecto=false;
+    while(!datoCorrecto){
+        cout<<"Anio: ";
+        cin >> anioIngresado;
+        cout<<endl;
+        if(anioIngresado > 1900 && anioIngresado < 3000){
+            datoCorrecto = true;
+        }
+        else{
+            cout << " --------------------- " << endl;
+            cout << "|ingrese un anio valido|" << endl;
+            cout << " --------------------- "  << endl << endl;
+        }
+    }
+
+    for(int i=0; i < cantidadRegistros; i++ ){
+            if(vectorVentas[i].getFechaVenta().getDia() == diaIngresado && vectorVentas[i].getFechaVenta().getMes()== mesIngresado && vectorVentas[i].getFechaVenta().getAnio()== anioIngresado){
+                mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                     vectorVentas[i].getIdCliente(),
+                                     vectorVentas[i].getFechaVenta(),
+                                     vectorVentas[i].getImporteTotal()
+                                     );
+                fechaEncontrada = true;
+            }
+
+
+    }
+    system("pause");
+    if(!fechaEncontrada){
+        cout << "Fecha no encontrada"<< endl;
+    }
+
+}
+
 void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal){
     cout << "----------ID Factura: "<<idFactura<<" ------------" << endl;
         cout << "ID Cliente: " << idCliente << endl;
@@ -287,7 +379,7 @@ void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVent
         cout << "-----------------------------" << endl;
 }
 
-void VentaManager::filtrarPorIDFactura(Venta vectorVentas[], int cantidadRegistros){
+void VentaManager::filtrarPorIdFactura(Venta vectorVentas[], int cantidadRegistros){
     int id;
     bool ventaEncontrada=false;
 
