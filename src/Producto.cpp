@@ -1,5 +1,6 @@
 #include<iostream>
 #include <cstring>
+#include "Funciones.h"
 #include "Producto.h"
 
 using namespace std;
@@ -46,7 +47,7 @@ bool Producto::setIdProducto(int idProducto) {
 }
 
 bool Producto::setPrecioUnitario(float precioUnitario) {
-    if(precioUnitario > 0){
+    if(precioUnitario > 0 && esSoloNumeros(precioUnitario) == true){
         _precioUnitario = precioUnitario;
         return true;
     }
@@ -55,7 +56,7 @@ bool Producto::setPrecioUnitario(float precioUnitario) {
     }
 }
 
-bool Producto::setDescripcion(const std::string& descripcion) {
+bool Producto::setDescripcion(const std::string &descripcion) {
     if (descripcion.size() > 0 && descripcion.size() < 50) {
         strncpy(_descripcion, descripcion.c_str(), 49);
         _descripcion[49] = '\0';
@@ -66,7 +67,7 @@ bool Producto::setDescripcion(const std::string& descripcion) {
     }
 }
 
-bool Producto::setMarca(const std::string& marca) {
+bool Producto::setMarca(const std::string &marca) {
     if (marca.size() > 0 && marca.size() < 15) {
         strncpy(_marca, marca.c_str(), 14);
         _marca[14] = '\0';
@@ -77,11 +78,16 @@ bool Producto::setMarca(const std::string& marca) {
     }
 }
 
-bool Producto::setTipo(const std::string& tipo) {
+bool Producto::setTipo(const std::string &tipo) {
     if (tipo.size() > 0 && tipo.size() < 15) {
-        strncpy(_tipo, tipo.c_str(), 14);
-        _tipo[14] = '\0';
-        return true;
+        if(esSoloLetras(tipo) == true){
+            strncpy(_tipo, tipo.c_str(), 14);
+            _tipo[14] = '\0';
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     else{
         return false;

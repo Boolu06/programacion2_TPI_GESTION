@@ -13,7 +13,6 @@ public:
     void filtrarPorIdFactura(Venta vectorVentas[], int cantidadRegistros);
     void filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros);
     void mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);
-   // void mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);
    // void modificarVenta();
    // void borrarVenta();
 private:

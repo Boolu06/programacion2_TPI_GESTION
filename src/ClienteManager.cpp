@@ -74,9 +74,9 @@ void ClienteManager::cargarCliente(const std::string &cuit){
         datoCorrecto = nuevoCliente.setTelefono(telefono);
 
         if(!datoCorrecto){
-            cout << " ------------------------------------ " << endl;
-            cout << "|El telefono debe tener 11 caracteres|" << endl;
-            cout << " ------------------------------------ " << endl << endl;
+            cout << " ---------------------------------------------- " << endl;
+            cout << "|El telefono debe tener 11 caracteres numericos|" << endl;
+            cout << " ---------------------------------------------- " << endl << endl;
         }
     }
 

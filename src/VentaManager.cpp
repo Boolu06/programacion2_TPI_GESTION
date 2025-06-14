@@ -67,7 +67,7 @@ void VentaManager::cargarVenta(){
             cin>>eleccion;
 
             if(eleccion==1){
-                Cliente_M.cargarCliente(cuitCliente); //TODO: Que no me vuelva a pedir el CUIT
+                Cliente_M.cargarCliente(cuitCliente);
                 flag=true;
             }
             else{
@@ -371,14 +371,6 @@ void VentaManager::filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros){
 
 }
 
-void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal){
-    cout << "----------ID Factura: "<<idFactura<<" ------------" << endl;
-        cout << "ID Cliente: " << idCliente << endl;
-        cout << "Fecha : " << fechaVenta.getDia() << "/" << fechaVenta.getMes()<<"/"<< fechaVenta.getAnio() << endl;
-        cout << "Importe Total: "<< to_string(importeTotal)<< "$" <<endl;
-        cout << "-----------------------------" << endl;
-}
-
 void VentaManager::filtrarPorIdFactura(Venta vectorVentas[], int cantidadRegistros){
     int id;
     bool ventaEncontrada=false;
@@ -405,9 +397,15 @@ void VentaManager::filtrarPorIdFactura(Venta vectorVentas[], int cantidadRegistr
         system("pause");
     }
 }
-//Metodo para filtrar por idCliente
-//Metodo para filtrar por cuit de cliente
-//Metodo para filtrar por fecha
+
+void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal){
+    cout << "----------ID Factura: "<<idFactura<<" ------------" << endl;
+        cout << "ID Cliente: " << idCliente << endl;
+        cout << "Fecha : " << fechaVenta.getDia() << "/" << fechaVenta.getMes()<<"/"<< fechaVenta.getAnio() << endl;
+        cout << "Importe Total: "<< to_string(importeTotal)<< "$" <<endl;
+        cout << "-----------------------------" << endl;
+}
+
 //Metodo para filtrar por importe <- a revisar
 
 /*

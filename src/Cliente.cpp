@@ -79,6 +79,9 @@ bool Cliente::setNombre(const std::string &nombre){
             strcpy(_nombre, nombre.c_str());
             return true;
         }
+        else{
+            return false;
+        }
     }
     else{
         return false;
@@ -87,15 +90,20 @@ bool Cliente::setNombre(const std::string &nombre){
 }
 bool Cliente::setApellido(const std::string &apellido){
     if(apellido.size() < 30 && apellido.size() > 0){
-        strcpy(_apellido, apellido.c_str());
-        return true;
+        if(esSoloLetras(apellido) == true){
+            strcpy(_apellido, apellido.c_str());
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     else{
         return false;
     }
 }
 bool Cliente::setTelefono(const std::string &telefono){
-    if(telefono.size() == 11){
+    if(telefono.size() == 11 && esSoloNumeros(telefono) == true){
         strcpy(_telefono, telefono.c_str());
         return true;
     }
@@ -123,7 +131,7 @@ bool Cliente::setDireccion(const std::string &direccion){
     }
 }
 bool Cliente::setTipoCliente(int tipoCliente){
-    if( tipoCliente > 0 && tipoCliente< 3){
+    if( tipoCliente > 0 && tipoCliente < 3){
        _tipoCliente=tipoCliente;
         return true;
     }

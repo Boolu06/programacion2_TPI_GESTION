@@ -29,8 +29,8 @@ void ProductoManager::cargarProducto(){
     while(!datoCorrecto){
         cout<<"Ingrese el tipo de producto: "<<endl;
         getline(cin, tipo);
-        datoCorrecto = nuevoProducto.setTipo(tipo);
 
+        datoCorrecto = nuevoProducto.setTipo(tipo);
         if(!datoCorrecto){
             cout << " ----------------------------------------------- " << endl;
             cout << "| El tipo debe tener entre 1 y 14 caracteres     |" << endl;
@@ -42,28 +42,28 @@ void ProductoManager::cargarProducto(){
 
     while(!datoCorrecto){
         cout<<"Ingrese el precio: "<<endl;
-        cin>>precioUnitario;
+        cin>>precioUnitario; // El cin simple si le agrego letras van a quedar en el buffer
+
         datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
 
         if(!datoCorrecto){
             cout << " ------------------------------- " << endl;
-            cout << "| El precio unitario debe ser un número mayor que 0 |" << endl;
+            cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
             cout << " ------------------------------- " << endl << endl;
         }
     }
-
+    cin.ignore();
     datoCorrecto = false; // resetar el booleando para ingresar al proximo bucle
 
 
     while(!datoCorrecto){
         cout<<"Ingrese la descripcion: "<<endl;
-        cin.ignore();
         getline(cin, descripcion);
         datoCorrecto = nuevoProducto.setDescripcion(descripcion);
 
         if(!datoCorrecto){
             cout << " -------------------------------------------------- " << endl;
-            cout << "| La descripción debe tener entre 1 y 49 caracteres |" << endl;
+            cout << "| La descripcion debe tener entre 1 y 49 caracteres |" << endl;
             cout << " -------------------------------------------------- " << endl << endl;
         }
     }
