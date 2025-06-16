@@ -26,7 +26,7 @@ void menuClientes(){
         cout<<" 1. AGREGAR CLIENTE"<<endl;
         cout<<" 2. BORRAR CLIENTE"<<endl;
         cout<<" 3. MODIFICAR CLIENTE"<<endl;
-            cout<<" 4. LISTAR CLIENTES"<<endl;
+        cout<<" 4. LISTAR CLIENTES"<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
 
@@ -139,6 +139,27 @@ bool esSoloNumeros(float numero){
 
     while(flag){
         if((numeroCadena[i]>='0' && numeroCadena[i]<='9') || (numeroCadena[i]=='.')){ //Con que alguno de estos caracteres no corresponda a un numero, devuelve falso.
+            i++;
+            if(i==numeroCadena.length()){
+                return true;
+            }
+        }
+        else{
+            flag = false;
+        }
+    }
+    if(flag == false){
+        return false;
+    }
+}
+
+bool esSoloNumeros(int numero){
+    string numeroCadena = to_string(numero);
+    bool flag = true;
+    int i=0;
+
+    while(flag){
+        if(numeroCadena[i]>='0' && numeroCadena[i]<='9'){ //Con que alguno de estos caracteres no corresponda a un numero, devuelve falso.
             i++;
             if(i==numeroCadena.length()){
                 return true;

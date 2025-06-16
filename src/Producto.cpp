@@ -95,7 +95,7 @@ bool Producto::setTipo(const std::string &tipo) {
 }
 
 bool Producto::setStock(int stock) {
-    if (stock >= 0) {
+    if(stock >= 0 && esSoloNumeros(stock) == true) {
         _stock = stock;
         return true;
     }

@@ -60,9 +60,9 @@ void ClienteManager::cargarCliente(const std::string &cuit){
         datoCorrecto = nuevoCliente.setApellido(apellido);
 
         if(!datoCorrecto){
-            cout << " -------------------------------------------------------- " << endl;
-            cout << "|El apellido debe tener al menos 1 caracter y menos de 30|" << endl;
-            cout << " -------------------------------------------------------- " << endl<< endl;
+            cout << " ---------------------------------------------------------------------- " << endl;
+            cout << "|El apellido debe ser numerico, tener al menos 1 caracter y menos de 30|" << endl;
+            cout << " ---------------------------------------------------------------------- " << endl<< endl;
         }
     }
 
@@ -117,9 +117,6 @@ void ClienteManager::cargarCliente(const std::string &cuit){
         if(cin.fail()){
             cin.clear();
             cin.ignore(1000,'\n');
-            cout << " ------------------------------ " << endl;
-            cout << "| Selecciona una opcion valida |" << endl;
-            cout << " ------------------------------ " << endl << endl;
         }
         datoCorrecto = nuevoCliente.setTipoCliente(tipo);
 
@@ -145,6 +142,7 @@ void ClienteManager::cargarCliente(const std::string &cuit){
 
 
 void ClienteManager::listarClientes(){
+    system("cls");
     int cantidad = _archivo.getCantidadRegistros();
     Cliente *vectorClientes;
     vectorClientes = new Cliente[cantidad];
@@ -154,6 +152,7 @@ void ClienteManager::listarClientes(){
     int opc;
     bool flag = true;
     while(flag==true){
+        cout<<"===== MENU CLIENTES ====="<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 1. Filtrar por ID de cliente"<<endl;
         cout<<" 2. Filtrar por CUIT"<<endl;
@@ -195,25 +194,19 @@ void ClienteManager::listarClientes(){
             default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
     }
-
-    system("pause");
-
-
-
-
     delete[]vectorClientes;
 }
 
 void ClienteManager::filtrarPorId(Cliente vectorClientes[], int cantidadRegistros){
-    int idCliente=0;
+    int idCliente;
+    bool clienteEncontrado=false;
+
+    system("cls");
     cout<<"Ingrese el ID del cliente que desea buscar: "<<endl;
-    cin >> idCliente;
+    cin>>idCliente;
     if(cin.fail()){
         cin.clear();
         cin.ignore(1000,'\n');
-        cout << " --------------------------- " << endl;
-        cout << "| Ingrese una opcion valida |" << endl;
-        cout << " --------------------------- " << endl << endl;
     }
     if(idCliente>0){
         for(int i=0; i < cantidadRegistros; i++ ){
@@ -227,114 +220,128 @@ void ClienteManager::filtrarPorId(Cliente vectorClientes[], int cantidadRegistro
                                  vectorClientes[i].getDireccion(),
                                  vectorClientes[i].getTipoCliente()
                                  );
+                clienteEncontrado=true;
             }
         }
     }
-    else{
-        cout<<"ID invalido"<<endl;
-        system("pause");
+    if(!clienteEncontrado){
+        cout << " --------------------------- " << endl;
+        cout << "| No se encontro el cliente |" << endl;
+        cout << " --------------------------- " << endl << endl;
     }
-
+    system("pause");
+    system("cls");
 }
 
 void ClienteManager::filtrarPorCuit(Cliente vectorClientes[], int cantidadRegistros){
     string cuitCliente;
+    bool clienteEncontrado=false;
+
+    system("cls");
     cout<<"Ingrese el CUIT del cliente que desea buscar: "<<endl;
     cin.ignore();
     getline(cin,cuitCliente);
 
-    if(!cuitCliente.empty()){
-        for (int i=0; i < cantidadRegistros; i++ ){
-            if(vectorClientes[i].getCuit()==cuitCliente && vectorClientes[i].getOculto()== false){
-                mostrarUnCliente(vectorClientes[i].getId(),
-                                 vectorClientes[i].getCuit(),
-                                 vectorClientes[i].getNombre(),
-                                 vectorClientes[i].getApellido(),
-                                 vectorClientes[i].getTelefono(),
-                                 vectorClientes[i].getEmail(),
-                                 vectorClientes[i].getDireccion(),
-                                 vectorClientes[i].getTipoCliente()
-                                 );
-            }
+    for(int i=0; i < cantidadRegistros; i++ ){
+        if(vectorClientes[i].getCuit()==cuitCliente && vectorClientes[i].getOculto()== false){
+            mostrarUnCliente(vectorClientes[i].getId(),
+                             vectorClientes[i].getCuit(),
+                             vectorClientes[i].getNombre(),
+                             vectorClientes[i].getApellido(),
+                             vectorClientes[i].getTelefono(),
+                             vectorClientes[i].getEmail(),
+                             vectorClientes[i].getDireccion(),
+                             vectorClientes[i].getTipoCliente()
+                             );
+            clienteEncontrado=true;
         }
-
     }
-    else{
-        cout<<"ID invalido"<<endl;
-        system("pause");
+    if(!clienteEncontrado){
+        cout << " --------------------------- " << endl;
+        cout << "| No se encontro el cliente |" << endl;
+        cout << " --------------------------- " << endl << endl;
     }
+    system("pause");
+    system("cls");
 }
 
 void ClienteManager::filtrarPorNombre(Cliente vectorClientes[], int cantidadRegistros){
     string nombreCliente;
+    bool clienteEncontrado=false;
+
+    system("cls");
     cout<<"Ingrese el nombre del cliente que desea buscar: "<<endl;
     cin.ignore();
     getline(cin,nombreCliente);
 
-    if(!nombreCliente.empty()){
-        for (int i=0; i < cantidadRegistros; i++ ){
-            if(aMinusculas(vectorClientes[i].getNombre())== aMinusculas(nombreCliente) && vectorClientes[i].getOculto()== false){
-                mostrarUnCliente(vectorClientes[i].getId(),
-                                 vectorClientes[i].getCuit(),
-                                 vectorClientes[i].getNombre(),
-                                 vectorClientes[i].getApellido(),
-                                 vectorClientes[i].getTelefono(),
-                                 vectorClientes[i].getEmail(),
-                                 vectorClientes[i].getDireccion(),
-                                 vectorClientes[i].getTipoCliente()
-                                 );
-            }
+    for(int i=0; i < cantidadRegistros; i++ ){
+        if(aMinusculas(vectorClientes[i].getNombre())== aMinusculas(nombreCliente) && vectorClientes[i].getOculto()== false){
+            mostrarUnCliente(vectorClientes[i].getId(),
+                             vectorClientes[i].getCuit(),
+                             vectorClientes[i].getNombre(),
+                             vectorClientes[i].getApellido(),
+                             vectorClientes[i].getTelefono(),
+                             vectorClientes[i].getEmail(),
+                             vectorClientes[i].getDireccion(),
+                             vectorClientes[i].getTipoCliente()
+                             );
+            clienteEncontrado=true;
         }
-
     }
-    else{
-        cout<<"nombre invalido"<<endl;
-        system("pause");
+    if(!clienteEncontrado){
+        cout << " --------------------------- " << endl;
+        cout << "| No se encontro un cliente |" << endl;
+        cout << " --------------------------- " << endl << endl;
     }
+    system("pause");
+    system("cls");
 }
 
 void ClienteManager::filtrarPorApellido(Cliente vectorClientes[], int cantidadRegistros){
     string apellidoCliente;
+    bool clienteEncontrado=false;
+
+    system("cls");
     cout<<"Ingrese el apellido del cliente que desea buscar: "<<endl;
     cin.ignore();
     getline(cin,apellidoCliente);
 
-    if(!apellidoCliente.empty()){
-        for (int i=0; i < cantidadRegistros; i++ ){
-            if(aMinusculas(vectorClientes[i].getApellido())== aMinusculas(apellidoCliente) && vectorClientes[i].getOculto()== false){
-                mostrarUnCliente(vectorClientes[i].getId(),
-                                 vectorClientes[i].getCuit(),
-                                 vectorClientes[i].getNombre(),
-                                 vectorClientes[i].getApellido(),
-                                 vectorClientes[i].getTelefono(),
-                                 vectorClientes[i].getEmail(),
-                                 vectorClientes[i].getDireccion(),
-                                 vectorClientes[i].getTipoCliente()
-                                 );
-            }
+    for(int i=0; i < cantidadRegistros; i++ ){
+        if(aMinusculas(vectorClientes[i].getApellido())== aMinusculas(apellidoCliente) && vectorClientes[i].getOculto()== false){
+            mostrarUnCliente(vectorClientes[i].getId(),
+                             vectorClientes[i].getCuit(),
+                             vectorClientes[i].getNombre(),
+                             vectorClientes[i].getApellido(),
+                             vectorClientes[i].getTelefono(),
+                             vectorClientes[i].getEmail(),
+                             vectorClientes[i].getDireccion(),
+                             vectorClientes[i].getTipoCliente()
+                             );
+            clienteEncontrado=true;
         }
-
     }
-    else{
-        cout<<"apellido invalido"<<endl;
-        system("pause");
+    if(!clienteEncontrado){
+        cout << " --------------------------- " << endl;
+        cout << "| No se encontro un cliente |" << endl;
+        cout << " --------------------------- " << endl << endl;
     }
+    system("pause");
+    system("cls");
 }
 
 void ClienteManager::filtrarPorTipo(Cliente vectorClientes[], int cantidadRegistros){
     int tipoCliente;
-    cout<<"Ingrese el tipo de cliente que desea buscar"<<endl;
-        cout<<"1. Particular"<<endl;
-        cout<<"2. Empresa"<<endl;
-        cin>>tipoCliente;
-        if(cin.fail()){
-            cin.clear();
-            cin.ignore(1000,'\n');
-            cout << " ------------------------------ " << endl;
-            cout << "| Selecciona una opcion valida |" << endl;
-            cout << " ------------------------------ " << endl << endl;
-        }
+    bool clienteEncontrado=false;
 
+    system("cls");
+    cout<<"Ingrese el tipo de cliente que desea buscar"<<endl;
+    cout<<"1. Particular"<<endl;
+    cout<<"2. Empresa"<<endl;
+    cin>>tipoCliente;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(1000,'\n');
+    }
     if(tipoCliente > 0 && tipoCliente < 3){
         for (int i=0; i < cantidadRegistros; i++ ){
             if(vectorClientes[i].getTipoCliente()== tipoCliente && vectorClientes[i].getOculto()== false){
@@ -347,14 +354,18 @@ void ClienteManager::filtrarPorTipo(Cliente vectorClientes[], int cantidadRegist
                                  vectorClientes[i].getDireccion(),
                                  vectorClientes[i].getTipoCliente()
                                  );
+                clienteEncontrado=true;
             }
         }
 
     }
-    else{
-        cout<<"Tipo invalido"<<endl;
-        system("pause");
+    if(!clienteEncontrado){
+        cout << " --------------------------- " << endl;
+        cout << "| Ingrese una opcion valida |" << endl;
+        cout << " --------------------------- " << endl << endl;
     }
+    system("pause");
+    system("cls");
 }
 
 Cliente ClienteManager::buscarCuit(std::string cuit){
@@ -382,16 +393,18 @@ void ClienteManager::modificarCliente(){
      _archivo.leerVector(vectorClientes, cantidadRegistros);
     int idClienteModificar;
 
+    system("cls");
     cout<< "Ingrese el ID del cliente que desea modificar: " <<endl;
     cin>> idClienteModificar;
     if(cin.fail()){
         cin.clear();
         cin.ignore(1000,'\n');
         cout << " ------------------------------ " << endl;
-        cout << "| Selecciona una opcion valida |" << endl;
+        cout << "| Ingrese una opcion valida |" << endl;
         cout << " ------------------------------ " << endl << endl;
     }
     int index = _archivo.buscarIndex(vectorClientes,cantidadRegistros,idClienteModificar);
+
     bool huboModificaciones= false;
 
     if(index >= 0){
@@ -440,6 +453,8 @@ void ClienteManager::modificarCliente(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 2:{
@@ -456,6 +471,8 @@ void ClienteManager::modificarCliente(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 3:{
@@ -465,13 +482,15 @@ void ClienteManager::modificarCliente(){
                         getline(cin, apellido);
                         datoCorrecto = vectorClientes[index].setApellido(apellido);
                         if(!datoCorrecto){
-                            cout << " -------------------------------------------------------- " << endl;
-                            cout << "|El apellido debe tener al menos 1 caracter y menos de 30|" << endl;
-                            cout << " -------------------------------------------------------- " << endl<< endl;
+                            cout << " ---------------------------------------------------------------------- " << endl;
+                            cout << "|El apellido debe ser numerico, tener al menos 1 caracter y menos de 30|" << endl;
+                            cout << " ---------------------------------------------------------------------- " << endl<< endl;
                         }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 4:{
@@ -488,6 +507,8 @@ void ClienteManager::modificarCliente(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 5:{
@@ -504,6 +525,8 @@ void ClienteManager::modificarCliente(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 6:{
@@ -520,6 +543,8 @@ void ClienteManager::modificarCliente(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 7:{
@@ -529,14 +554,11 @@ void ClienteManager::modificarCliente(){
                         cout<<"1. Particular"<<endl;
                         cout<<"2. Empresa"<<endl;
                         cin>>tipo;
-                        datoCorrecto = vectorClientes[index].setTipoCliente(tipo);
                         if(cin.fail()){
                             cin.clear();
                             cin.ignore(1000,'\n');
-                            cout << " ------------------------------ " << endl;
-                            cout << "| Selecciona una opcion valida |" << endl;
-                            cout << " ------------------------------ " << endl << endl;
                         }
+                        datoCorrecto = vectorClientes[index].setTipoCliente(tipo);
                         if(!datoCorrecto){
                             cout << " ------------------------------ " << endl;
                             cout << "| Selecciona una opcion valida |" << endl;
@@ -545,6 +567,8 @@ void ClienteManager::modificarCliente(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 8:{
@@ -558,10 +582,8 @@ void ClienteManager::modificarCliente(){
                         if(cin.fail()){
                             cin.clear();
                             cin.ignore(1000,'\n');
-                            cout << " ------------------------------ " << endl;
-                            cout << "| Selecciona una opcion valida |" << endl;
-                            cout << " ------------------------------ " << endl << endl;
                         }
+
                         if(opcion == 1){
                             estado = true;
                             datoCorrecto = vectorClientes[index].setOculto(estado);
@@ -570,34 +592,27 @@ void ClienteManager::modificarCliente(){
                             estado = false;
                             datoCorrecto = vectorClientes[index].setOculto(estado);
                         }
-                        else{
-                            system("cls");
+
+                        if(!datoCorrecto){
                             cout << " ------------------------------ " << endl;
                             cout << "| Selecciona una opcion valida |" << endl;
                             cout << " ------------------------------ " << endl << endl;
-
                         }
-
                     }
-                    huboModificaciones= true;
+                    datoCorrecto = false;
+                    huboModificaciones = true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
-                case 0: flag=false; system("cls"); break;
+                case 0: flag=false; break;
             }
         }
-
     }
-    else{
-        cout << "resultado de busqueda index: " << index << endl;
-        cout << "Id de cliente no encontrado chau" << endl;
-        system("pause");
-    }
-
-    cout << " tamos mandando el indexxxxxxxxxxxx: " << index;
     if(huboModificaciones){
         _archivo.modificar(vectorClientes[index], index);
     }
-
+    system("pause");
     delete []vectorClientes;
 }
 
@@ -620,14 +635,12 @@ void ClienteManager::borrarCliente(){
     _archivo.leerVector(vectorClientes, cantidadRegistros);
     int idClienteBorrar;
 
+    system("cls");
     cout<< "Ingrese el ID del cliente que desea borrar: " <<endl;
     cin>> idClienteBorrar;
     if(cin.fail()){
         cin.clear();
         cin.ignore(1000,'\n');
-        cout << " ------------------------------ " << endl;
-        cout << "| Selecciona una opcion valida |" << endl;
-        cout << " ------------------------------ " << endl << endl;
     }
 
     int index = _archivo.buscarIndex(vectorClientes,cantidadRegistros,idClienteBorrar);
@@ -669,8 +682,9 @@ void ClienteManager::borrarCliente(){
         }
     }
     else{
-        cout << "resultado de busqueda index: " << index << endl;
-        cout << "Id de cliente no encontrado chau" << endl;
+        cout << " ------------------------------ " << endl;
+        cout << "| ID de cliente no encontrado |" << endl;
+        cout << " ------------------------------ " << endl << endl;
         system("pause");
     }
     if(huboModificaciones){

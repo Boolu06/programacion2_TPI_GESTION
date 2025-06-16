@@ -46,16 +46,14 @@ void ProductoManager::cargarProducto(){
         if(cin.fail()){
             cin.clear();
             cin.ignore(1000,'\n');
-            cout<<"El precio unitario deben ser solo numeros"<<endl;
         }
-        else{
-            datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
 
-            if(!datoCorrecto){
-                cout << " ------------------------------- " << endl;
-                cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
-                cout << " ------------------------------- " << endl << endl;
-            }
+        datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
+
+        if(!datoCorrecto){
+            cout << " ------------------------------- " << endl;
+            cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
+            cout << " ------------------------------- " << endl << endl;
         }
     }
     cin.ignore();
@@ -93,12 +91,17 @@ void ProductoManager::cargarProducto(){
     while(!datoCorrecto){
         cout<<"Ingrese el stock o disponibilidad (numero): "<<endl;
         cin>> stock;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+        }
+
         datoCorrecto = nuevoProducto.setStock(stock);
 
         if(!datoCorrecto){
-            cout << " -------------------------------- " << endl;
-            cout << "| El stock no puede ser negativo |" << endl;
-            cout << " -------------------------------- " << endl << endl;
+            cout << " ---------------------------------- " << endl;
+            cout << "| El numero ingresado no es valido |" << endl;
+            cout << " ---------------------------------- " << endl << endl;
         }
     }
 

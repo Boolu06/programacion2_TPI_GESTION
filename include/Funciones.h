@@ -14,6 +14,7 @@ bool backUpRestaurar(std::string nombreArchivo);
 bool backUpRestaurarTodo();
 bool esSoloNumeros(std::string numero);
 bool esSoloNumeros(float numero);
+bool esSoloNumeros(int numero);
 bool esSoloLetras(std::string palabra);
 std::string aMinusculas(std::string palabra);
 
