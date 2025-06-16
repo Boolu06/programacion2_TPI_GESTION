@@ -43,13 +43,19 @@ void ProductoManager::cargarProducto(){
     while(!datoCorrecto){
         cout<<"Ingrese el precio: "<<endl;
         cin>>precioUnitario; // El cin simple si le agrego letras van a quedar en el buffer
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout<<"El precio unitario deben ser solo numeros"<<endl;
+        }
+        else{
+            datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
 
-        datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
-
-        if(!datoCorrecto){
-            cout << " ------------------------------- " << endl;
-            cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
-            cout << " ------------------------------- " << endl << endl;
+            if(!datoCorrecto){
+                cout << " ------------------------------- " << endl;
+                cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
+                cout << " ------------------------------- " << endl << endl;
+            }
         }
     }
     cin.ignore();
@@ -270,7 +276,17 @@ void ProductoManager::modificarProducto(){
                     while(!datoCorrecto){
                         cout<<"Ingrese el precio unitario del producto"<<endl;
                         cin>>precioUnitario;
+                        if(cin.fail()){
+                            cin.clear();
+                            cin.ignore(1000,'\n');
+                            cout<<"El precio unitario deben ser solo numeros"<<endl;
+                        }
                         datoCorrecto = vectorProductos[index].setPrecioUnitario(precioUnitario);
+                        if(!datoCorrecto){
+                            cout << " ------------------------------- " << endl;
+                            cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
+                            cout << " ------------------------------- " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;

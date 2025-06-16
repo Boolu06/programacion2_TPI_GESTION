@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "Funciones.h"
 
 using namespace std;
@@ -6,6 +7,7 @@ using namespace std;
 //TODO: Crear un cpp para menu. Utilizar una clase.
 
 int main(){
+    srand(time(0));
     int opc;
     bool flag=true;
 
