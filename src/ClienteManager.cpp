@@ -114,6 +114,13 @@ void ClienteManager::cargarCliente(const std::string &cuit){
         cout<<"1. Particular"<<endl;
         cout<<"2. Empresa"<<endl;
         cin>>tipo;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << " ------------------------------ " << endl;
+            cout << "| Selecciona una opcion valida |" << endl;
+            cout << " ------------------------------ " << endl << endl;
+        }
         datoCorrecto = nuevoCliente.setTipoCliente(tipo);
 
         if(!datoCorrecto){
@@ -201,6 +208,13 @@ void ClienteManager::filtrarPorId(Cliente vectorClientes[], int cantidadRegistro
     int idCliente=0;
     cout<<"Ingrese el ID del cliente que desea buscar: "<<endl;
     cin >> idCliente;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << " --------------------------- " << endl;
+        cout << "| Ingrese una opcion valida |" << endl;
+        cout << " --------------------------- " << endl << endl;
+    }
     if(idCliente>0){
         for(int i=0; i < cantidadRegistros; i++ ){
             if(vectorClientes[i].getId()==idCliente && vectorClientes[i].getOculto()== false){
@@ -309,8 +323,17 @@ void ClienteManager::filtrarPorApellido(Cliente vectorClientes[], int cantidadRe
 
 void ClienteManager::filtrarPorTipo(Cliente vectorClientes[], int cantidadRegistros){
     int tipoCliente;
-    cout<<"Ingrese el tipo cliente que desea buscar: "<<endl;
-    cin>> tipoCliente;
+    cout<<"Ingrese el tipo de cliente que desea buscar"<<endl;
+        cout<<"1. Particular"<<endl;
+        cout<<"2. Empresa"<<endl;
+        cin>>tipoCliente;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << " ------------------------------ " << endl;
+            cout << "| Selecciona una opcion valida |" << endl;
+            cout << " ------------------------------ " << endl << endl;
+        }
 
     if(tipoCliente > 0 && tipoCliente < 3){
         for (int i=0; i < cantidadRegistros; i++ ){
@@ -329,7 +352,7 @@ void ClienteManager::filtrarPorTipo(Cliente vectorClientes[], int cantidadRegist
 
     }
     else{
-        cout<<"tipo invalido"<<endl;
+        cout<<"Tipo invalido"<<endl;
         system("pause");
     }
 }
@@ -352,8 +375,6 @@ Cliente ClienteManager::buscarCuit(std::string cuit){
     }
 }
 
-
-
 void ClienteManager::modificarCliente(){
     int cantidadRegistros = _archivo.getCantidadRegistros();
     Cliente *vectorClientes;
@@ -363,6 +384,13 @@ void ClienteManager::modificarCliente(){
 
     cout<< "Ingrese el ID del cliente que desea modificar: " <<endl;
     cin>> idClienteModificar;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << " ------------------------------ " << endl;
+        cout << "| Selecciona una opcion valida |" << endl;
+        cout << " ------------------------------ " << endl << endl;
+    }
     int index = _archivo.buscarIndex(vectorClientes,cantidadRegistros,idClienteModificar);
     bool huboModificaciones= false;
 
@@ -404,6 +432,11 @@ void ClienteManager::modificarCliente(){
                         cout<<"Ingrese el CUIT"<<endl;
                         getline(cin, cuit);
                         datoCorrecto = vectorClientes[index].setCuit(cuit);
+                        if(!datoCorrecto){
+                            cout << " ------------------------------------------ " << endl;
+                            cout << "|El cuit debe tener 11 caracteres numericos|" << endl;
+                            cout << " ------------------------------------------ " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -415,6 +448,11 @@ void ClienteManager::modificarCliente(){
                         cout<<"Ingrese el nombre"<<endl;
                         getline(cin, nombre);
                         datoCorrecto = vectorClientes[index].setNombre(nombre);
+                        if(!datoCorrecto){
+                            cout << " ----------------------------------------------------------------------------------- " << endl;
+                            cout << "|El nombre debe tener al menos 1 caracter, menos de 30 y no tiene que tener espacios|" << endl;
+                            cout << " ------------------------------------------------------ ---------------------------- "  << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -426,6 +464,11 @@ void ClienteManager::modificarCliente(){
                         cout<<"Ingrese el apellido"<<endl;
                         getline(cin, apellido);
                         datoCorrecto = vectorClientes[index].setApellido(apellido);
+                        if(!datoCorrecto){
+                            cout << " -------------------------------------------------------- " << endl;
+                            cout << "|El apellido debe tener al menos 1 caracter y menos de 30|" << endl;
+                            cout << " -------------------------------------------------------- " << endl<< endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -437,6 +480,11 @@ void ClienteManager::modificarCliente(){
                         cout<<"Ingrese el telefono"<<endl;
                         getline(cin, telefono);
                         datoCorrecto = vectorClientes[index].setTelefono(telefono);
+                        if(!datoCorrecto){
+                            cout << " ---------------------------------------------- " << endl;
+                            cout << "|El telefono debe tener 11 caracteres numericos|" << endl;
+                            cout << " ---------------------------------------------- " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -448,6 +496,11 @@ void ClienteManager::modificarCliente(){
                         cout<<"Ingrese el email"<<endl;
                         getline(cin, email);
                         datoCorrecto = vectorClientes[index].setEmail(email);
+                        if(!datoCorrecto){
+                            cout << " ------------------------------------ " << endl;
+                            cout << "| El email no es valido              |" << endl;
+                            cout << " ------------------------------------ " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -459,6 +512,11 @@ void ClienteManager::modificarCliente(){
                         cout<<"Ingrese la direccion"<<endl;
                         getline(cin, direccion);
                         datoCorrecto = vectorClientes[index].setDireccion(direccion);
+                        if(!datoCorrecto){
+                            cout << " --------------------------------------------- " << endl;
+                            cout << "| Direccion no puede ser mas de 50 caracteres |" << endl;
+                            cout << " --------------------------------------------- " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -472,6 +530,18 @@ void ClienteManager::modificarCliente(){
                         cout<<"2. Empresa"<<endl;
                         cin>>tipo;
                         datoCorrecto = vectorClientes[index].setTipoCliente(tipo);
+                        if(cin.fail()){
+                            cin.clear();
+                            cin.ignore(1000,'\n');
+                            cout << " ------------------------------ " << endl;
+                            cout << "| Selecciona una opcion valida |" << endl;
+                            cout << " ------------------------------ " << endl << endl;
+                        }
+                        if(!datoCorrecto){
+                            cout << " ------------------------------ " << endl;
+                            cout << "| Selecciona una opcion valida |" << endl;
+                            cout << " ------------------------------ " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -485,7 +555,13 @@ void ClienteManager::modificarCliente(){
                         cout<<"1. Oculto"<<endl;
                         cout<<"2. Visible"<<endl;
                         cin>>opcion;
-
+                        if(cin.fail()){
+                            cin.clear();
+                            cin.ignore(1000,'\n');
+                            cout << " ------------------------------ " << endl;
+                            cout << "| Selecciona una opcion valida |" << endl;
+                            cout << " ------------------------------ " << endl << endl;
+                        }
                         if(opcion == 1){
                             estado = true;
                             datoCorrecto = vectorClientes[index].setOculto(estado);
@@ -546,6 +622,14 @@ void ClienteManager::borrarCliente(){
 
     cout<< "Ingrese el ID del cliente que desea borrar: " <<endl;
     cin>> idClienteBorrar;
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << " ------------------------------ " << endl;
+        cout << "| Selecciona una opcion valida |" << endl;
+        cout << " ------------------------------ " << endl << endl;
+    }
+
     int index = _archivo.buscarIndex(vectorClientes,cantidadRegistros,idClienteBorrar);
     bool huboModificaciones = false;
     if(index >= 0){
@@ -568,7 +652,7 @@ void ClienteManager::borrarCliente(){
 
         while (flag == true){
             cout<< "Que estas seguro que lo quieres borrar ? " <<endl<<endl;
-            cout<< "1. S1" <<endl;
+            cout<< "1. Si" <<endl;
             cout<< "0. Cancelar borrado"<<endl<<endl;
             cout<< "Opcion: ";
             cin >> opcion;

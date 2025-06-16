@@ -387,6 +387,11 @@ bool backUpRestaurar(std::string nombreArchivo){
         CodigoSeguridad[i]=rand() % 10;
     }
     */
+}
 
-
+bool backUpRestaurarTodo(){
+    backUpRestaurar("clientes.dat");
+    backUpRestaurar("productos.dat");
+    backUpRestaurar("detalleDeVenta.dat");
+    backUpRestaurar("ventas.dat");
 }

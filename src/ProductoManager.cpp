@@ -197,8 +197,11 @@ void ProductoManager::filtrarPorMarca(Producto vectorProductos[], int cantidadRe
 
 void ProductoManager::filtrarPorTipo(Producto vectorProductos[], int cantidadRegistros){
     string tipo;
+    bool productoEncontrado=false;
+    system("cls");
     cout<<"Ingrese el tipo de producto"<<endl;
-    cin>>tipo;
+    cin.ignore();
+    getline(cin,tipo);
 
     for(int i=0; i<cantidadRegistros; i++){
         if(vectorProductos[i].getTipo() == tipo && vectorProductos[i].getOculto() == false){
@@ -209,9 +212,16 @@ void ProductoManager::filtrarPorTipo(Producto vectorProductos[], int cantidadReg
                              vectorProductos[i].getTipo(),
                              vectorProductos[i].getStock()
                              );
+            productoEncontrado=true;
         }
     }
-    system("pause");
+    if(!productoEncontrado){
+        cout<<"Tipo de producto no encontrado"<<endl;
+        system("pause");
+    }
+    else{
+        system("pause");
+    }
 }
 
 Producto ProductoManager::buscarId(int idProducto){
@@ -298,6 +308,11 @@ void ProductoManager::modificarProducto(){
                         cout<<"Ingrese la descripcion"<<endl;
                         getline(cin, descripcion);
                         datoCorrecto = vectorProductos[index].setDescripcion(descripcion);
+                        if(!datoCorrecto){
+                            cout << " -------------------------------------------------- " << endl;
+                            cout << "| La descripcion debe tener entre 1 y 49 caracteres |" << endl;
+                            cout << " -------------------------------------------------- " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -309,6 +324,11 @@ void ProductoManager::modificarProducto(){
                         cout<<"Ingrese la marca"<<endl;
                         getline(cin, marca);
                         datoCorrecto = vectorProductos[index].setMarca(marca);
+                        if(!datoCorrecto){
+                            cout << " ----------------------------------------------- " << endl;
+                            cout << "| La marca debe tener entre 1 y 14 caracteres    |" << endl;
+                            cout << " ----------------------------------------------- " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -320,6 +340,11 @@ void ProductoManager::modificarProducto(){
                         cout<<"Ingrese el tipo"<<endl; //TODO: Se podrian ingresar validaciones o hacer un mini-menu para elegir el tipo (si es PC, notebook, impresora, periferico, etc)
                         getline(cin, tipo);
                         datoCorrecto = vectorProductos[index].setTipo(tipo);
+                        if(!datoCorrecto){
+                            cout << " ----------------------------------------------- " << endl;
+                            cout << "| El tipo debe tener entre 1 y 14 caracteres     |" << endl;
+                            cout << " ----------------------------------------------- " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
@@ -331,6 +356,11 @@ void ProductoManager::modificarProducto(){
                         cout<<"Ingrese el stock"<<endl;
                         cin>>stock;
                         datoCorrecto = vectorProductos[index].setStock(stock);
+                        if(!datoCorrecto){
+                            cout << " -------------------------------- " << endl;
+                            cout << "| El stock no puede ser negativo |" << endl;
+                            cout << " -------------------------------- " << endl << endl;
+                        }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
