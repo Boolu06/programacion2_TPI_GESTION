@@ -163,15 +163,23 @@ void VentaManager::cargarVenta(){
             cin>>eleccion;
 
             if(eleccion==1){
-                int dia, mes, anio;
-                cout<<"Ingrese el dia"<<endl;
-                cin>>dia;
-                cout<<"Ingrese el mes"<<endl;
-                cin>>mes;
-                cout<<"Ingrese el anio"<<endl;
-                cin>>anio;
-                fechaFactura = Fecha(dia, mes, anio);
-                flag = false;
+                bool fechaCorrecta;
+                while(!fechaCorrecta){
+                    int dia, mes, anio;
+                    cout<<"Ingrese el dia"<<endl;
+                    cin>>dia;
+                    cout<<"Ingrese el mes"<<endl;
+                    cin>>mes;
+                    cout<<"Ingrese el anio"<<endl;
+                    cin>>anio;
+                    fechaCorrecta = fechaFactura.SetFecha(dia,mes,anio);
+                    if(!fechaCorrecta){
+                        cout<<"El mes "<< mes << "solo tiene " << fechaFactura.getDiasMes(mes)<< " dias, ingrese nuevamente la fecha" << endl << endl;
+                    }
+                    else{
+                       flag = false;
+                    }
+                }
             }
             else{
                 fechaFactura = Fecha();

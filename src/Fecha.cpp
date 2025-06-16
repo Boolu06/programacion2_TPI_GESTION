@@ -23,11 +23,15 @@ Fecha::Fecha(int dia, int mes, int anio){
 int Fecha::getDia() {return _dia;}
 int Fecha::getMes() {return _mes;}
 int Fecha::getAnio(){return _anio;}
+int Fecha::getDiasMes(int mes){
+    return _diasMeses[mes-1];
+}
+
 
 bool Fecha::SetFecha(int dia, int mes,int anio){
     if (anio < 1900 || anio > 2100) return false;
     if (mes < 1 || mes > 12) return false;
-    if (dia < 1 || dia > 31) return false;
+    if (dia < 1 || dia > _diasMeses[mes-1]) return false;
 
     _dia = dia;
     _mes = mes;
