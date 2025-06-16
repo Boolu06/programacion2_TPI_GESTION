@@ -2,6 +2,7 @@
 #include <cstring>
 #include "Detalle.h"
 #include "DetalleManager.h"
+#include "Funciones.h"
 
 using namespace std;
 
@@ -135,11 +136,13 @@ void DetalleManager::modificarDetalle(){
 */
 
 void DetalleManager::mostrarUnDetalle(int idFactura, int idProducto, int cantidad, float precioUnitario){
-    cout << "----------ID Factura: "<<idFactura<<" ------------" << endl;
-    cout << "ID Producto: " << idProducto << endl;
-    cout<< "Cantidad: "<< cantidad <<endl;
-    cout << "Precio Unitario: " << precioUnitario << endl;
-    cout << "-----------------------------" << endl;
+    int ancho1=16,ancho2=50;
+    cout <<"----------------------------------------------------------------------"<< endl;
+    cout <<"|"<< llenarEspaciosString("ID Factura",ancho1)<< "| "<<llenarEspaciosInt(idFactura,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("ID Producto",ancho1)<< "| "<<llenarEspaciosInt(idProducto,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Cantidad",ancho1)<< "| "<< llenarEspaciosInt(cantidad,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Precio Unitario",ancho1)<< "| "<< llenarEspaciosFloat(precioUnitario,ancho2)<< "|"<< endl;
+    cout <<"----------------------------------------------------------------------"<< endl;
 }
 
 /*

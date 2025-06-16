@@ -418,13 +418,15 @@ bool ProductoManager::descontarStock(int idProductoModificar, int cantidadStockV
 }
 
 void ProductoManager::mostrarUnProducto(int idProducto, float precioUnitario, std::string descripcion,std::string marca, std::string tipo, int stock){
-    cout << "----------ID Producto: "<<idProducto<<" ------------" << endl;
-        cout << "Precio Unitario: " << precioUnitario << endl;
-        cout << "Descripcion: " << descripcion << endl;
-        cout << "Marca: "<< marca <<endl;
-        cout << "Tipo: " << tipo << endl;
-        cout << "Stock: "<< stock <<endl;
-        cout << "-----------------------------" << endl;
+    int ancho1=16,ancho2=50;
+    cout <<"----------------------------------------------------------------------"<< endl;
+    cout <<"|"<< llenarEspaciosString("ID",ancho1)<< "| "<<llenarEspaciosInt(idProducto,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Precio Unitario",ancho1)<< "| "<<llenarEspaciosFloat(precioUnitario,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Descripcion",ancho1)<< "| "<< llenarEspaciosString(descripcion,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Marca",ancho1)<< "| "<< llenarEspaciosString(marca,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Tipo",ancho1)<< "| "<< llenarEspaciosString(tipo,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Stock",ancho1)<< "| "<< llenarEspaciosInt(stock,ancho2)<< "|"<< endl;
+    cout <<"----------------------------------------------------------------------"<< endl;
 }
 
 void ProductoManager::borrarProducto(){

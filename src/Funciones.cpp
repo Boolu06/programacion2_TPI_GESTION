@@ -416,3 +416,34 @@ bool backUpRestaurarTodo(){
     backUpRestaurar("detalleDeVenta.dat");
     backUpRestaurar("ventas.dat");
 }
+
+std::string llenarEspaciosString(std::string cadena,int espaciosTotales){
+    int medidaCadenaOriginal = cadena.length();
+    cadena += std::string(espaciosTotales - medidaCadenaOriginal, ' '); // resta los espacios de la cadena de texto ingresada a los espacios totales y lo que sobra lo llena con espacios ' '
+
+    return cadena;
+}
+
+std::string llenarEspaciosInt(int cifra, int espaciosTotales){
+    std::string cadena = std::to_string(cifra); // convertimos el int a un string, tener en cuenta que cout tambien convierte los int a string antes de mostar por consola, aqui lo haremos manualmente para agregar espacios.
+    int medidaCadenaOriginal = cadena.length();
+    cadena += std::string(espaciosTotales - medidaCadenaOriginal, ' '); // resta los espacios de la cadena de texto ingresada a los espacios totales y lo que sobra lo llena con espacios ' '
+
+    return cadena;
+}
+
+std::string llenarEspaciosFloat(float cifra, int espaciosTotales){
+    std::string cadena = std::to_string(cifra); // convertimos el float a un string, tener en cuenta que cout tambien convierte los int a string antes de mostar por consola, aqui lo haremos manualmente para agregar espacios.
+    int medidaCadenaOriginal = cadena.length();
+    cadena += std::string(espaciosTotales - medidaCadenaOriginal, ' '); // resta los espacios de la cadena de texto ingresada a los espacios totales y lo que sobra lo llena con espacios ' '
+
+    return cadena;
+}
+
+std::string llenarEspaciosFecha(int dia, int mes, int anio, int espaciosTotales){
+    std::string fecha = std::to_string(dia) + "/" + std::to_string(mes) + "/" + std::to_string(anio);
+    int medidaCadenaOriginal = fecha.length();
+    fecha += std::string(espaciosTotales - medidaCadenaOriginal, ' '); // resta los espacios de la cadena de texto ingresada a los espacios totales y lo que sobra lo llena con espacios ' '
+
+    return fecha;
+}

@@ -616,16 +616,20 @@ void ClienteManager::modificarCliente(){
     delete []vectorClientes;
 }
 
+
 void ClienteManager::mostrarUnCliente(int id, std::string cuit,std::string nombre, std::string apellido, std::string telefono, std::string email, std::string direccion, int tipoCliente){
-    cout << "----------ID Cliente: "<<id<<" ------------" << endl;
-        cout << "Nombre: " << nombre << endl;
-        cout<< "Apellido: "<< apellido <<endl;
-        cout << "CUIT: " << cuit << endl;
-        cout<< "Telefono: "<< telefono <<endl;
-        cout<< "Email: "<< email <<endl;
-        cout<< "Direccion: "<< direccion <<endl;
-        cout<< "Tipo de cliente: "<< tipoCliente <<endl;
-        cout << "-----------------------------" << endl;
+    int ancho1=12,ancho2=50;
+    cout <<"---------------------------------------------------------------"<< endl;
+    cout <<"|"<< llenarEspaciosString("ID",ancho1)<< "| "<<llenarEspaciosInt(id,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("CUIT",ancho1)<< "| "<<llenarEspaciosString(cuit,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Nombre",ancho1)<< "| "<< llenarEspaciosString(nombre,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Apellido",ancho1)<< "| "<< llenarEspaciosString(apellido,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Telefono",ancho1)<< "| "<< llenarEspaciosString(telefono,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Email",ancho1)<< "| "<< llenarEspaciosString(email,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Direccion",ancho1)<< "| "<< llenarEspaciosString(direccion,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("T.Cliente",ancho1)<< "| "<< llenarEspaciosInt(tipoCliente,ancho2)<< "|"<< endl;
+    cout <<"---------------------------------------------------------------"<< endl;
+
 }
 
 void ClienteManager::borrarCliente(){

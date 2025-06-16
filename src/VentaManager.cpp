@@ -407,11 +407,14 @@ void VentaManager::filtrarPorIdFactura(Venta vectorVentas[], int cantidadRegistr
 }
 
 void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal){
-    cout << "----------ID Factura: "<<idFactura<<" ------------" << endl;
-        cout << "ID Cliente: " << idCliente << endl;
-        cout << "Fecha : " << fechaVenta.getDia() << "/" << fechaVenta.getMes()<<"/"<< fechaVenta.getAnio() << endl;
-        cout << "Importe Total: "<< to_string(importeTotal)<< "$" <<endl;
-        cout << "-----------------------------" << endl;
+    int ancho1=16,ancho2=50;
+    cout <<"----------------------------------------------------------------------"<< endl;
+    cout <<"|"<< llenarEspaciosString("ID Factura",ancho1)<< "| "<<llenarEspaciosInt(idFactura,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("ID Cliente",ancho1)<< "| "<<llenarEspaciosInt(idCliente,ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Fecha Venta",ancho1)<< "| "<< llenarEspaciosFecha(fechaVenta.getDia(),fechaVenta.getMes(),fechaVenta.getAnio(),ancho2)<< "|"<< endl;
+    cout <<"|"<< llenarEspaciosString("Importe Total",ancho1)<< "| "<< llenarEspaciosFloat(importeTotal,ancho2)<< "|"<< endl;
+    cout <<"----------------------------------------------------------------------"<< endl;
+
 }
 
 //Metodo para filtrar por importe <- a revisar
