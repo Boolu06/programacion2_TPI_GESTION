@@ -70,14 +70,14 @@ void VentaManager::cargarVenta(){
                 cin.ignore(1000,'\n');
             }
             else if(eleccion==1){
-                cin.ignore(1000,'\n');
                 Cliente_M.cargarCliente(cuitCliente);
+                break;
             }
             else{
                 corteGeneral = true;
+                break;
             }
         }
-        system("pause");
     }
 
     int idProducto;
