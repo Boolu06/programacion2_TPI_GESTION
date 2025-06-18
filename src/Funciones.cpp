@@ -84,10 +84,8 @@ void menuVentas(){
         cout<<"===== MENU VENTAS ====="<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 1. AGREGAR VENTA"<<endl;
-        cout<<" 2. BORRAR VENTA"<<endl;
-        cout<<" 3. MODIFICAR VENTA"<<endl;
-        cout<<" 4. LISTAR VENTAS"<<endl;
-        cout<<" 5. DETALLE DE VENTA"<<endl;
+        cout<<" 2. LISTAR VENTAS"<<endl;
+        cout<<" 3. DETALLE DE VENTAS"<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
 
@@ -95,10 +93,8 @@ void menuVentas(){
 
         switch(opc){
             case 1: _vManager.cargarVenta(); break;
-            // case 2: borrarVenta(); break;
-            // case 3: modificarVenta(); break;
-            case 4: _vManager.listarVentas(); break;
-            case 5: _dManager.listarDetalles(); break;
+            case 2: _vManager.listarVentas(); break;
+            case 3: _dManager.listarDetalles(); break;
             case 0: flag=false; system("cls"); break;
             default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
@@ -277,10 +273,19 @@ void menuBackUpRestaurar(){
 
         switch(opc){
             case 1:
-                backUpRestaurar("clientes.dat");
+                backUpRestaurar("clientes.dat",false);
                 break;
             case 2:
-                backUpRestaurar("productos.dat");
+                backUpRestaurar("productos.dat",false);
+                break;
+            case 3:
+                backUpRestaurar("ventas.dat",false);
+                break;
+            case 4:
+                backUpRestaurar("detalleDeVenta.dat",false);
+                break;
+            case 5:
+                backUpRestaurarTodo();
                 break;
             case 0: flag=false; system("cls"); break;
             default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
@@ -338,8 +343,9 @@ void backUpGuardarTodo(){
     backUpGuardar("ventas.dat");
 }
 
-bool backUpRestaurar(std::string nombreArchivo){
+bool backUpRestaurar(std::string nombreArchivo, bool flag){
     int cantidadBytes;
+    int resultado;
     char vdatos[1];
     char ruta[30]="backups/";
 
@@ -351,12 +357,87 @@ bool backUpRestaurar(std::string nombreArchivo){
     FILE *pArchivoOrigen;
     FILE *pArchivoBackup;
 
+    if(!flag){
+        int randCodSeguridad=rand() % 99999+1000;
+        string codigoConfirmacion;
+        string codigoSeguridad = to_string(randCodSeguridad);
+
+        cout<<"Restaurando "<<nombreArchivo<<"..."<<endl;
+        cout<<"Ingrese el siguiente codigo de seguridad para continuar: "<<codigoSeguridad<<endl;
+        cout<<""<<endl;
+        cout<<"CODIGO DE CONFIRMACION: ";
+        cin.ignore();
+        getline(cin, codigoConfirmacion);
+
+        while(codigoConfirmacion!=codigoSeguridad){
+            cout<<"Codigo incorrecto, vuelva a intentarlo."<<endl;
+
+            cout<<"CODIGO DE CONFIRMACION: ";
+            getline(cin, codigoConfirmacion);
+        }
+
+        pArchivoOrigen = fopen(nombreArchivo.c_str(), "wb");
+        pArchivoBackup = fopen(ruta, "rb");
+
+        if(pArchivoOrigen == nullptr){
+            cout<<"Error al buscar el archivo de origen."<<endl;
+        }
+        else{
+            while((resultado = fread(&vdatos, 1, sizeof(vdatos), pArchivoBackup)) > 0) {
+                fwrite(&vdatos, 1, 1, pArchivoOrigen);
+            }
+
+            fseek(pArchivoOrigen,0,SEEK_END);
+            fseek(pArchivoBackup,0,SEEK_END);
+
+            if(ftell(pArchivoBackup) == ftell(pArchivoOrigen)){
+                fclose(pArchivoOrigen);
+                fclose(pArchivoBackup);
+                cout<<"====ARCHIVO "<<nombreArchivo<<" RESTAURADO CORRECTAMENTE===="<<endl;
+            }
+            else{
+                fclose(pArchivoOrigen);
+                fclose(pArchivoBackup);
+                cout<<"====HUBO ERRORES AL MOMENTO DE RESTAURAR===="<<endl;
+            }
+        }
+    }
+    else{
+        pArchivoOrigen = fopen(nombreArchivo.c_str(), "wb");
+        pArchivoBackup = fopen(ruta, "rb");
+
+        if(pArchivoOrigen == nullptr){
+            cout<<"Error al buscar el archivo de origen."<<endl;
+        }
+        else{
+            while((resultado = fread(&vdatos, 1, sizeof(vdatos), pArchivoBackup)) > 0) {
+                fwrite(&vdatos, 1, 1, pArchivoOrigen);
+            }
+
+            fseek(pArchivoOrigen,0,SEEK_END);
+            fseek(pArchivoBackup,0,SEEK_END);
+
+            if(ftell(pArchivoBackup) == ftell(pArchivoOrigen)){
+                fclose(pArchivoOrigen);
+                fclose(pArchivoBackup);
+                cout<<"====ARCHIVO "<<nombreArchivo<<" RESTAURADO CORRECTAMENTE===="<<endl;
+            }
+            else{
+                fclose(pArchivoOrigen);
+                fclose(pArchivoBackup);
+                cout<<"====HUBO ERRORES AL MOMENTO DE RESTAURAR===="<<endl;
+            }
+        }
+    }
+    system("pause");
+}
+
+bool backUpRestaurarTodo(){
     int randCodSeguridad=rand() % 99999+1000;
     string codigoConfirmacion;
     string codigoSeguridad = to_string(randCodSeguridad);
 
-
-    cout<<"Restaurando "<<nombreArchivo<<"..."<<endl;
+    cout<<"Restaurando todos los archivos..."<<endl;
     cout<<"Ingrese el siguiente codigo de seguridad para continuar: "<<codigoSeguridad<<endl;
     cout<<""<<endl;
     cout<<"CODIGO DE CONFIRMACION: ";
@@ -370,51 +451,10 @@ bool backUpRestaurar(std::string nombreArchivo){
         getline(cin, codigoConfirmacion);
     }
 
-    pArchivoOrigen = fopen(nombreArchivo.c_str(), "wb");
-    pArchivoBackup = fopen(ruta, "rb");
-
-    if(pArchivoOrigen == nullptr){
-        cout<<"Error al buscar el archivo de origen."<<endl;
-    }
-    else{
-        int resultado;
-        while((resultado = fread(&vdatos, 1, sizeof(vdatos), pArchivoBackup)) > 0) {
-            fwrite(&vdatos, 1, 1, pArchivoOrigen);
-        }
-
-        fseek(pArchivoOrigen,0,SEEK_END);
-        fseek(pArchivoBackup,0,SEEK_END);
-
-        if(ftell(pArchivoBackup) == ftell(pArchivoOrigen)){
-            fclose(pArchivoOrigen);
-            fclose(pArchivoBackup);
-            cout<<"====ARCHIVO "<<nombreArchivo<<" RESTAURADO CORRECTAMENTE===="<<endl;
-            system("pause");
-        }
-        else{
-            fclose(pArchivoOrigen);
-            fclose(pArchivoBackup);
-            cout<<"====HUBO ERRORES AL MOMENTO DE RESTAURAR===="<<endl;
-            system("pause");
-        }
-    }
-
-    system("pause");
-
-    //Ingresar codigo de seguridad al restaurar
-    /*char CodigoSeguridad[4];
-
-    for(int i=0; i<4 ; i++){
-        CodigoSeguridad[i]=rand() % 10;
-    }
-    */
-}
-
-bool backUpRestaurarTodo(){
-    backUpRestaurar("clientes.dat");
-    backUpRestaurar("productos.dat");
-    backUpRestaurar("detalleDeVenta.dat");
-    backUpRestaurar("ventas.dat");
+    backUpRestaurar("clientes.dat",true);
+    backUpRestaurar("productos.dat",true);
+    backUpRestaurar("detalleDeVenta.dat",true);
+    backUpRestaurar("ventas.dat",true);
 }
 
 std::string llenarEspaciosString(std::string cadena,int espaciosTotales){

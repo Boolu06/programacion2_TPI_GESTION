@@ -12,7 +12,6 @@ void DetalleManager::cargarDetalle(int idFactura, int idProducto, int cantidad, 
     _archivo.guardar(nuevoDetalle);
 }
 
-
 void DetalleManager::listarDetalles(){
     int cantidad = _archivo.getCantidadRegistros();
     Detalle *vectorDetalles;
@@ -20,120 +19,42 @@ void DetalleManager::listarDetalles(){
 
     _archivo.leerVector(vectorDetalles, cantidad);
 
-    for (int i=0; i < cantidad; i++ ){
-        if(vectorDetalles[i].getOculto()== false){
-            mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
-                             vectorDetalles[i].getIdProducto(),
-                             vectorDetalles[i].getCantidad(),
-                             vectorDetalles[i].getPrecioUnitario()
-                             );
+    bool flag=true;
+    int opc;
+
+    while(flag==true){
+        system("cls");
+        cout<<"===== MENU DETALLE VENTA ====="<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 1. Filtrar por ID FACTURA"<<endl;
+        cout<<" 2. Listar todos los detalles de ventas"<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
+
+        cin>>opc;
+
+        switch(opc){
+            case 1: filtrarPorIdFactura(vectorDetalles, cantidad); break;
+            case 2:
+                system("cls");
+                for (int i=0; i < cantidad; i++ ){
+                    if(vectorDetalles[i].getOculto()== false){
+                        mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
+                                         vectorDetalles[i].getIdProducto(),
+                                         vectorDetalles[i].getCantidad(),
+                                         vectorDetalles[i].getPrecioUnitario()
+                                         );
+                    }
+                }
+                system("pause");
+            break;
+            case 0: flag=false; system("cls"); break;
+            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
         }
     }
     system("pause");
     delete[]vectorDetalles;
 }
-
-
-
-/*
-void DetalleManager::modificarDetalle(){
-    int cantidadRegistros = _archivo.getCantidadRegistros();
-    Detalle *vectorDetalles;
-    vectorDetalles = new Detalle[cantidadRegistros];
-    _archivo.leerVector(vectorDetalles, cantidadRegistros);
-    int idDetalleModificar;
-
-    cout<< "Ingrese el ID del detalle que desea modificar: " <<endl;
-    cin>> idDetalleModificar;
-    int index = _archivo.buscarIndex(vectorDetalles,cantidadRegistros,idDetalleModificar);
-    bool huboModificaciones= false;
-
-    if(index >= 0){
-        system("cls");
-        cout<< "Id de detalle encontrado! "<< endl;
-        mostrarUnDetalle(vectorDetalles[index].getIdDetalle(),
-                         vectorDetalles[index].getDescripcion(),
-                         vectorDetalles[index].getMarca(),
-                         vectorDetalles[index].getTipo(),
-                         vectorDetalles[index].getStock()
-                         );
-        system("pause");
-
-        bool flag = true;
-        bool datoCorrecto = false;
-        int opcion;
-        while (flag == true){
-            cout<< "Que dato deseas modificar ? " <<endl<<endl;
-            cout<< "1. Descripcion del detalle" <<endl;
-            cout<< "2. Marca " <<endl;
-            cout<< "3. Tipo " <<endl;
-            cout<< "4. Stock " <<endl;
-            cout<< "0. Terminar modificaciones"<<endl<<endl;
-            cout<< "Opcion: ";
-            cin >> opcion;
-            cin.ignore();
-            switch (opcion){
-                case 1:{
-                    string descripcion;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese la descripcion"<<endl;
-                        getline(cin, descripcion);
-                        datoCorrecto = vectorDetalles[index].setDescripcion(descripcion);
-                    }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    break;
-                }
-                case 2:{
-                    string marca;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese la marca"<<endl;
-                        getline(cin, marca);
-                        datoCorrecto = vectorDetalles[index].setMarca(marca);
-                    }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    break;
-                }
-                case 3:{
-                    string tipo;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el tipo"<<endl;
-                        getline(cin, tipo);
-                        datoCorrecto = vectorDetalles[index].setTipo(tipo);
-                    }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    break;
-                }
-                case 4:{
-                    int stock;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el stock"<<endl;
-                        cin>>stock;
-                        datoCorrecto = vectorDetalles[index].setStock(stock);
-                    }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    break;
-                }
-                case 0: flag=false; system("cls"); break;
-            }
-        }
-
-    } else {
-        cout << "resultado de busqueda index: " << index << endl;
-        cout << "Id de detalle no encontrado chau" << endl;
-        system("pause");
-    }
-
-    if(huboModificaciones){
-        _archivo.modificar(vectorDetalles[index], index);
-    }
-
-    delete []vectorDetalles;
-}
-*/
 
 void DetalleManager::mostrarUnDetalle(int idFactura, int idProducto, int cantidad, float precioUnitario){
     int ancho1=16,ancho2=50;
@@ -145,58 +66,29 @@ void DetalleManager::mostrarUnDetalle(int idFactura, int idProducto, int cantida
     cout <<"----------------------------------------------------------------------"<< endl;
 }
 
-/*
-void DetalleManager::borrarDetalle(){
-    int cantidadRegistros = _archivo.getCantidadRegistros();
-    Detalle *vectorDetalles;
-    vectorDetalles = new Detalle[cantidadRegistros];
-    _archivo.leerVector(vectorDetalles, cantidadRegistros);
-    int idDetalleBorrar;
+void DetalleManager::filtrarPorIdFactura(Detalle vectorDetalles[], int cantidadRegistros){
+    int id;
+    bool detalleEncontrado=false;
 
-    cout<< "Ingrese el ID del detalle que desea borrar: " <<endl;
-    cin>> idDetalleBorrar;
-    int index = _archivo.buscarIndex(vectorDetalles,cantidadRegistros,idDetalleBorrar);
-    bool huboModificaciones = false;
-    if(index >= 0){
-        system("cls");
-        cout<< "Este es el detalle que vas a borrar: "<< endl;
-        mostrarUnDetalle(vectorDetalles[index].getIdDetalle(),
-                         vectorDetalles[index].getDescripcion(),
-                         vectorDetalles[index].getMarca(),
-                         vectorDetalles[index].getTipo(),
-                         vectorDetalles[index].getStock()
-                         );
-        system("pause");
+    system("cls");
+    cout<<"Ingrese el ID de factura"<<endl;
+    cin>>id;
 
-        bool flag = true;
-        int opcion;
-
-        while (flag == true){
-            cout<< "Estas seguro que lo quieres borrar ? " <<endl<<endl;
-            cout<< "1. Si" <<endl;
-            cout<< "0. Cancelar borrado"<<endl<<endl;
-            cout<< "Opcion: ";
-            cin >> opcion;
-            cin.ignore();
-            switch (opcion){
-                case 1:
-                    vectorDetalles[index].setOculto(true);
-                    flag = false;
-                    huboModificaciones = true;
-                    break;
-                case 0:
-                    flag=false; system("cls"); break;
-            }
+    for(int i=0; i<cantidadRegistros; i++){
+        if(vectorDetalles[i].getIdFactura() == id && id>0){
+            mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
+                             vectorDetalles[i].getIdProducto(),
+                             vectorDetalles[i].getCantidad(),
+                             vectorDetalles[i].getPrecioUnitario()
+                            );
+            detalleEncontrado=true;
         }
-    } else {
-        cout << "resultado de busqueda index: " << index << endl;
-        cout << "Id de detalle no encontrado chau" << endl;
+    }
+    if(!detalleEncontrado){
+        cout<<"Venta no encontrada"<<endl;
         system("pause");
     }
-    if(huboModificaciones){
-        _archivo.modificar(vectorDetalles[index], index);
+    else{
+        system("pause");
     }
-
-    delete []vectorDetalles;
 }
-*/

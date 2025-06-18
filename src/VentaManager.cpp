@@ -33,7 +33,7 @@ void VentaManager::cargarVenta(){
 
     Cliente ClienteEncontrado;
 
-    ClienteEncontrado = Cliente_M.buscarCuit(cuitCliente); //Cliente_M.buscarCuit(cuitCliente) <- retorna un cliente, si fue encontrado su ID siempre ser� mayor a 0
+    ClienteEncontrado = Cliente_M.buscarCuit(cuitCliente); //Cliente_M.buscarCuit(cuitCliente) <- retorna un cliente, si fue encontrado su ID siempre sera mayor a 0
     // Si no existe el CUIT en la tabla de Clientes, informarle al usuario y crear un nuevo cliente.
 
     bool corteGeneral = false;
@@ -57,44 +57,48 @@ void VentaManager::cargarVenta(){
     }
     else{
         cout<<"El cliente no esta registrado"<<endl;
-        bool flag = false;
         int eleccion;
 
-        while(!flag){
+        while(true){
             cout<<"Desea registrar el cliente?"<<endl;
             cout<<"1. Si"<<endl;
             cout<<"2. No"<<endl;
             cin>>eleccion;
-
-            if(eleccion==1){
+            if(cin.fail() || eleccion<=0 || eleccion>=3){
+                cout<<"Numero invalido. Ingrese un tipo valido"<<endl;
+                cin.clear();
+                cin.ignore(1000,'\n');
+            }
+            else if(eleccion==1){
+                cin.ignore(1000,'\n');
                 Cliente_M.cargarCliente(cuitCliente);
-                flag=true;
             }
             else{
-                flag=true;
                 corteGeneral = true;
             }
         }
         system("pause");
     }
 
-
-    //Al usuario le voy a pedir que seleccione un producto a comprar. Esto va a ser un men� en el cual esta constantemente mostrandome los productos disponibles con
-    //su precio unitario. Por ahora en el codigo en su estado basico solo se le pide el ingreso del ID del producto.
     int idProducto;
     int eleccion;
     int cantidad;
     float importeTotal=0;
     bool flag = true;
-    bool flag2 = true;
-    bool flag3 = true;
 
     bool productosAgregados = false;
 
     if(!corteGeneral){
-        while(flag3){
+        while(true){
             cout<<"Ingrese el ID del producto a comprar"<<endl;
             cin>>idProducto;
+            if(cin.fail() || idProducto <=0){
+                cin.clear();
+                cin.ignore(1000,'\n');
+            }
+            else{
+                cin.ignore(1000,'\n');
+            }
 
             Producto ProductoEncontrado;
             ProductoEncontrado = Producto_M.buscarId(idProducto);
@@ -106,49 +110,68 @@ void VentaManager::cargarVenta(){
                                  ProductoEncontrado.getMarca(),
                                  ProductoEncontrado.getTipo(),
                                  ProductoEncontrado.getStock());
-                flag2 = true;
 
-                while(flag2){
+                while(true){
                     cout<<"El producto mostrado es el correcto?"<<endl;
                     cout<<"1. Si"<<endl;
                     cout<<"2. No"<<endl;
                     cin>>eleccion;
-
-                    if(eleccion==1){
-                        cout<<"Ingrese la cantidad a comprar"<<endl;
-                        cin>>cantidad;
-
+                    if(cin.fail() || (eleccion <= 0 || eleccion >= 3)){
+                        cout<<"Numero invalido. Ingrese un valor valido"<<endl;
+                        cin.clear();
+                        cin.ignore(1000,'\n');
+                        system("pause");
+                    }
+                    else if (eleccion==1){
+                        cin.ignore(1000,'\n');
+                        while(true){
+                            cout<<"Ingrese la cantidad a comprar"<<endl;
+                            cin>>cantidad;
+                            if(cin.fail() || cantidad <0){
+                                cout<<"Numero invalido.Ingrese un valor valido"<<endl;
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                            }
+                            else{
+                                cin.ignore(1000,'\n');
+                                break;
+                            }
+                        }
                         if(Producto_M.descontarStock(ProductoEncontrado.getIdProducto(), cantidad)){
                             Detalle_M.cargarDetalle(idFactura, ProductoEncontrado.getIdProducto(), cantidad, ProductoEncontrado.getPrecioUnitario());
-                            flag2 = false;
+                            importeTotal=importeTotal+((float)cantidad*ProductoEncontrado.getPrecioUnitario());
                             flag = false;
                             productosAgregados = true;
-                            importeTotal=importeTotal+((float)cantidad*ProductoEncontrado.getPrecioUnitario());
+                            break;
                         }
                         else{
                             cout<<"Cantidad supera stock, stock actual " << ProductoEncontrado.getStock()<<endl;
-                             system("pause");
+                            system("pause");
+                            break;
                         }
-
                     }
                     else{
-                        flag2 = false;
+                        break;
                     }
                 }
-
-                cout<<"Desea ingresar otro producto?"<<endl;
-                cout<<"1. Si"<<endl;
-                cout<<"2. No"<<endl;
-                cin>>eleccion;
-
-                if(eleccion==1){
-                    flag3 = true;
+                while(true){
+                    cout<<"Desea ingresar otro producto?"<<endl;
+                    cout<<"1. Si"<<endl;
+                    cout<<"2. No"<<endl;
+                    cin>>eleccion;
+                    if(cin.fail() || (eleccion <=0 || eleccion >=3)){
+                        cout<<"Numero invalido.Ingrese un valor valido"<<endl;
+                        cin.clear();
+                        cin.ignore(1000,'\n');
+                    }
+                    else{
+                        cin.ignore(1000,'\n');
+                        break;
+                    }
                 }
-                else{
-
-                    flag3 = false;
+                if(eleccion==2){
+                    break;
                 }
-                system("pause");
             }
             else{
                 cout<<"El producto no existe, vuelva a ingresarlo"<<endl;
@@ -192,16 +215,10 @@ void VentaManager::cargarVenta(){
             nuevaFactura.setFechaVenta(fechaFactura);
             nuevaFactura.setImporteTotal(importeTotal);
             _archivo.guardar(nuevaFactura);
-
+            cout<<"==== COMPRA CONCRETADA ===="<<endl;
             system("pause");
         }
     }
-
-    //Venta.setIdFactura(idFactura); ///setea el idFactura autoincremental al momento de concretar la venta en detalleventa
-    //Venta.setIdCliente(idCliente); ///asignar el idCliente encontrado con el CUIT
-    ///Funcion que me traiga la fecha actual y asignarlo a fechaVenta
-   // Venta.setFechaVenta(fechaVenta);
-   // Venta.setImporteTotal(importeTotal) ///Importe total traido de detalleVenta
 }
 
 void VentaManager::listarVentas(){
@@ -255,11 +272,69 @@ void VentaManager::listarVentas(){
     delete[]vectorVentas;
 }
 
-void VentaManager::filtrarPorIdCliente(Venta vectorVentas[], int cantidadRegistros){
+void VentaManager::filtrarPorIdFactura(Venta vectorVentas[], int cantidadRegistros){
+    int id;
+    bool ventaEncontrada=false;
 
+    system("cls");
+    while(true){
+        cout<<"Ingrese el ID de factura"<<endl;
+        cin>>id;
+        if(cin.fail() || id <= 0){
+            cout<<"Numero invalido. Ingrese un tipo valido"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            cin.ignore(1000,'\n');
+            break;
+        }
+    }
+
+    for(int i=0; i<cantidadRegistros; i++){
+        if(vectorVentas[i].getIdFactura() == id && id>0){
+            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                             vectorVentas[i].getIdCliente(),
+                             vectorVentas[i].getFechaVenta(),
+                             vectorVentas[i].getImporteTotal()
+                            );
+            ventaEncontrada=true;
+        }
+    }
+
+    if(!ventaEncontrada){
+        cout << " ------------------------------------------- " << endl;
+        cout << "| No se pudo encontrar una venta con ese ID |" << endl;
+        cout << " ------------------------------------------- " << endl << endl;
+    }
+    system("pause");
+    system("cls");
+}
+
+void VentaManager::filtrarPorIdCliente(Venta vectorVentas[], int cantidadRegistros){
     int idCliente=0;
-    cout<<"Ingrese el ID del cliente que desea buscar: "<<endl;
-    cin >> idCliente;
+    bool ventaEncontrada=false;
+
+    system("cls");
+
+    while(true){
+        cout<<"Ingrese el ID del cliente que desea buscar: "<<endl;
+        cin >> idCliente;
+        if(cin.fail() || idCliente <= 0){
+            cout<<"Numero invalido. Ingrese un tipo valido"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            cin.ignore(1000,'\n');
+            break;
+        }
+    }
+
     if(idCliente>0){
         for(int i=0; i < cantidadRegistros; i++ ){
             if(vectorVentas[i].getIdCliente()==idCliente && vectorVentas[i].getOculto()== false){
@@ -268,14 +343,17 @@ void VentaManager::filtrarPorIdCliente(Venta vectorVentas[], int cantidadRegistr
                                      vectorVentas[i].getFechaVenta(),
                                      vectorVentas[i].getImporteTotal()
                                      );
+                ventaEncontrada=true;
             }
         }
-        system("pause");
     }
-    else{
-        cout<<"ID invalido"<<endl;
-        system("pause");
+    if(!ventaEncontrada){
+        cout << " ---------------------------------------- " << endl;
+        cout << "| No se encontro ninguna venta con ese ID |" << endl;
+        cout << " ---------------------------------------- " << endl << endl;
     }
+    system("pause");
+    system("cls");
 }
 
 void VentaManager::filtrarPorCuit(Venta vectorVentas[], int cantidadRegistros){
@@ -286,7 +364,7 @@ void VentaManager::filtrarPorCuit(Venta vectorVentas[], int cantidadRegistros){
     cin.ignore();
     getline(cin,cuitCliente);
 
-    if(!cuitCliente.empty()){
+    if(esSoloNumeros(cuitCliente)){
         clienteEncontrado = Cliente_M.buscarCuit(cuitCliente);
         if(clienteEncontrado.getId()==0){
             cout<<"No hay clientes registrados con el CUIT "<< cuitCliente << endl;
@@ -302,13 +380,14 @@ void VentaManager::filtrarPorCuit(Venta vectorVentas[], int cantidadRegistros){
                 }
             }
         }
-        system("pause");
     }
     else{
-        cout<<"CUIT Invalido"<<endl;
-        system("pause");
+        cout << " ---------------------------------------- " << endl;
+        cout << "| No se encontro ninguna venta con ese ID |" << endl;
+        cout << " ---------------------------------------- " << endl << endl;
     }
-
+    system("pause");
+    system("cls");
 }
 
 void VentaManager::filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros){
@@ -322,13 +401,17 @@ void VentaManager::filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros){
         cout<<"Dia: ";
         cin >> diaIngresado;
         cout<<endl;
-        if(diaIngresado > 0 && diaIngresado < 32){
-            datoCorrecto = true;
+        if(cin.fail() || (diaIngresado <= 0 || diaIngresado >= 32)){
+            cout << " --------------------- " << endl;
+            cout << "|Ingrese un dia valido|" << endl;
+            cout << " --------------------- "  << endl << endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
         }
         else{
-            cout << " --------------------- " << endl;
-            cout << "|ingrese un dia valido|" << endl;
-            cout << " --------------------- "  << endl << endl;
+            cin.ignore(1000,'\n');
+            datoCorrecto = true;
         }
     }
     datoCorrecto=false;
@@ -336,13 +419,17 @@ void VentaManager::filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros){
         cout<<"Mes: ";
         cin >> mesIngresado;
         cout<<endl;
-        if(mesIngresado > 0 && mesIngresado < 13){
-            datoCorrecto = true;
+        if(cin.fail() || (mesIngresado <= 0 || mesIngresado >= 13)){
+            cout << " --------------------- " << endl;
+            cout << "|Ingrese un mes valido|" << endl;
+            cout << " --------------------- "  << endl << endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
         }
         else{
-            cout << " --------------------- " << endl;
-            cout << "|ingrese un mes valido|" << endl;
-            cout << " --------------------- "  << endl << endl;
+            cin.ignore(1000,'\n');
+            datoCorrecto = true;
         }
     }
     datoCorrecto=false;
@@ -350,60 +437,37 @@ void VentaManager::filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros){
         cout<<"Anio: ";
         cin >> anioIngresado;
         cout<<endl;
-        if(anioIngresado > 1900 && anioIngresado < 3000){
-            datoCorrecto = true;
+
+        if(cin.fail() || (anioIngresado <= 1900 || anioIngresado >= 3000)){
+            cout << " --------------------- " << endl;
+            cout << "|Ingrese un anio valido|" << endl;
+            cout << " --------------------- "  << endl << endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
         }
         else{
-            cout << " --------------------- " << endl;
-            cout << "|ingrese un anio valido|" << endl;
-            cout << " --------------------- "  << endl << endl;
+            cin.ignore(1000,'\n');
+            datoCorrecto = true;
         }
     }
 
     for(int i=0; i < cantidadRegistros; i++ ){
-            if(vectorVentas[i].getFechaVenta().getDia() == diaIngresado && vectorVentas[i].getFechaVenta().getMes()== mesIngresado && vectorVentas[i].getFechaVenta().getAnio()== anioIngresado){
-                mostrarUnaVenta(vectorVentas[i].getIdFactura(),
-                                     vectorVentas[i].getIdCliente(),
-                                     vectorVentas[i].getFechaVenta(),
-                                     vectorVentas[i].getImporteTotal()
-                                     );
-                fechaEncontrada = true;
-            }
-
-
+        if(vectorVentas[i].getFechaVenta().getDia() == diaIngresado && vectorVentas[i].getFechaVenta().getMes()== mesIngresado && vectorVentas[i].getFechaVenta().getAnio()== anioIngresado){
+            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                 vectorVentas[i].getIdCliente(),
+                                 vectorVentas[i].getFechaVenta(),
+                                 vectorVentas[i].getImporteTotal()
+                                 );
+            fechaEncontrada = true;
+        }
     }
-    system("pause");
+
     if(!fechaEncontrada){
         cout << "Fecha no encontrada"<< endl;
     }
-
-}
-
-void VentaManager::filtrarPorIdFactura(Venta vectorVentas[], int cantidadRegistros){
-    int id;
-    bool ventaEncontrada=false;
-
+    system("pause");
     system("cls");
-    cout<<"Ingrese el ID de factura"<<endl;
-    cin>>id;
-
-    for(int i=0; i<cantidadRegistros; i++){
-        if(vectorVentas[i].getIdFactura() == id && id>0){
-            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
-                             vectorVentas[i].getIdCliente(),
-                             vectorVentas[i].getFechaVenta(),
-                             vectorVentas[i].getImporteTotal()
-                            );
-            ventaEncontrada=true;
-        }
-    }
-    if(!ventaEncontrada){
-        cout<<"Venta no encontrada"<<endl;
-        system("pause");
-    }
-    else{
-        system("pause");
-    }
 }
 
 void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal){
@@ -416,14 +480,5 @@ void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVent
     cout <<"----------------------------------------------------------------------"<< endl;
 
 }
-
-//Metodo para filtrar por importe <- a revisar
-
-/*
-void VentaManager::listarVentas();
-void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal);
-void VentaManager::modificarVenta();
-void VentaManager::borrarVenta();
-*/
 
 

@@ -10,7 +10,7 @@ void menuBackUpGuardar();
 void menuBackUpRestaurar();
 void backUpGuardar(std::string nombreArchivo);
 void backUpGuardarTodo();
-bool backUpRestaurar(std::string nombreArchivo);
+bool backUpRestaurar(std::string nombreArchivo, bool flag);
 bool backUpRestaurarTodo();
 bool esSoloNumeros(std::string numero);
 bool esSoloNumeros(float numero);

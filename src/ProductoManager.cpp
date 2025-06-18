@@ -43,22 +43,20 @@ void ProductoManager::cargarProducto(){
     while(!datoCorrecto){
         cout<<"Ingrese el precio: "<<endl;
         cin>>precioUnitario; // El cin simple si le agrego letras van a quedar en el buffer
-        if(cin.fail()){
-            cin.clear();
-            cin.ignore(1000,'\n');
-        }
-
-        datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
-
-        if(!datoCorrecto){
+        if(cin.fail() || precioUnitario<0){
             cout << " ------------------------------- " << endl;
             cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
             cout << " ------------------------------- " << endl << endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+        }
+        else{
+            cin.ignore(1000,'\n');
+            datoCorrecto = nuevoProducto.setPrecioUnitario(precioUnitario);
         }
     }
-    cin.ignore();
-    datoCorrecto = false; // resetar el booleando para ingresar al proximo bucle
 
+    datoCorrecto = false; // resetar el booleando para ingresar al proximo bucle
 
     while(!datoCorrecto){
         cout<<"Ingrese la descripcion: "<<endl;
@@ -91,17 +89,17 @@ void ProductoManager::cargarProducto(){
     while(!datoCorrecto){
         cout<<"Ingrese el stock o disponibilidad (numero): "<<endl;
         cin>> stock;
-        if(cin.fail()){
-            cin.clear();
-            cin.ignore(1000,'\n');
-        }
 
-        datoCorrecto = nuevoProducto.setStock(stock);
-
-        if(!datoCorrecto){
+        if(cin.fail() || stock < 0){
             cout << " ---------------------------------- " << endl;
             cout << "| El numero ingresado no es valido |" << endl;
             cout << " ---------------------------------- " << endl << endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+        }
+        else{
+            cin.ignore(1000,'\n');
+            datoCorrecto = nuevoProducto.setStock(stock);
         }
     }
 
@@ -110,15 +108,13 @@ void ProductoManager::cargarProducto(){
     if(datoCorrecto){
 
         if(_archivo.guardar(nuevoProducto)){
-            cout<<"Se ha registrado un nuevo producto."<<endl;
+            cout<<"Producto registrado correctamente."<<endl;
         }
         else{
             cout<<"No se pudo registrar el producto, intentelo de nuevo."<<endl;
         }
         system("pause");
-
     }
-
 }
 
 void ProductoManager::listarProductos(){
@@ -191,11 +187,8 @@ void ProductoManager::filtrarPorMarca(Producto vectorProductos[], int cantidadRe
     }
     if(!productoEncontrado){
         cout<<"Marca no encontrada"<<endl;
-        system("pause");
     }
-    else{
-        system("pause");
-    }
+    system("pause");
 }
 
 void ProductoManager::filtrarPorTipo(Producto vectorProductos[], int cantidadRegistros){
@@ -220,11 +213,8 @@ void ProductoManager::filtrarPorTipo(Producto vectorProductos[], int cantidadReg
     }
     if(!productoEncontrado){
         cout<<"Tipo de producto no encontrado"<<endl;
-        system("pause");
     }
-    else{
-        system("pause");
-    }
+    system("pause");
 }
 
 Producto ProductoManager::buscarId(int idProducto){
@@ -259,7 +249,7 @@ void ProductoManager::modificarProducto(){
 
     if(index >= 0){
         system("cls");
-        cout<< "Id de producto encontrado! "<< endl;
+        cout<<"=== ID de producto encontrado! ==="<< endl;
         mostrarUnProducto(vectorProductos[index].getIdProducto(),
                          vectorProductos[index].getPrecioUnitario(),
                          vectorProductos[index].getDescripcion(),
@@ -289,20 +279,23 @@ void ProductoManager::modificarProducto(){
                     while(!datoCorrecto){
                         cout<<"Ingrese el precio unitario del producto"<<endl;
                         cin>>precioUnitario;
-                        if(cin.fail()){
-                            cin.clear();
-                            cin.ignore(1000,'\n');
-                            cout<<"El precio unitario deben ser solo numeros"<<endl;
-                        }
-                        datoCorrecto = vectorProductos[index].setPrecioUnitario(precioUnitario);
-                        if(!datoCorrecto){
+
+                        if(cin.fail() || precioUnitario<0){
                             cout << " ------------------------------- " << endl;
                             cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
                             cout << " ------------------------------- " << endl << endl;
+                            cin.clear();
+                            cin.ignore(1000,'\n');
+                        }
+                        else{
+                            cin.ignore(1000,'\n');
+                            datoCorrecto = vectorProductos[index].setPrecioUnitario(precioUnitario);
                         }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 2:{
@@ -319,6 +312,8 @@ void ProductoManager::modificarProducto(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 3:{
@@ -335,6 +330,8 @@ void ProductoManager::modificarProducto(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 4:{
@@ -351,6 +348,8 @@ void ProductoManager::modificarProducto(){
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 5:{
@@ -358,33 +357,38 @@ void ProductoManager::modificarProducto(){
                     while(!datoCorrecto){
                         cout<<"Ingrese el stock"<<endl;
                         cin>>stock;
-                        datoCorrecto = vectorProductos[index].setStock(stock);
-                        if(!datoCorrecto){
-                            cout << " -------------------------------- " << endl;
-                            cout << "| El stock no puede ser negativo |" << endl;
-                            cout << " -------------------------------- " << endl << endl;
+                        if(cin.fail() || stock<0){
+                            cout << " ---------------------------------- " << endl;
+                            cout << "| El numero ingresado no es valido |" << endl;
+                            cout << " ---------------------------------- " << endl << endl;
+                            cin.clear();
+                            cin.ignore(1000,'\n');
+                        }
+                        else{
+                            cin.ignore(1000,'\n');
+                            datoCorrecto = vectorProductos[index].setStock(stock);
                         }
                     }
                     datoCorrecto = false;
                     huboModificaciones= true;
+                    cout<<"Dato modificado correctamente"<<endl;
+                    system("pause");
                     break;
                 }
                 case 0: flag=false; system("cls"); break;
             }
         }
-
     }
     else{
-        cout << "resultado de busqueda index: " << index << endl;
-        cout << "Id de producto no encontrado chau" << endl;
-        system("pause");
+        cout << " ---------------- " << endl;
+        cout << "| ID de producto |" << endl;
+        cout << " ---------------- " << endl << endl;
     }
 
-    cout << " tamos mandando el indexxxxxxxxxxxx: " << index;
     if(huboModificaciones){
         _archivo.modificar(vectorProductos[index], index);
     }
-
+    system("pause");
     delete []vectorProductos;
 }
 
@@ -401,10 +405,6 @@ bool ProductoManager::descontarStock(int idProductoModificar, int cantidadStockV
     if(index >= 0){
         int stockFinal  = (vectorProductos[index].getStock()) - cantidadStockVendido;
         datoCorrecto = (vectorProductos[index].setStock(stockFinal));
-
-    }
-    else{
-
     }
 
     if(datoCorrecto){
@@ -436,8 +436,23 @@ void ProductoManager::borrarProducto(){
     _archivo.leerVector(vectorProductos, cantidadRegistros);
     int idProductoBorrar;
 
-    cout<< "Ingrese el ID del producto que desea borrar: " <<endl;
-    cin>> idProductoBorrar;
+    system("cls");
+    while(true){
+        cout<< "Ingrese el ID del producto que desea borrar: " <<endl;
+        cin>> idProductoBorrar;
+        if(cin.fail() || idProductoBorrar<0){
+            cout<<"ID Invalido"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            cin.ignore(1000,'\n');
+            break;
+        }
+    }
+
     int index = _archivo.buscarIndex(vectorProductos,cantidadRegistros,idProductoBorrar);
     bool huboModificaciones = false;
     if(index >= 0){
@@ -452,35 +467,43 @@ void ProductoManager::borrarProducto(){
                          );
         system("pause");
 
-        bool flag = true;
-
         int opcion;
-
-        while (flag == true){
-            cout<< "Que estas seguro que lo quieres borrar ? " <<endl<<endl;
-            cout<< "1. S1" <<endl;
+        while(true){
+            cout<< "Confirme si desea eliminarlo" <<endl<<endl;
+            cout<< "1. Si" <<endl;
             cout<< "0. Cancelar borrado"<<endl<<endl;
             cout<< "Opcion: ";
             cin >> opcion;
-            cin.ignore();
-            switch (opcion){
-                case 1:
-                    vectorProductos[index].setOculto(true);
-                    flag = false;
-                    huboModificaciones = true;
-                    break;
-                case 0:
-                    flag=false; system("cls"); break;
+            if(cin.fail() || (opcion <0 || opcion >1)){
+                cout<<"Numero invalido. Ingrese un tipo valido"<<endl;
+                cin.clear();
+                cin.ignore(1000,'\n');
+                system("pause");
+            }
+            else{
+                cin.ignore(1000,'\n');
+                switch(opcion){
+                    case 1:
+                        vectorProductos[index].setOculto(true);
+                        huboModificaciones = true;
+                        break;
+                    case 0:
+                        break;
+                }
+                break;
             }
         }
     }
     else{
-        cout << "resultado de busqueda index: " << index << endl;
-        cout << "Id de cliente no encontrado chau" << endl;
+        cout << " ------------------------------ " << endl;
+        cout << "| ID de producto no encontrado |" << endl;
+        cout << " ------------------------------ " << endl << endl;
         system("pause");
     }
     if(huboModificaciones){
         _archivo.modificar(vectorProductos[index], index);
+        cout<<"Cliente eliminado satisfactoriamente"<<endl;
+        system("pause");
     }
 
     delete []vectorProductos;

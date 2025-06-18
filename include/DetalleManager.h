@@ -7,6 +7,7 @@ public:
     void cargarDetalle(int idFactura, int idProducto, int cantidad, float precioUnitario);
     void listarDetalles();
     void mostrarUnDetalle(int idFactura, int idProducto,int cantidad, float precioUnitario);
+    void filtrarPorIdFactura(Detalle vectorDetalles[], int cantidadRegistros);
     void modificarDetalle();
     void borrarDetalle();
 
