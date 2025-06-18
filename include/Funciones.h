@@ -5,6 +5,7 @@
 void menuClientes();
 void menuProductos();
 void menuVentas();
+void menuReportes();
 void menuBackUp();
 void menuBackUpGuardar();
 void menuBackUpRestaurar();
