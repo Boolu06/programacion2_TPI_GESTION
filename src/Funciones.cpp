@@ -373,6 +373,38 @@ bool esSoloLetras(std::string palabra){
     }
 }
 
+void ordenarDeMenosAMas(Venta vectorVentas[],int cantidad){
+
+    for(int i = 0; i < cantidad - 1; i++){
+        for(int j = 0; j < cantidad - i - 1; j++){
+            if(vectorVentas[j].getImporteTotal() > vectorVentas[j+1].getImporteTotal()){
+                Venta auxiliar = vectorVentas[j];
+                vectorVentas[j] = vectorVentas[j+1];
+                vectorVentas[j+1] = auxiliar;
+            }
+        }
+    }
+}
+
+void ordenarDeMasAMenos(Venta vectorVentas[],int cantidad){
+
+    for(int i = 0; i < cantidad - 1; i++){
+        for(int j = 0; j < cantidad - i - 1; j++){
+            if(vectorVentas[j].getImporteTotal() < vectorVentas[j+1].getImporteTotal()){
+                Venta auxiliar = vectorVentas[j];
+                vectorVentas[j] = vectorVentas[j+1];
+                vectorVentas[j+1] = auxiliar;
+            }
+        }
+    }
+}
+
+void copiarVectorVenta(Venta vectorOriginal[], Venta vectorCopia[], int cantidad){
+    for(int i=0; i < cantidad; i++){
+        vectorCopia[i] = vectorOriginal[i];
+    }
+}
+
 void backUpGuardar(std::string nombreArchivo){
     int cantidadBytes;
     char vdatos[1];

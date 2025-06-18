@@ -223,14 +223,16 @@ void VentaManager::cargarVenta(){
 
 void VentaManager::listarVentas(){
     int cantidad = _archivo.getCantidadRegistros();
+    Venta *vectorOrdenar; // este vector debe "limpiarse" siempre antes de usarlo ;
     Venta *vectorVentas;
+    vectorOrdenar = new Venta [cantidad];
     vectorVentas = new Venta [cantidad];
-
     _archivo.leerVector(vectorVentas, cantidad); // esta funcion mete en el vectorProductos los productos que consiga en el archivo.dat.
 
 
     bool flag=true;
     int opc;
+    int opc2;
 
     while(flag==true){
         system("cls");
@@ -261,23 +263,66 @@ void VentaManager::listarVentas(){
                 case 4: filtrarPorFecha(vectorVentas,cantidad) ; break;
                 case 6:
                     system("cls");
-                    for (int i=0; i < cantidad; i++ ){
-                        if(vectorVentas[i].getOculto()== false){
-                            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
-                                             vectorVentas[i].getIdCliente(),
-                                             vectorVentas[i].getFechaVenta(),
-                                             vectorVentas[i].getImporteTotal()
-                                             );
+                    while(true){
+                        cout<<"===== ORDENAR POR: ====="<<endl;
+                        cout<<"---------------------------"<<endl;
+                        cout<<" 1. ID (menor a mayor)"<<endl;
+                        cout<<" 2. Importe (menor a mayor)"<<endl;
+                        cout<<" 3. Importe (mayor a menor)"<<endl;
+                        cout<<" 0. VOLVER"<<endl;
+                        cin >> opc2;
+                        switch(opc2){
+                            case 1:{
+                                for (int i=0; i < cantidad; i++ ){
+                                    if(vectorVentas[i].getOculto()== false){
+                                        mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                                         vectorVentas[i].getIdCliente(),
+                                                         vectorVentas[i].getFechaVenta(),
+                                                         vectorVentas[i].getImporteTotal()
+                                                         );
+                                    }
+                                }
+                                system("pause");
+                            }break;
+                            case 2:{
+                                system("cls");
+                                copiarVectorVenta(vectorVentas,vectorOrdenar,cantidad);
+                                ordenarDeMenosAMas(vectorOrdenar,cantidad);
+                                for (int i=0; i < cantidad; i++ ){
+                                    if(vectorVentas[i].getOculto()== false){
+                                        mostrarUnaVenta(vectorOrdenar[i].getIdFactura(),
+                                                         vectorOrdenar[i].getIdCliente(),
+                                                         vectorOrdenar[i].getFechaVenta(),
+                                                         vectorOrdenar[i].getImporteTotal()
+                                                         );
+                                    }
+                                }
+                                break;
+
+                            }
+                            case 3:
+                                system("cls");
+                                copiarVectorVenta(vectorVentas,vectorOrdenar,cantidad);
+                                ordenarDeMasAMenos(vectorOrdenar,cantidad);
+                                for (int i=0; i < cantidad; i++ ){
+                                    if(vectorVentas[i].getOculto()== false){
+                                        mostrarUnaVenta(vectorOrdenar[i].getIdFactura(),
+                                                         vectorOrdenar[i].getIdCliente(),
+                                                         vectorOrdenar[i].getFechaVenta(),
+                                                         vectorOrdenar[i].getImporteTotal()
+                                                         );
+                                    }
+                                }
+                                break;
                         }
-                    }
-                    system("pause");
-                break;
+                    }break;
                 case 0: flag=false; system("cls"); break;
                 default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
             }
         }
 
     }
+    delete[]vectorOrdenar;
     delete[]vectorVentas;
 }
 
