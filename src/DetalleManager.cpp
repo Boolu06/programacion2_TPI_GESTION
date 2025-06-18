@@ -30,26 +30,33 @@ void DetalleManager::listarDetalles(){
         cout<<" 2. Listar todos los detalles de ventas"<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
-
         cin>>opc;
-
-        switch(opc){
-            case 1: filtrarPorIdFactura(vectorDetalles, cantidad); break;
-            case 2:
-                system("cls");
-                for (int i=0; i < cantidad; i++ ){
-                    if(vectorDetalles[i].getOculto()== false){
-                        mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
-                                         vectorDetalles[i].getIdProducto(),
-                                         vectorDetalles[i].getCantidad(),
-                                         vectorDetalles[i].getPrecioUnitario()
-                                         );
+        if(cin.fail()){
+            cout<<"INGRESE UNA OPCION CORRECTA"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            switch(opc){
+                case 1: filtrarPorIdFactura(vectorDetalles, cantidad); break;
+                case 2:
+                    system("cls");
+                    for (int i=0; i < cantidad; i++ ){
+                        if(vectorDetalles[i].getOculto()== false){
+                            mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
+                                             vectorDetalles[i].getIdProducto(),
+                                             vectorDetalles[i].getCantidad(),
+                                             vectorDetalles[i].getPrecioUnitario()
+                                             );
+                        }
                     }
-                }
-                system("pause");
-            break;
-            case 0: flag=false; system("cls"); break;
-            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+                    system("pause");
+                break;
+                case 0: flag=false; system("cls"); break;
+                default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+            }
         }
     }
     system("pause");
@@ -71,8 +78,21 @@ void DetalleManager::filtrarPorIdFactura(Detalle vectorDetalles[], int cantidadR
     bool detalleEncontrado=false;
 
     system("cls");
-    cout<<"Ingrese el ID de factura"<<endl;
-    cin>>id;
+    while(true){
+        cout<<"Ingrese el ID de factura"<<endl;
+        cin>>id;
+        if(cin.fail() || id<0){
+            cout<<"ID Invalido"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            cin.ignore(1000,'\n');
+            break;
+        }
+    }
 
     for(int i=0; i<cantidadRegistros; i++){
         if(vectorDetalles[i].getIdFactura() == id && id>0){
@@ -84,11 +104,12 @@ void DetalleManager::filtrarPorIdFactura(Detalle vectorDetalles[], int cantidadR
             detalleEncontrado=true;
         }
     }
+
     if(!detalleEncontrado){
-        cout<<"Venta no encontrada"<<endl;
-        system("pause");
+        cout << " --------------------------------------- " << endl;
+        cout << "| No se encontro una factura con ese ID |" << endl;
+        cout << " --------------------------------------- " << endl << endl;
     }
-    else{
-        system("pause");
-    }
+    system("pause");
+    system("cls");
 }

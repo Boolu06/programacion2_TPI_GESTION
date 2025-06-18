@@ -139,26 +139,35 @@ void ProductoManager::listarProductos(){
 
         cin>>opc;
 
-        switch(opc){
-            case 1: filtrarPorMarca(vectorProductos, cantidad); break;
-            case 2: filtrarPorTipo(vectorProductos, cantidad); break;
-            case 3:
-                system("cls");
-                for (int i=0; i<cantidad; i++ ){
-                    if(vectorProductos[i].getOculto()== false){
-                        mostrarUnProducto(vectorProductos[i].getIdProducto(),
-                                         vectorProductos[i].getPrecioUnitario(),
-                                         vectorProductos[i].getDescripcion(),
-                                         vectorProductos[i].getMarca(),
-                                         vectorProductos[i].getTipo(),
-                                         vectorProductos[i].getStock()
-                                         );
+        if(cin.fail()){
+            cout<<"INGRESE UNA OPCION CORRECTA"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            switch(opc){
+                case 1: filtrarPorMarca(vectorProductos, cantidad); break;
+                case 2: filtrarPorTipo(vectorProductos, cantidad); break;
+                case 3:
+                    system("cls");
+                    for (int i=0; i<cantidad; i++ ){
+                        if(vectorProductos[i].getOculto()== false){
+                            mostrarUnProducto(vectorProductos[i].getIdProducto(),
+                                             vectorProductos[i].getPrecioUnitario(),
+                                             vectorProductos[i].getDescripcion(),
+                                             vectorProductos[i].getMarca(),
+                                             vectorProductos[i].getTipo(),
+                                             vectorProductos[i].getStock()
+                                             );
+                        }
                     }
-                }
-                system("pause");
-            break;
-            case 0: flag=false; system("cls"); break;
-            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+                    system("pause");
+                break;
+                case 0: flag=false; system("cls"); break;
+                default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+            }
         }
     }
     delete[]vectorProductos;
@@ -248,21 +257,20 @@ void ProductoManager::modificarProducto(){
     bool huboModificaciones= false;
 
     if(index >= 0){
-        system("cls");
-        cout<<"=== ID de producto encontrado! ==="<< endl;
-        mostrarUnProducto(vectorProductos[index].getIdProducto(),
-                         vectorProductos[index].getPrecioUnitario(),
-                         vectorProductos[index].getDescripcion(),
-                         vectorProductos[index].getMarca(),
-                         vectorProductos[index].getTipo(),
-                         vectorProductos[index].getStock()
-                         );
-        system("pause");
-
         bool flag = true;
         bool datoCorrecto = false;
         int opcion;
+
         while (flag == true){
+        system("cls");
+            cout<<"=== ID de producto encontrado! ==="<< endl;
+            mostrarUnProducto(vectorProductos[index].getIdProducto(),
+                             vectorProductos[index].getPrecioUnitario(),
+                             vectorProductos[index].getDescripcion(),
+                             vectorProductos[index].getMarca(),
+                             vectorProductos[index].getTipo(),
+                             vectorProductos[index].getStock()
+                             );
             cout<< "Que dato deseas modificar ? " <<endl<<endl;
             cout<< "1. Precio" <<endl;
             cout<< "2. Descripcion del producto" <<endl;
@@ -272,117 +280,126 @@ void ProductoManager::modificarProducto(){
             cout<< "0. Terminar modificaciones"<<endl<<endl;
             cout<< "Opcion: ";
             cin >> opcion;
-            cin.ignore();
-            switch (opcion){
-                case 1:{
-                    float precioUnitario;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el precio unitario del producto"<<endl;
-                        cin>>precioUnitario;
+            if(cin.fail()){
+                cout<<"INGRESE UNA OPCION CORRECTA"<<endl;
+                cin.clear();
+                cin.ignore(1000,'\n');
+                system("pause");
+            }
+            else{
+                cin.ignore(1000,'\n');
+                switch (opcion){
+                    case 1:{
+                        float precioUnitario;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el precio unitario del producto"<<endl;
+                            cin>>precioUnitario;
 
-                        if(cin.fail() || precioUnitario<0){
-                            cout << " ------------------------------- " << endl;
-                            cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
-                            cout << " ------------------------------- " << endl << endl;
-                            cin.clear();
-                            cin.ignore(1000,'\n');
+                            if(cin.fail() || precioUnitario<0){
+                                cout << " ------------------------------- " << endl;
+                                cout << "| El precio unitario debe ser un numero mayor que 0 |" << endl;
+                                cout << " ------------------------------- " << endl << endl;
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                            }
+                            else{
+                                cin.ignore(1000,'\n');
+                                datoCorrecto = vectorProductos[index].setPrecioUnitario(precioUnitario);
+                            }
                         }
-                        else{
-                            cin.ignore(1000,'\n');
-                            datoCorrecto = vectorProductos[index].setPrecioUnitario(precioUnitario);
-                        }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 2:{
-                    string descripcion;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese la descripcion"<<endl;
-                        getline(cin, descripcion);
-                        datoCorrecto = vectorProductos[index].setDescripcion(descripcion);
-                        if(!datoCorrecto){
-                            cout << " -------------------------------------------------- " << endl;
-                            cout << "| La descripcion debe tener entre 1 y 49 caracteres |" << endl;
-                            cout << " -------------------------------------------------- " << endl << endl;
+                    case 2:{
+                        string descripcion;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese la descripcion"<<endl;
+                            getline(cin, descripcion);
+                            datoCorrecto = vectorProductos[index].setDescripcion(descripcion);
+                            if(!datoCorrecto){
+                                cout << " -------------------------------------------------- " << endl;
+                                cout << "| La descripcion debe tener entre 1 y 49 caracteres |" << endl;
+                                cout << " -------------------------------------------------- " << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 3:{
-                    string marca;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese la marca"<<endl;
-                        getline(cin, marca);
-                        datoCorrecto = vectorProductos[index].setMarca(marca);
-                        if(!datoCorrecto){
-                            cout << " ----------------------------------------------- " << endl;
-                            cout << "| La marca debe tener entre 1 y 14 caracteres    |" << endl;
-                            cout << " ----------------------------------------------- " << endl << endl;
+                    case 3:{
+                        string marca;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese la marca"<<endl;
+                            getline(cin, marca);
+                            datoCorrecto = vectorProductos[index].setMarca(marca);
+                            if(!datoCorrecto){
+                                cout << " ----------------------------------------------- " << endl;
+                                cout << "| La marca debe tener entre 1 y 14 caracteres    |" << endl;
+                                cout << " ----------------------------------------------- " << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 4:{
-                    string tipo;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el tipo"<<endl; //TODO: Se podrian ingresar validaciones o hacer un mini-menu para elegir el tipo (si es PC, notebook, impresora, periferico, etc)
-                        getline(cin, tipo);
-                        datoCorrecto = vectorProductos[index].setTipo(tipo);
-                        if(!datoCorrecto){
-                            cout << " ----------------------------------------------- " << endl;
-                            cout << "| El tipo debe tener entre 1 y 14 caracteres     |" << endl;
-                            cout << " ----------------------------------------------- " << endl << endl;
+                    case 4:{
+                        string tipo;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el tipo"<<endl; //TODO: Se podrian ingresar validaciones o hacer un mini-menu para elegir el tipo (si es PC, notebook, impresora, periferico, etc)
+                            getline(cin, tipo);
+                            datoCorrecto = vectorProductos[index].setTipo(tipo);
+                            if(!datoCorrecto){
+                                cout << " ----------------------------------------------- " << endl;
+                                cout << "| El tipo debe tener entre 1 y 14 caracteres     |" << endl;
+                                cout << " ----------------------------------------------- " << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 5:{
-                    int stock;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el stock"<<endl;
-                        cin>>stock;
-                        if(cin.fail() || stock<0){
-                            cout << " ---------------------------------- " << endl;
-                            cout << "| El numero ingresado no es valido |" << endl;
-                            cout << " ---------------------------------- " << endl << endl;
-                            cin.clear();
-                            cin.ignore(1000,'\n');
+                    case 5:{
+                        int stock;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el stock"<<endl;
+                            cin>>stock;
+                            if(cin.fail() || stock<0){
+                                cout << " ---------------------------------- " << endl;
+                                cout << "| El numero ingresado no es valido |" << endl;
+                                cout << " ---------------------------------- " << endl << endl;
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                            }
+                            else{
+                                cin.ignore(1000,'\n');
+                                datoCorrecto = vectorProductos[index].setStock(stock);
+                            }
                         }
-                        else{
-                            cin.ignore(1000,'\n');
-                            datoCorrecto = vectorProductos[index].setStock(stock);
-                        }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
+                    case 0: flag=false; system("cls"); break;
+                    default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause");
                 }
-                case 0: flag=false; system("cls"); break;
             }
         }
     }
     else{
-        cout << " ---------------- " << endl;
-        cout << "| ID de producto |" << endl;
-        cout << " ---------------- " << endl << endl;
+        cout << " ------------------------------ " << endl;
+        cout << "| ID de producto no encontrado |" << endl;
+        cout << " ------------------------------ " << endl << endl;
     }
 
     if(huboModificaciones){

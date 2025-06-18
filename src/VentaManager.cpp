@@ -244,30 +244,39 @@ void VentaManager::listarVentas(){
         cout<<" 6. Listar todas las ventas"<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
-
         cin>>opc;
-        system("cls");
-        switch(opc){
-            case 1: filtrarPorIdFactura(vectorVentas, cantidad); break;
-            case 2: filtrarPorIdCliente(vectorVentas, cantidad); break;
-            case 3: filtrarPorCuit(vectorVentas,cantidad) ; break;
-            case 4: filtrarPorFecha(vectorVentas,cantidad) ; break;
-            case 6:
-                system("cls");
-                for (int i=0; i < cantidad; i++ ){
-                    if(vectorVentas[i].getOculto()== false){
-                        mostrarUnaVenta(vectorVentas[i].getIdFactura(),
-                                         vectorVentas[i].getIdCliente(),
-                                         vectorVentas[i].getFechaVenta(),
-                                         vectorVentas[i].getImporteTotal()
-                                         );
-                    }
-                }
-                system("pause");
-            break;
-            case 0: flag=false; system("cls"); break;
-            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+        if(cin.fail()){
+            cout<<"INGRESE UNA OPCION CORRECTA"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
         }
+        else{
+            system("cls");
+            switch(opc){
+                case 1: filtrarPorIdFactura(vectorVentas, cantidad); break;
+                case 2: filtrarPorIdCliente(vectorVentas, cantidad); break;
+                case 3: filtrarPorCuit(vectorVentas,cantidad) ; break;
+                case 4: filtrarPorFecha(vectorVentas,cantidad) ; break;
+                case 6:
+                    system("cls");
+                    for (int i=0; i < cantidad; i++ ){
+                        if(vectorVentas[i].getOculto()== false){
+                            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                             vectorVentas[i].getIdCliente(),
+                                             vectorVentas[i].getFechaVenta(),
+                                             vectorVentas[i].getImporteTotal()
+                                             );
+                        }
+                    }
+                    system("pause");
+                break;
+                case 0: flag=false; system("cls"); break;
+                default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+            }
+        }
+
     }
     delete[]vectorVentas;
 }

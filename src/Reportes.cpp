@@ -20,8 +20,7 @@ void reporteAnual(){
 
     _archivo.leerVector(vectorVentas, cantidad); // esta funcion mete en el vectorProductos los productos que consiga en el archivo.dat.
 
-
-    cout << "Ingrese el anioo que necesita buscar: ";
+    cout << "Ingrese el anio que necesita buscar: ";
     cin >> anioBusqueda;
 
     for(int i = 0 ; i < cantidad; i++){

@@ -176,14 +176,21 @@ void ClienteManager::listarClientes(){
         cout<<" 0. Volver al menu principal"<<endl<<endl;
         cout<<"Ingrese una opcion: ";
         cin>>opc;
-        system("cls");
-        switch(opc){
-            case 1: filtrarPorId(vectorClientes,cantidad); break;
-            case 2: filtrarPorCuit(vectorClientes,cantidad); break;
-            case 3: filtrarPorNombre(vectorClientes,cantidad); break;
-            case 4: filtrarPorApellido(vectorClientes,cantidad); break;
-            case 5: filtrarPorTipo(vectorClientes,cantidad); break;
-            case 6:{
+        if(cin.fail()){
+            cout<<"INGRESE UNA OPCION CORRECTA"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            switch(opc){
+                case 1: filtrarPorId(vectorClientes,cantidad); break;
+                case 2: filtrarPorCuit(vectorClientes,cantidad); break;
+                case 3: filtrarPorNombre(vectorClientes,cantidad); break;
+                case 4: filtrarPorApellido(vectorClientes,cantidad); break;
+                case 5: filtrarPorTipo(vectorClientes,cantidad); break;
+                case 6:{
                     for (int i=0; i < cantidad; i++ ){
                         if(vectorClientes[i].getOculto()== false){
                         mostrarUnCliente(vectorClientes[i].getId(),
@@ -199,8 +206,9 @@ void ClienteManager::listarClientes(){
                     }
                     system("pause");
                 }
-            case 0: flag=false; system("cls"); break;
-            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+                case 0: flag=false; system("cls"); break;
+                default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+            }
         }
     }
     delete[]vectorClientes;
@@ -442,26 +450,25 @@ void ClienteManager::modificarCliente(){
     bool huboModificaciones= false;
 
     if(index >= 0){
-        system("cls");
-        cout<<"=== ID de cliente encontrado! ==="<< endl;
-        mostrarUnCliente(vectorClientes[index].getId(),
-                         vectorClientes[index].getCuit(),
-                         vectorClientes[index].getNombre(),
-                         vectorClientes[index].getApellido(),
-                         vectorClientes[index].getTelefono(),
-                         vectorClientes[index].getEmail(),
-                         vectorClientes[index].getDireccion(),
-                         vectorClientes[index].getTipoCliente()
-                         );
-        system("pause");
-
         bool flag = true;
         bool datoCorrecto = false;
         int opcion;
         Cliente nuevoCliente;
         ClienteManager Cliente_M;
 
-        while (flag == true){
+        while(flag == true){
+            system("cls");
+            cout<<"=== ID de cliente encontrado! ==="<< endl;
+            mostrarUnCliente(vectorClientes[index].getId(),
+                             vectorClientes[index].getCuit(),
+                             vectorClientes[index].getNombre(),
+                             vectorClientes[index].getApellido(),
+                             vectorClientes[index].getTelefono(),
+                             vectorClientes[index].getEmail(),
+                             vectorClientes[index].getDireccion(),
+                             vectorClientes[index].getTipoCliente()
+                             );
+
             cout<< "Que dato deseas modificar ? " <<endl<<endl;
             cout<< "1. Numero de Cuit" <<endl;
             cout<< "2. Nombre " <<endl;
@@ -474,188 +481,197 @@ void ClienteManager::modificarCliente(){
             cout<< "0. Terminar modificaciones"<<endl<<endl;
             cout<< "Opcion: ";
             cin >> opcion;
-            cin.ignore();
-            switch (opcion){
-                case 1:{
-                    string cuit;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el CUIT"<<endl;
-                        getline(cin, cuit);
-                        nuevoCliente = Cliente_M.buscarCuit(cuit);
+            if(cin.fail()){
+                cout<<"INGRESE UNA OPCION CORRECTA"<<endl;
+                cin.clear();
+                cin.ignore(1000,'\n');
+                system("pause");
+            }
+            else{
+                cin.ignore(1000,'\n');
+                switch (opcion){
+                    case 1:{
+                        string cuit;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el CUIT"<<endl;
+                            getline(cin, cuit);
+                            nuevoCliente = Cliente_M.buscarCuit(cuit);
 
-                        if(nuevoCliente.getId() == 0){
-                            datoCorrecto = vectorClientes[index].setCuit(cuit);
-                        }
-                        else{
-                            cout << " ----------------- " << endl;
-                            cout << "|El cuit ya existe|" << endl;
-                            cout << " ----------------- " << endl << endl;
-                        }
+                            if(nuevoCliente.getId() == 0){
+                                datoCorrecto = vectorClientes[index].setCuit(cuit);
+                            }
+                            else{
+                                cout << " ----------------- " << endl;
+                                cout << "|El cuit ya existe|" << endl;
+                                cout << " ----------------- " << endl << endl;
+                            }
 
-                        if(!datoCorrecto && nuevoCliente.getId() == 0){
-                            cout << " ------------------------------------------ " << endl;
-                            cout << "|El cuit debe tener 11 caracteres numericos|" << endl;
-                            cout << " ------------------------------------------ " << endl << endl;
+                            if(!datoCorrecto && nuevoCliente.getId() == 0){
+                                cout << " ------------------------------------------ " << endl;
+                                cout << "|El cuit debe tener 11 caracteres numericos|" << endl;
+                                cout << " ------------------------------------------ " << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 2:{
-                    string nombre;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el nombre"<<endl;
-                        getline(cin, nombre);
-                        datoCorrecto = vectorClientes[index].setNombre(nombre);
-                        if(!datoCorrecto){
-                            cout << " ----------------------------------------------------------------------------------- " << endl;
-                            cout << "|El nombre debe tener al menos 1 caracter, menos de 30 y no tiene que tener espacios|" << endl;
-                            cout << " ------------------------------------------------------ ---------------------------- "  << endl << endl;
+                    case 2:{
+                        string nombre;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el nombre"<<endl;
+                            getline(cin, nombre);
+                            datoCorrecto = vectorClientes[index].setNombre(nombre);
+                            if(!datoCorrecto){
+                                cout << " ----------------------------------------------------------------------------------- " << endl;
+                                cout << "|El nombre debe tener al menos 1 caracter, menos de 30 y no tiene que tener espacios|" << endl;
+                                cout << " ------------------------------------------------------ ---------------------------- "  << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 3:{
-                    string apellido;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el apellido"<<endl;
-                        getline(cin, apellido);
-                        datoCorrecto = vectorClientes[index].setApellido(apellido);
-                        if(!datoCorrecto){
-                            cout << " ---------------------------------------------------------------------- " << endl;
-                            cout << "|El apellido debe ser numerico, tener al menos 1 caracter y menos de 30|" << endl;
-                            cout << " ---------------------------------------------------------------------- " << endl<< endl;
+                    case 3:{
+                        string apellido;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el apellido"<<endl;
+                            getline(cin, apellido);
+                            datoCorrecto = vectorClientes[index].setApellido(apellido);
+                            if(!datoCorrecto){
+                                cout << " ---------------------------------------------------------------------- " << endl;
+                                cout << "|El apellido debe ser numerico, tener al menos 1 caracter y menos de 30|" << endl;
+                                cout << " ---------------------------------------------------------------------- " << endl<< endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 4:{
-                    string telefono;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el telefono"<<endl;
-                        getline(cin, telefono);
-                        datoCorrecto = vectorClientes[index].setTelefono(telefono);
-                        if(!datoCorrecto){
-                            cout << " ---------------------------------------------- " << endl;
-                            cout << "|El telefono debe tener 11 caracteres numericos|" << endl;
-                            cout << " ---------------------------------------------- " << endl << endl;
+                    case 4:{
+                        string telefono;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el telefono"<<endl;
+                            getline(cin, telefono);
+                            datoCorrecto = vectorClientes[index].setTelefono(telefono);
+                            if(!datoCorrecto){
+                                cout << " ---------------------------------------------- " << endl;
+                                cout << "|El telefono debe tener 11 caracteres numericos|" << endl;
+                                cout << " ---------------------------------------------- " << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 5:{
-                    string email;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el email"<<endl;
-                        getline(cin, email);
-                        datoCorrecto = vectorClientes[index].setEmail(email);
-                        if(!datoCorrecto){
-                            cout << " ------------------------------------ " << endl;
-                            cout << "| El email no es valido              |" << endl;
-                            cout << " ------------------------------------ " << endl << endl;
+                    case 5:{
+                        string email;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el email"<<endl;
+                            getline(cin, email);
+                            datoCorrecto = vectorClientes[index].setEmail(email);
+                            if(!datoCorrecto){
+                                cout << " ------------------------------------ " << endl;
+                                cout << "| El email no es valido              |" << endl;
+                                cout << " ------------------------------------ " << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 6:{
-                    string direccion;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese la direccion"<<endl;
-                        getline(cin, direccion);
-                        datoCorrecto = vectorClientes[index].setDireccion(direccion);
-                        if(!datoCorrecto){
-                            cout << " --------------------------------------------- " << endl;
-                            cout << "| Direccion no puede ser mas de 50 caracteres |" << endl;
-                            cout << " --------------------------------------------- " << endl << endl;
+                    case 6:{
+                        string direccion;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese la direccion"<<endl;
+                            getline(cin, direccion);
+                            datoCorrecto = vectorClientes[index].setDireccion(direccion);
+                            if(!datoCorrecto){
+                                cout << " --------------------------------------------- " << endl;
+                                cout << "| Direccion no puede ser mas de 50 caracteres |" << endl;
+                                cout << " --------------------------------------------- " << endl << endl;
+                            }
                         }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 7:{
-                    int tipo;
-                    while(!datoCorrecto){
-                        cout<<"Ingrese el tipo de cliente"<<endl;
-                        cout<<"1. Particular"<<endl;
-                        cout<<"2. Empresa"<<endl;
-                        cin>>tipo;
+                    case 7:{
+                        int tipo;
+                        while(!datoCorrecto){
+                            cout<<"Ingrese el tipo de cliente"<<endl;
+                            cout<<"1. Particular"<<endl;
+                            cout<<"2. Empresa"<<endl;
+                            cin>>tipo;
 
-                        if(cin.fail() || (tipo <= 0 || tipo >= 3)){
-                            cout << " ------------------------------------ " << endl;
-                            cout << "| No se encontro ese tipo de cliente |" << endl;
-                            cout << " ------------------------------------ " << endl << endl;
-                            system("pause");
-                            cin.clear();
-                            cin.ignore(1000,'\n');
+                            if(cin.fail() || (tipo <= 0 || tipo >= 3)){
+                                cout << " ------------------------------------ " << endl;
+                                cout << "| No se encontro ese tipo de cliente |" << endl;
+                                cout << " ------------------------------------ " << endl << endl;
+                                system("pause");
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                            }
+                            else{
+                                cin.ignore(1000,'\n');
+                                datoCorrecto = vectorClientes[index].setTipoCliente(tipo);
+                            }
                         }
-                        else{
-                            cin.ignore(1000,'\n');
-                            datoCorrecto = vectorClientes[index].setTipoCliente(tipo);
-                        }
+                        datoCorrecto = false;
+                        huboModificaciones= true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones= true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
-                }
-                case 8:{
-                    bool estado;
-                    int opcion;
-                    while(!datoCorrecto){
-                        cout<<"Seleccione una opcion: "<<endl;
-                        cout<<"1. Oculto"<<endl;
-                        cout<<"2. Visible"<<endl;
-                        cin>>opcion;
-                        if(cin.fail() || (opcion <= 0 || opcion >= 3)){
-                            cin.clear();
-                            cin.ignore(1000,'\n');
+                    case 8:{
+                        bool estado;
+                        int opcion;
+                        while(!datoCorrecto){
+                            cout<<"Seleccione una opcion: "<<endl;
+                            cout<<"1. Oculto"<<endl;
+                            cout<<"2. Visible"<<endl;
+                            cin>>opcion;
+                            if(cin.fail() || (opcion <= 0 || opcion >= 3)){
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                            }
+                            else if(opcion == 1){
+                                cin.ignore(1000,'\n');
+                                estado = true;
+                                datoCorrecto = vectorClientes[index].setOculto(estado);
+                            }
+                            else if(opcion == 2){
+                                cin.ignore(1000,'\n');
+                                estado = false;
+                                datoCorrecto = vectorClientes[index].setOculto(estado);
+                            }
+                            if(!datoCorrecto){
+                                cout << " ------------------------------ " << endl;
+                                cout << "| Selecciona una opcion valida |" << endl;
+                                cout << " ------------------------------ " << endl << endl;
+                            }
                         }
-                        else if(opcion == 1){
-                            cin.ignore(1000,'\n');
-                            estado = true;
-                            datoCorrecto = vectorClientes[index].setOculto(estado);
-                        }
-                        else if(opcion == 2){
-                            cin.ignore(1000,'\n');
-                            estado = false;
-                            datoCorrecto = vectorClientes[index].setOculto(estado);
-                        }
-                        if(!datoCorrecto){
-                            cout << " ------------------------------ " << endl;
-                            cout << "| Selecciona una opcion valida |" << endl;
-                            cout << " ------------------------------ " << endl << endl;
-                        }
+                        datoCorrecto = false;
+                        huboModificaciones = true;
+                        cout<<"Dato modificado correctamente"<<endl;
+                        system("pause");
+                        break;
                     }
-                    datoCorrecto = false;
-                    huboModificaciones = true;
-                    cout<<"Dato modificado correctamente"<<endl;
-                    system("pause");
-                    break;
+                    case 0: flag=false; system("cls"); break;
+                    default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause");
                 }
-                case 0: flag=false; system("cls"); break;
             }
         }
     }
