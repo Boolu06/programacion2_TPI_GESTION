@@ -417,6 +417,8 @@ void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVent
 
 }
 
+
+
 //Metodo para filtrar por importe <- a revisar
 
 /*

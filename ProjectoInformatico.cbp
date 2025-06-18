@@ -53,9 +53,13 @@
 		<Unit filename="include/ProductoManager.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/Reportes.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/Venta.h" />
 		<Unit filename="include/VentaArchivo.h" />
 		<Unit filename="include/VentaManager.h" />
+		<Unit filename="include/rlutil.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Cliente.cpp" />
 		<Unit filename="src/ClienteArchivo.cpp" />
@@ -68,6 +72,7 @@
 		<Unit filename="src/Producto.cpp" />
 		<Unit filename="src/ProductoArchivo.cpp" />
 		<Unit filename="src/ProductoManager.cpp" />
+		<Unit filename="src/Reportes.cpp" />
 		<Unit filename="src/Venta.cpp" />
 		<Unit filename="src/VentaArchivo.cpp" />
 		<Unit filename="src/VentaManager.cpp" />

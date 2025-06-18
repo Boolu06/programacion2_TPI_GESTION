@@ -31,10 +31,13 @@ int Fecha::getDiasMes(int mes){
 bool Fecha::SetFecha(int dia, int mes,int anio){
     if (anio < 1900 || anio > 2100) return false;
     if (mes < 1 || mes > 12) return false;
-    if (dia < 1 || dia > _diasMeses[mes-1]) return false;
+
+    // Mover esto después de validar el mes
+    if (dia < 1 || dia > _diasMeses[mes - 1]) return false;
 
     _dia = dia;
     _mes = mes;
     _anio = anio;
+
     return true;
 }

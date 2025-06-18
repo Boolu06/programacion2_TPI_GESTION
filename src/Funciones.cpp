@@ -11,6 +11,7 @@
 #include "Venta.h"
 #include "VentaArchivo.h"
 #include "VentaManager.h"
+#include "Reportes.h"
 
 using namespace std;
 
@@ -104,6 +105,37 @@ void menuVentas(){
         }
     }
 }
+
+void menuReportes(){
+    bool flag=true;
+    int opc;
+
+    while(flag==true){
+        system("cls");
+        cout<<"===== MENU REPORTES ====="<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 1. REPORTE ANUAL DE VENTAS"<<endl;
+        cout<<" 2. REPORTE ANUAL DE PRODUCTOS"<<endl;
+        cout<<" 3. "<<endl;
+        cout<<" 4. "<<endl;
+        cout<<" 5. "<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
+
+        cin>>opc;
+
+        switch(opc){
+            case 1: reporteAnual(); break;
+            case 2: reporteAnualProductos(); break;
+            // case 3: modificarVenta(); break;
+            //case 4: _vManager.listarVentas(); break;
+            //case 5: _dManager.listarDetalles(); break;
+            case 0: flag=false; system("cls"); break;
+            default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+        }
+    }
+}
+
 
 string aMinusculas(string palabra){
     for(int i=0;i<palabra.length(); i++){
