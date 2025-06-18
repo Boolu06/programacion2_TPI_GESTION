@@ -20,8 +20,58 @@ void DetalleManager::listarDetalles(){
 
     _archivo.leerVector(vectorDetalles, cantidad);
 
+
+    int opc;
+    bool flag = true;
+    while(flag==true){
+        cout<<"---------------------------"<<endl;
+        cout<<" 1. Filtrar por ID Factura"<<endl;
+        cout<<" 6. Listar todos los detalles de venta"<<endl;
+        cout<<"---------------------------"<<endl;
+        cout<<" 0. Volver al menu principal"<<endl<<endl;
+        cout<<"Ingrese una opcion: ";
+        cin>>opc;
+        system("cls");
+        switch(opc){
+
+        case 1:{
+            filtrarPorIdFactura();break;
+        }
+        case 2:{
+            for (int i=0; i < cantidad; i++ ){
+                if(vectorDetalles[i].getOculto()== false){
+                    mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
+                                     vectorDetalles[i].getIdProducto(),
+                                     vectorDetalles[i].getCantidad(),
+                                     vectorDetalles[i].getPrecioUnitario()
+                                     );
+                }
+            }
+            system("pause");break;
+        }
+        case 0: flag=false; system("cls"); break;
+
+        default: cout<<"INGRESE UNA OPCION CORRECTA"<<endl; system("pause"); system("cls");
+        }
+    }
+    system("pause");
+    delete[]vectorDetalles;
+}
+
+void DetalleManager::filtrarPorIdFactura(int idFactura ){ //idFactura tiene valor por default "0", ver DetalleManager.h
+    int cantidad = _archivo.getCantidadRegistros();
+    Detalle *vectorDetalles;
+    vectorDetalles = new Detalle[cantidad];
+
+    _archivo.leerVector(vectorDetalles, cantidad);
+
+    if(idFactura==0){
+        cout<<"Ingrese el ID de la factura que desea buscar: "<<endl;
+        cin >> idFactura;
+    }
+
     for (int i=0; i < cantidad; i++ ){
-        if(vectorDetalles[i].getOculto()== false){
+        if(vectorDetalles[i].getIdFactura()==idFactura &&vectorDetalles[i].getOculto()== false){
             mostrarUnDetalle(vectorDetalles[i].getIdFactura(),
                              vectorDetalles[i].getIdProducto(),
                              vectorDetalles[i].getCantidad(),
@@ -29,11 +79,9 @@ void DetalleManager::listarDetalles(){
                              );
         }
     }
+
     system("pause");
-    delete[]vectorDetalles;
 }
-
-
 
 /*
 void DetalleManager::modificarDetalle(){

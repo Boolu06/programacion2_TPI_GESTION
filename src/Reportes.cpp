@@ -103,13 +103,19 @@ void mostrarReporteAnualProductos(Producto productoIterado, int vectorMeses[], i
     int ancho1=3, ancho2= 50, ancho3 = 3;
     cout << llenarEspaciosInt(productoIterado.getIdProducto(),ancho1) << "|" <<  llenarEspaciosString(productoIterado.getDescripcion(),ancho2) << "|";
     for(int i = 0 ; i < 12; i++){
-        cout << llenarEspaciosInt(vectorMeses[i],ancho3) << "|";
+        if(vectorMeses[i]>0){
+            rlutil::setColor(rlutil::LIGHTGREEN);
+        }
+        cout << llenarEspaciosInt(vectorMeses[i],ancho3);
+        rlutil::setColor(rlutil::WHITE);
+        cout << "|";
     }
+
     cout << endl;
 }
 
 void mostrarEncabezadoReporteAnual(int anioIngresado){
-    string vectorMesesString [12] = {"ENE","FEB","MAR","ABR","MRZ","JUN","JUL","AGO","SEP","OCT","NOV","DIC"};
+    string vectorMesesString [12] = {"ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"};
     int ancho1=3, ancho2= 50, ancho3 = 3;
     for(int x = 0 ; x<103; x++){
        cout<<(char)205;
