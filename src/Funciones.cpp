@@ -495,7 +495,7 @@ bool backUpRestaurar(std::string nombreArchivo, bool flag){
             cout<<"Error al buscar el archivo de origen."<<endl;
         }
         else{
-            while((resultado = fread(&vdatos, 1, sizeof(vdatos), pArchivoBackup)) > 0) {
+            while((resultado = fread(&vdatos,sizeof(vdatos), 1, pArchivoBackup)) > 0) {
                 fwrite(&vdatos, 1, 1, pArchivoOrigen);
             }
 

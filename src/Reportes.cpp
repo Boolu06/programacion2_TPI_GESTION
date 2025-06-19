@@ -20,8 +20,20 @@ void reporteAnual(){
 
     _archivo.leerVector(vectorVentas, cantidad); // esta funcion mete en el vectorProductos los productos que consiga en el archivo.dat.
 
-    cout << "Ingrese el anio que necesita buscar: ";
-    cin >> anioBusqueda;
+    while(true){
+        cout << "Ingrese el anio que necesita buscar: ";
+        cin >> anioBusqueda;
+        if(cin.fail() || anioBusqueda<0 ){
+            cout<<"Ingrese un anio valido"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+        }
+        else{
+            cin.ignore(1000,'\n');
+            break;
+        }
+    }
 
     for(int i = 0 ; i < cantidad; i++){
         if(vectorVentas[i].getFechaVenta().getAnio()== anioBusqueda){
@@ -58,8 +70,22 @@ void reporteAnualProductos(){
     _archivoVenta.leerVector(vectorVentas,cantidadVentas);
     _archivoDetalle.leerVector(vectorDetalles,cantidadDetalles);
 
-    cout << "Ingrese el anioo que necesita buscar: "<<endl;
-    cin >> anioBusqueda;
+    while(true){
+        cout << "Ingrese el anioo que necesita buscar: "<<endl;
+        cin >> anioBusqueda;
+        if(cin.fail() || anioBusqueda<0){
+            cout<<"Ingrese un anio valido"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+            system("cls");
+        }
+        else{
+            cin.ignore(1000,'\n');
+            break;
+        }
+    }
+
     system("cls");
     mostrarEncabezadoReporteAnual(anioBusqueda);
 
@@ -135,3 +161,29 @@ void mostrarEncabezadoReporteAnual(int anioIngresado){
     }
     cout<<endl;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
