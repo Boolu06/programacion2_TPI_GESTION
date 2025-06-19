@@ -231,6 +231,7 @@ void VentaManager::listarVentas(){
 
 
     bool flag=true;
+    bool flag2=true;
     int opc;
     int opc2;
 
@@ -264,7 +265,7 @@ void VentaManager::listarVentas(){
                 case 5: filtrarPorAnio(vectorVentas,cantidad); break;
                 case 6:
                     system("cls");
-                    while(true){
+                    while(flag2){
                         cout<<"===== ORDENAR POR: ====="<<endl;
                         cout<<"---------------------------"<<endl;
                         cout<<" 1. ID (menor a mayor)"<<endl;
@@ -283,8 +284,8 @@ void VentaManager::listarVentas(){
                                                          );
                                     }
                                 }
-                                system("pause");
-                            }break;
+                                system("pause");break;
+                            }
                             case 2:{
                                 system("cls");
                                 copiarVectorVenta(vectorVentas,vectorOrdenar,cantidad);
@@ -301,7 +302,7 @@ void VentaManager::listarVentas(){
                                 break;
 
                             }
-                            case 3:
+                            case 3:{
                                 system("cls");
                                 copiarVectorVenta(vectorVentas,vectorOrdenar,cantidad);
                                 ordenarDeMasAMenos(vectorOrdenar,cantidad);
@@ -315,6 +316,8 @@ void VentaManager::listarVentas(){
                                     }
                                 }
                                 break;
+                            }
+                            case 0:flag2=false; system("cls"); break;
                         }
                     }break;
                 case 0: flag=false; system("cls"); break;
