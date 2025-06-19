@@ -242,7 +242,7 @@ void VentaManager::listarVentas(){
         cout<<" 2. Filtrar por ID de cliente"<<endl;
         cout<<" 3. Filtrar por CUIT de cliente"<<endl;
         cout<<" 4. Filtrar por fecha de venta"<<endl;
-        cout<<" 5. Filtrar por importe"<<endl;
+        cout<<" 5. Filtrar por anio "<<endl;
         cout<<" 6. Listar todas las ventas"<<endl;
         cout<<"---------------------------"<<endl;
         cout<<" 0. VOLVER AL MENU PRINCIPAL"<<endl;
@@ -261,6 +261,7 @@ void VentaManager::listarVentas(){
                 case 2: filtrarPorIdCliente(vectorVentas, cantidad); break;
                 case 3: filtrarPorCuit(vectorVentas,cantidad) ; break;
                 case 4: filtrarPorFecha(vectorVentas,cantidad) ; break;
+                case 5: filtrarPorAnio(vectorVentas,cantidad); break;
                 case 6:
                     system("cls");
                     while(true){
@@ -523,6 +524,51 @@ void VentaManager::filtrarPorFecha(Venta vectorVentas[], int cantidadRegistros){
     system("pause");
     system("cls");
 }
+
+void VentaManager::filtrarPorAnio(Venta vectorVentas[], int cantidadRegistros){
+    bool datoCorrecto = false;
+    bool fechaEncontrada = false;
+    int anioIngresado;
+    cout<<"Ingrese el anio que desea buscar en ventas : "<<endl;
+
+    datoCorrecto=false;
+    while(!datoCorrecto){
+        cout<<"Anio: ";
+        cin >> anioIngresado;
+        cout<<endl;
+
+        if(cin.fail() || (anioIngresado <= 1900 || anioIngresado >= 3000)){
+            cout << " --------------------- " << endl;
+            cout << "|Ingrese un anio valido|" << endl;
+            cout << " --------------------- "  << endl << endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            system("pause");
+        }
+        else{
+            cin.ignore(1000,'\n');
+            datoCorrecto = true;
+        }
+    }
+
+    for(int i=0; i < cantidadRegistros; i++ ){
+        if(vectorVentas[i].getFechaVenta().getAnio()== anioIngresado){
+            mostrarUnaVenta(vectorVentas[i].getIdFactura(),
+                                 vectorVentas[i].getIdCliente(),
+                                 vectorVentas[i].getFechaVenta(),
+                                 vectorVentas[i].getImporteTotal()
+                                 );
+            fechaEncontrada = true;
+        }
+    }
+
+    if(!fechaEncontrada){
+        cout << "anio no encontrado"<< endl;
+    }
+    system("pause");
+    system("cls");
+}
+
 
 void VentaManager::mostrarUnaVenta(int idFactura, int idCliente, Fecha fechaVenta, float importeTotal){
     int ancho1=16,ancho2=50;
